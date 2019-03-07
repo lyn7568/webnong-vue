@@ -1,71 +1,71 @@
 <template>
-  <div class="topnavbar">
-    <div class="logo-container">
-      <div class="logo-wrapper"></div>
+  <div class="ntt_logo">
+    <div class="logo" @click="logoClk">
+      <img src="/src/assets/logo_bg.png" width="100%">
+      <div class="ntt_arrow animate" :class="{animate:isPopup0}"></div>
     </div>
-    <div class="name-box">
-      <div class="avatar-wrapper"><span>您好，{{name}}</span></div>
-      <div class="exit-btn" @click="logout">退出登录</div>
-    </div>
+    <sidebar class="sidebar-container"></sidebar>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import sidebar from './Sidebar'
 
 export default {
-  computed: {
-    ...mapGetters([
-      'name'
-    ])
+  data() {
+    return {
+      isPopup0: true
+    }
+  },
+  components: {
+    sidebar
   },
   methods: {
-    logout() {
-      this.$confirm('您确认要退出登录吗?', '提示', {
-        type: 'warning'
-      }).then(() => {
-        this.$store.dispatch('LogOut').then(() => {
-          location.reload()
-        })
-      }).catch(() => {})
+    logoClk() {
+      this.isPopup0 = true || false
     }
   }
 }
 </script>
 
-<style rel="stylesheet/scss" lang="scss" scoped>
-.topnavbar {
-  .name-box{
-    display: inline-block;
-    position: absolute;
-    right: 20px;
-    font-size:14px;
-    overflow: hidden;
-    color:#fff;
-    .avatar-wrapper {
-      color:#fff;
-      cursor:pointer;
-      float:left;
-    }
-    .exit-btn {
-      margin-left:30px;
+<style lang="scss">
+  .ntt_logo {
+    position: relative;
+    .logo {
+      margin-left: .8rem;
+      width: 3.5rem;
+      height: 3.6rem;
+      z-index: 3;
+      position: relative;
       cursor: pointer;
-      float:left;
+    }
+    .ntt_arrow {
+      width: 2rem;
+      height: 1.375rem;
+      position: absolute;
+      left: 2.625rem;
+      top: 50%;
+      transform: translateY(-50%);
+      background: url('/src/assets/ntt-arrorw.png');
+      background-size: 100% 100%;
+      z-index: -1;
+      cursor: pointer;
+      opacity: 1;
+      animation: arrow2 2s linear;
+      animation-fill-mode: forwards;
+    }
+    .animate{
+      animation:arrow 2s linear;
+      animation-fill-mode:forwards;
     }
   }
-}
-.drop-menu-list{
-  .el-dropdown-menu__item{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    &.is-disabled{
-      background: #f3f5f7;
-    }
-    .el-icon-check{
-      font-weight: bold;
-    }
+  @keyframes arrow{
+    0%{ left:2.625rem }
+    100%{ left:.625rem }
   }
-}
+  @keyframes arrow2{
+    0%{ left:.625rem }
+    100%{ left:2.625rem }
+  }
 </style>
 

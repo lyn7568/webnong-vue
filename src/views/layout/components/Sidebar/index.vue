@@ -4,7 +4,6 @@
       mode="horizontal"
       :show-timeout="200"
       :default-active="$route.path"
-      background-color="rgba(0,0,0,.3)"
       text-color="#fff"
       class="ntt_nav"
     >
@@ -35,20 +34,30 @@ export default {
     left: 3.1rem;
     top: 50%;
     transform: translateY(-50%);
-    overflow: hidden;
+    background:rgba(0,0,0,.3);
     .ntt_nav {
-      width: 200px;
       position: absolute;
-      padding-left: 1rem;
+      padding-left: 1.2rem;
       left: 0;
       top: 0;
       height: 1.35rem;
-      background-color: rgba(0,0,0,.3);
+      background: transparent;
       border: 1px solid transparent;
       border-right: 0;
       .el-menu-item{
         height: auto;
-        line-height: 1.35rem;
+        line-height: 0.9rem;
+        border-radius: 0.15rem;
+        margin: 0.2rem;
+        padding: 0 0.25rem;
+        &.is-active{
+          background:#018ea2;
+          color:#fff;
+        }
+        &:hover{
+          background:#018ea2;
+          color:#fff; 
+        }
       }
     }
     .addArrow {

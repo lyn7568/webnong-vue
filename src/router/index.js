@@ -10,14 +10,14 @@ export const constantRouterMap = [
   { path: '/login', component: resolve => require(['@/views/login/index'], resolve), hidden: true },
   {
     path: '/',
-    redirect: '/manageGoods',
+    redirect: '/home',
     component: Layout,
     children: [
       {
-        path: 'manageGoods',
-        name: 'manageGoods',
-        meta: { title: '管理商品', requireAuth: true },
-        component: resolve => require(['@/views/manageGoods/index'], resolve)
+        path: '/home',
+        name: 'home',
+        meta: { title: '首页', requireAuth: true },
+        component: resolve => require(['@/views/home/index'], resolve)
       }
     ]
   },
@@ -26,10 +26,22 @@ export const constantRouterMap = [
     component: Layout,
     children: [
       {
-        path: 'addGoods',
-        name: 'addGoods',
-        meta: { title: '添加商品', requireAuth: true },
-        component: resolve => require(['@/views/addGoods/index'], resolve)
+        path: '/control',
+        name: 'control',
+        meta: { title: '智能控制', requireAuth: true },
+        component: resolve => require(['@/views/control/index'], resolve)
+      }
+    ]
+  },
+  {
+    path: '',
+    component: Layout,
+    children: [
+      {
+        path: '/group',
+        name: 'group',
+        meta: { title: '智能控制', requireAuth: true },
+        component: resolve => require(['@/views/group/index'], resolve)
       }
     ]
   }
