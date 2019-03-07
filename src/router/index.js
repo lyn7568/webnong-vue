@@ -16,7 +16,7 @@ export const constantRouterMap = [
       {
         path: 'manageGoods',
         name: 'manageGoods',
-        meta: { title: '管理商品', icon: 'list', requireAuth: true },
+        meta: { title: '管理商品', requireAuth: true },
         component: resolve => require(['@/views/manageGoods/index'], resolve)
       }
     ]
@@ -28,7 +28,7 @@ export const constantRouterMap = [
       {
         path: 'addGoods',
         name: 'addGoods',
-        meta: { title: '添加商品', icon: 'edit', requireAuth: true },
+        meta: { title: '添加商品', requireAuth: true },
         component: resolve => require(['@/views/addGoods/index'], resolve)
       }
     ]

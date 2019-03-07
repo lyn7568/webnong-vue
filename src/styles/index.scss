@@ -3,27 +3,24 @@
 @import './element-ui.scss';
 @import './sidebar.scss';
 
-body {
-  height: 100%;
-  min-width:600px;
-  margin:0;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-  font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
-}
-
-label {
-  font-weight: 700;
-}
-
 html {
   height: 100%;
   box-sizing: border-box;
 }
-
-#app{
+body {
   height: 100%;
+  min-width:600px;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
+  font-size: 0.4rem; 
+}
+
+body, div, ul, li, ol, h1, h2, h3, h4, h5, h6, input, textarea, select, p, dl, dt, dd, a, img, button, form, table, th, tr, td, tbody, article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+  margin: 0;
+  padding: 0;
+  border: none;
 }
 
 *,
@@ -69,26 +66,14 @@ a:hover {
   }
 }
 
+#app{
+  height: 100%;
+}
 //main-container全局样式
 .app-main{
   min-height: 100%
 }
 
-.app-container {
-  padding: 20px;
-}
-
 .float-l{
   float: left;
-}
-
-.svg-container {
-  padding: 6px 5px 6px 15px;
-  color: $dark_gray;
-  vertical-align: middle;
-  width: 30px;
-  display: inline-block;
-  &_login {
-    font-size: 20px;
-  }
 }
