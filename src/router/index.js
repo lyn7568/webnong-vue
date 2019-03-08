@@ -40,8 +40,20 @@ export const constantRouterMap = [
       {
         path: '/group',
         name: 'group',
-        meta: { title: '智能控制', requireAuth: true },
+        meta: { title: '设备编组', requireAuth: true },
         component: resolve => require(['@/views/group/index'], resolve)
+      }
+    ]
+  },
+  {
+    path: '',
+    component: Layout,
+    children: [
+      {
+        path: '/logs',
+        name: 'logs',
+        meta: { title: '操作日志', requireAuth: true },
+        component: resolve => require(['@/views/logs/index'], resolve)
       }
     ]
   }

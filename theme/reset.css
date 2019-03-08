@@ -2,7 +2,7 @@
 /* Element Chalk Variables */
 /* Transition
 -------------------------- */
-/* Colors
+/* Color
 -------------------------- */
 /* 53a8ff */
 /* 66b1ff */
@@ -15,15 +15,11 @@
 /* ecf5ff */
 /* Link
 -------------------------- */
-/* Background
--------------------------- */
 /* Border
--------------------------- */
-/* Box-shadow
 -------------------------- */
 /* Fill
 -------------------------- */
-/* Font
+/* Typography
 -------------------------- */
 /* Size
 -------------------------- */
@@ -107,22 +103,24 @@
 --------------------------*/
 /* Main
 --------------------------*/
+/* Timeline
+--------------------------*/
 /* Break-point
 --------------------------*/
 body {
   font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
   font-weight: 400;
   font-size: 14px;
-  color: #000;
+  color: #000000;
   -webkit-font-smoothing: antialiased; }
 
 a {
-  color: #018ea2;
+  color: #ff8019;
   text-decoration: none; }
   a:hover, a:focus {
-    color: #34a5b5; }
+    color: #ff9947; }
   a:active {
-    color: #018092; }
+    color: #e67317; }
 
 h1, h2, h3, h4, h5, h6 {
   color: #606266;

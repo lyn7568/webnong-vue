@@ -15,7 +15,6 @@
     background-repeat: no-repeat;
     background-size: cover;
     overflow: hidden;
-    background-image: url("/src/assets/home_bg.jpg")
 }
 .fog__container {
     position: absolute;

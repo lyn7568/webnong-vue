@@ -1,8 +1,8 @@
 import 'babel-polyfill'
 import Vue from 'vue'
 
-import ElementUI from 'element-ui'
 import '../theme/index.css'
+import ElementUI from 'element-ui'
 
 import '@/styles/index.scss' // global css
 

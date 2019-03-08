@@ -3,7 +3,7 @@
 /* Element Chalk Variables */
 /* Transition
 -------------------------- */
-/* Colors
+/* Color
 -------------------------- */
 /* 53a8ff */
 /* 66b1ff */
@@ -16,15 +16,11 @@
 /* ecf5ff */
 /* Link
 -------------------------- */
-/* Background
--------------------------- */
 /* Border
--------------------------- */
-/* Box-shadow
 -------------------------- */
 /* Fill
 -------------------------- */
-/* Font
+/* Typography
 -------------------------- */
 /* Size
 -------------------------- */
@@ -107,6 +103,8 @@
 /* Footer
 --------------------------*/
 /* Main
+--------------------------*/
+/* Timeline
 --------------------------*/
 /* Break-point
 --------------------------*/
@@ -121,7 +119,7 @@
 /* Element Chalk Variables */
 /* Transition
 -------------------------- */
-/* Colors
+/* Color
 -------------------------- */
 /* 53a8ff */
 /* 66b1ff */
@@ -134,15 +132,11 @@
 /* ecf5ff */
 /* Link
 -------------------------- */
-/* Background
--------------------------- */
 /* Border
--------------------------- */
-/* Box-shadow
 -------------------------- */
 /* Fill
 -------------------------- */
-/* Font
+/* Typography
 -------------------------- */
 /* Size
 -------------------------- */
@@ -225,6 +219,8 @@
 /* Footer
 --------------------------*/
 /* Main
+--------------------------*/
+/* Timeline
 --------------------------*/
 /* Break-point
 --------------------------*/
@@ -242,12 +238,12 @@
   box-sizing: border-box;
   cursor: pointer; }
   .el-select-dropdown__item.is-disabled {
-    color: #c0c4cc;
+    color: #C0C4CC;
     cursor: not-allowed; }
     .el-select-dropdown__item.is-disabled:hover {
-      background-color: #fff; }
+      background-color: #FFFFFF; }
   .el-select-dropdown__item.hover, .el-select-dropdown__item:hover {
     background-color: #f5f7fa; }
   .el-select-dropdown__item.selected {
-    color: #018ea2;
+    color: #ff8019;
     font-weight: bold; }

@@ -1,12 +1,13 @@
  <template>
-  <div class="ntt_bottom first_bottom" :class="{first_bottom: selectedMeun == 'home',otherpage_bottom: selectedMeun != 'home'}">
-    <div class="ntt_copyrightbtn" @click="copy"></div>
+  <div class="ntt_bottom first_bottom" >
+    <!-- :class="{first_bottom: selectedMeun == 'home',otherpage_bottom: selectedMeun != 'home'}" -->
+    <div class="ntt_copyrightbtn"></div> <!-- @click="copy" -->
     <div class="ntt_copyright">
-        <div class="ntt_copyrighttxt LeftRoll ng-scope" v-if="isrighttxt">
+        <div class="ntt_copyrighttxt LeftRoll ng-scope"> <!-- v-if="isrighttxt" -->
             <div class="ntt_service">
                 <span><a href="http://help.nongtt.com" style="display:inline-block;width:100%;height:100%;"></a></span>
-                <span @click="SetPwd"></span>
-                <span @click="SignOut"></span>
+                <span></span> <!-- @click="SetPwd"-->
+                <span></span> <!-- @click="SignOut"-->
             </div>
             <p>版权所有：上海田韵物联网科技有限公司</p>
         </div>

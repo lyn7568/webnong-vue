@@ -3,7 +3,7 @@
 /* Element Chalk Variables */
 /* Transition
 -------------------------- */
-/* Colors
+/* Color
 -------------------------- */
 /* 53a8ff */
 /* 66b1ff */
@@ -16,15 +16,11 @@
 /* ecf5ff */
 /* Link
 -------------------------- */
-/* Background
--------------------------- */
 /* Border
--------------------------- */
-/* Box-shadow
 -------------------------- */
 /* Fill
 -------------------------- */
-/* Font
+/* Typography
 -------------------------- */
 /* Size
 -------------------------- */
@@ -107,6 +103,8 @@
 /* Footer
 --------------------------*/
 /* Main
+--------------------------*/
+/* Timeline
 --------------------------*/
 /* Break-point
 --------------------------*/
@@ -121,7 +119,7 @@
 /* Element Chalk Variables */
 /* Transition
 -------------------------- */
-/* Colors
+/* Color
 -------------------------- */
 /* 53a8ff */
 /* 66b1ff */
@@ -134,15 +132,11 @@
 /* ecf5ff */
 /* Link
 -------------------------- */
-/* Background
--------------------------- */
 /* Border
--------------------------- */
-/* Box-shadow
 -------------------------- */
 /* Fill
 -------------------------- */
-/* Font
+/* Typography
 -------------------------- */
 /* Size
 -------------------------- */
@@ -226,6 +220,8 @@
 --------------------------*/
 /* Main
 --------------------------*/
+/* Timeline
+--------------------------*/
 /* Break-point
 --------------------------*/
 .el-alert {
@@ -236,7 +232,7 @@
   box-sizing: border-box;
   border-radius: 4px;
   position: relative;
-  background-color: #fff;
+  background-color: #FFFFFF;
   overflow: hidden;
   opacity: 1;
   display: -webkit-box;
@@ -253,9 +249,9 @@
     justify-content: center; }
   .el-alert--success {
     background-color: #f0f9eb;
-    color: #67c23a; }
+    color: #67C23A; }
     .el-alert--success .el-alert__description {
-      color: #67c23a; }
+      color: #67C23A; }
   .el-alert--info {
     background-color: #f4f4f5;
     color: #909399; }
@@ -263,14 +259,14 @@
       color: #909399; }
   .el-alert--warning {
     background-color: #fdf6ec;
-    color: #e6a23c; }
+    color: #E6A23C; }
     .el-alert--warning .el-alert__description {
-      color: #e6a23c; }
+      color: #E6A23C; }
   .el-alert--error {
     background-color: #fef0f0;
-    color: #f56c6c; }
+    color: #F56C6C; }
     .el-alert--error .el-alert__description {
-      color: #f56c6c; }
+      color: #F56C6C; }
   .el-alert__content {
     display: table-cell;
     padding: 0 8px; }
@@ -290,7 +286,7 @@
     margin: 5px 0 0 0; }
   .el-alert__closebtn {
     font-size: 12px;
-    color: #c0c4cc;
+    color: #C0C4CC;
     opacity: 1;
     position: absolute;
     top: 12px;

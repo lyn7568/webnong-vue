@@ -3,7 +3,7 @@
 /* Element Chalk Variables */
 /* Transition
 -------------------------- */
-/* Colors
+/* Color
 -------------------------- */
 /* 53a8ff */
 /* 66b1ff */
@@ -16,15 +16,11 @@
 /* ecf5ff */
 /* Link
 -------------------------- */
-/* Background
--------------------------- */
 /* Border
--------------------------- */
-/* Box-shadow
 -------------------------- */
 /* Fill
 -------------------------- */
-/* Font
+/* Typography
 -------------------------- */
 /* Size
 -------------------------- */
@@ -107,6 +103,8 @@
 /* Footer
 --------------------------*/
 /* Main
+--------------------------*/
+/* Timeline
 --------------------------*/
 /* Break-point
 --------------------------*/
@@ -121,7 +119,7 @@
 /* Element Chalk Variables */
 /* Transition
 -------------------------- */
-/* Colors
+/* Color
 -------------------------- */
 /* 53a8ff */
 /* 66b1ff */
@@ -134,15 +132,11 @@
 /* ecf5ff */
 /* Link
 -------------------------- */
-/* Background
--------------------------- */
 /* Border
--------------------------- */
-/* Box-shadow
 -------------------------- */
 /* Fill
 -------------------------- */
-/* Font
+/* Typography
 -------------------------- */
 /* Size
 -------------------------- */
@@ -225,6 +219,8 @@
 /* Footer
 --------------------------*/
 /* Main
+--------------------------*/
+/* Timeline
 --------------------------*/
 /* Break-point
 --------------------------*/
@@ -265,13 +261,13 @@
     padding-right: 0;
     margin-right: 0; }
   .el-progress.is-success .el-progress-bar__inner {
-    background-color: #67c23a; }
+    background-color: #67C23A; }
   .el-progress.is-success .el-progress__text {
-    color: #67c23a; }
+    color: #67C23A; }
   .el-progress.is-exception .el-progress-bar__inner {
-    background-color: #f56c6c; }
+    background-color: #F56C6C; }
   .el-progress.is-exception .el-progress__text {
-    color: #f56c6c; }
+    color: #F56C6C; }
 
 .el-progress-bar {
   padding-right: 50px;
@@ -284,7 +280,7 @@
   .el-progress-bar__outer {
     height: 6px;
     border-radius: 100px;
-    background-color: #ebeef5;
+    background-color: #EBEEF5;
     overflow: hidden;
     position: relative;
     vertical-align: middle; }
@@ -293,7 +289,7 @@
     left: 0;
     top: 0;
     height: 100%;
-    background-color: #018ea2;
+    background-color: #ff8019;
     text-align: right;
     border-radius: 100px;
     line-height: 1;
@@ -308,7 +304,7 @@
   .el-progress-bar__innerText {
     display: inline-block;
     vertical-align: middle;
-    color: #fff;
+    color: #FFFFFF;
     font-size: 12px;
     margin: 0 5px; }
 

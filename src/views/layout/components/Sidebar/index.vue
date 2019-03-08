@@ -44,18 +44,25 @@ export default {
       background: transparent;
       border: 1px solid transparent;
       border-right: 0;
+      &.el-menu{
+        overflow: hidden;
+        .menu-wrapper{
+          float: left;
+        }
+      }
       .el-menu-item{
         height: auto;
-        line-height: 0.9rem;
+        font-size: 12px;
+        line-height: 21px;
         border-radius: 0.15rem;
         margin: 0.2rem;
         padding: 0 0.25rem;
         &.is-active{
-          background:#018ea2;
+          background: $--color-primary;
           color:#fff;
         }
         &:hover{
-          background:#018ea2;
+          background: $--color-primary;
           color:#fff; 
         }
       }

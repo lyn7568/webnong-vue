@@ -1,10 +1,9 @@
 import axios from 'axios'
-// import qs from 'qs'
+import qs from 'qs'
 import router from '@/router'
 import store from '@/store'
 import { Message } from 'element-ui'
 
-// 创建axios实例
 const service = axios.create({
   baseURL: process.env.BASE_API, // api的base_url
   withCredentials: true // 表示跨域请求时是否需要使用凭证
@@ -12,14 +11,12 @@ const service = axios.create({
 
 // request拦截器
 service.interceptors.request.use(config => {
-  // 配置config
   config.headers.Accept = 'application/json'
   if (config.method === 'post') {
-    // config.data = qs.stringify(config.data, { arrayFormat: 'repeat' })
-    // config.headers['Content-Type'] = 'application/x-www-form-urlencoded'
-    config.headers['Content-Type'] = 'application/json'
+    config.data = qs.stringify(config.data, { arrayFormat: 'repeat' })
+    // 处理后后台无需添加RequestBody
+    config.headers['Content-Type'] = 'application/x-www-form-urlencoded'
   }
-  // console.log(config)
   return config
 }, error => {
   Promise.reject(error)
@@ -55,15 +52,37 @@ service.interceptors.response.use(response => {
 })
 
 var ret = {
-  post: function(url, data, sh) {
+  get: function(url, Da, sh, eh) {
     service({
-      method: 'post',
+      method: 'get',
       url: url,
-      data: data
+      params: Da
     }).then(res => {
       sh(res)
     }).catch(err => {
-      Message.error(err || '网络异常')
+      if (eh) eh(err)
+    })
+  },
+  post: function(url, Da, sh, eh) {
+    service({
+      method: 'post',
+      url: url,
+      data: Da
+    }).then(res => {
+      sh(res)
+    }).catch(err => {
+      if (eh) eh(err)
+    })
+  },
+  put: function(url, Da, sh, eh) {
+    service({
+      method: 'put',
+      url: url,
+      data: Da
+    }).then(res => {
+      sh(res)
+    }).catch(err => {
+      if (eh) eh(err)
     })
   }
 }

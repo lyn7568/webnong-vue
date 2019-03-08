@@ -3,7 +3,7 @@
 /* Element Chalk Variables */
 /* Transition
 -------------------------- */
-/* Colors
+/* Color
 -------------------------- */
 /* 53a8ff */
 /* 66b1ff */
@@ -16,15 +16,11 @@
 /* ecf5ff */
 /* Link
 -------------------------- */
-/* Background
--------------------------- */
 /* Border
--------------------------- */
-/* Box-shadow
 -------------------------- */
 /* Fill
 -------------------------- */
-/* Font
+/* Typography
 -------------------------- */
 /* Size
 -------------------------- */
@@ -107,6 +103,8 @@
 /* Footer
 --------------------------*/
 /* Main
+--------------------------*/
+/* Timeline
 --------------------------*/
 /* Break-point
 --------------------------*/
@@ -121,7 +119,7 @@
 /* Element Chalk Variables */
 /* Transition
 -------------------------- */
-/* Colors
+/* Color
 -------------------------- */
 /* 53a8ff */
 /* 66b1ff */
@@ -134,15 +132,11 @@
 /* ecf5ff */
 /* Link
 -------------------------- */
-/* Background
--------------------------- */
 /* Border
--------------------------- */
-/* Box-shadow
 -------------------------- */
 /* Fill
 -------------------------- */
-/* Font
+/* Typography
 -------------------------- */
 /* Size
 -------------------------- */
@@ -225,6 +219,8 @@
 /* Footer
 --------------------------*/
 /* Main
+--------------------------*/
+/* Timeline
 --------------------------*/
 /* Break-point
 --------------------------*/
@@ -233,7 +229,7 @@
 /* Element Chalk Variables */
 /* Transition
 -------------------------- */
-/* Colors
+/* Color
 -------------------------- */
 /* 53a8ff */
 /* 66b1ff */
@@ -246,15 +242,11 @@
 /* ecf5ff */
 /* Link
 -------------------------- */
-/* Background
--------------------------- */
 /* Border
--------------------------- */
-/* Box-shadow
 -------------------------- */
 /* Fill
 -------------------------- */
-/* Font
+/* Typography
 -------------------------- */
 /* Size
 -------------------------- */
@@ -337,6 +329,8 @@
 /* Footer
 --------------------------*/
 /* Main
+--------------------------*/
+/* Timeline
 --------------------------*/
 /* Break-point
 --------------------------*/
@@ -351,7 +345,7 @@
 /* Element Chalk Variables */
 /* Transition
 -------------------------- */
-/* Colors
+/* Color
 -------------------------- */
 /* 53a8ff */
 /* 66b1ff */
@@ -364,15 +358,11 @@
 /* ecf5ff */
 /* Link
 -------------------------- */
-/* Background
--------------------------- */
 /* Border
--------------------------- */
-/* Box-shadow
 -------------------------- */
 /* Fill
 -------------------------- */
-/* Font
+/* Typography
 -------------------------- */
 /* Size
 -------------------------- */
@@ -455,6 +445,8 @@
 /* Footer
 --------------------------*/
 /* Main
+--------------------------*/
+/* Timeline
 --------------------------*/
 /* Break-point
 --------------------------*/
@@ -473,34 +465,34 @@
     width: 100%;
     font-size: inherit;
     color: #606266;
-    background-color: #fff;
+    background-color: #FFFFFF;
     background-image: none;
-    border: 1px solid #dcdfe6;
+    border: 1px solid #DCDFE6;
     border-radius: 4px;
     -webkit-transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
     transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1); }
     .el-textarea__inner::-webkit-input-placeholder {
-      color: #c0c4cc; }
+      color: #C0C4CC; }
     .el-textarea__inner::-ms-input-placeholder {
-      color: #c0c4cc; }
+      color: #C0C4CC; }
     .el-textarea__inner::placeholder {
-      color: #c0c4cc; }
+      color: #C0C4CC; }
     .el-textarea__inner:hover {
-      border-color: #c0c4cc; }
+      border-color: #C0C4CC; }
     .el-textarea__inner:focus {
       outline: none;
-      border-color: #018ea2; }
+      border-color: #ff8019; }
   .el-textarea.is-disabled .el-textarea__inner {
     background-color: #f5f7fa;
-    border-color: #e4e7ed;
-    color: #c0c4cc;
+    border-color: #E4E7ED;
+    color: #C0C4CC;
     cursor: not-allowed; }
     .el-textarea.is-disabled .el-textarea__inner::-webkit-input-placeholder {
-      color: #c0c4cc; }
+      color: #C0C4CC; }
     .el-textarea.is-disabled .el-textarea__inner::-ms-input-placeholder {
-      color: #c0c4cc; }
+      color: #C0C4CC; }
     .el-textarea.is-disabled .el-textarea__inner::placeholder {
-      color: #c0c4cc; }
+      color: #C0C4CC; }
 
 .el-input {
   position: relative;
@@ -524,7 +516,7 @@
         background: #fff;
         width: 6px; }
   .el-input .el-input__clear {
-    color: #c0c4cc;
+    color: #C0C4CC;
     font-size: 14px;
     line-height: 16px;
     cursor: pointer;
@@ -534,10 +526,10 @@
       color: #909399; }
   .el-input__inner {
     -webkit-appearance: none;
-    background-color: #fff;
+    background-color: #FFFFFF;
     background-image: none;
     border-radius: 4px;
-    border: 1px solid #dcdfe6;
+    border: 1px solid #DCDFE6;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     color: #606266;
@@ -551,23 +543,23 @@
     transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
     width: 100%; }
     .el-input__inner::-webkit-input-placeholder {
-      color: #c0c4cc; }
+      color: #C0C4CC; }
     .el-input__inner::-ms-input-placeholder {
-      color: #c0c4cc; }
+      color: #C0C4CC; }
     .el-input__inner::placeholder {
-      color: #c0c4cc; }
+      color: #C0C4CC; }
     .el-input__inner:hover {
-      border-color: #c0c4cc; }
+      border-color: #C0C4CC; }
     .el-input__inner:focus {
       outline: none;
-      border-color: #018ea2; }
+      border-color: #ff8019; }
   .el-input__suffix {
     position: absolute;
     height: 100%;
     right: 5px;
     top: 0;
     text-align: center;
-    color: #c0c4cc;
+    color: #C0C4CC;
     -webkit-transition: all .3s;
     transition: all .3s;
     pointer-events: none; }
@@ -579,7 +571,7 @@
     left: 5px;
     top: 0;
     text-align: center;
-    color: #c0c4cc;
+    color: #C0C4CC;
     -webkit-transition: all .3s;
     transition: all .3s; }
   .el-input__icon {
@@ -599,18 +591,18 @@
     pointer-events: none; }
   .el-input.is-active .el-input__inner {
     outline: none;
-    border-color: #018ea2; }
+    border-color: #ff8019; }
   .el-input.is-disabled .el-input__inner {
     background-color: #f5f7fa;
-    border-color: #e4e7ed;
-    color: #c0c4cc;
+    border-color: #E4E7ED;
+    color: #C0C4CC;
     cursor: not-allowed; }
     .el-input.is-disabled .el-input__inner::-webkit-input-placeholder {
-      color: #c0c4cc; }
+      color: #C0C4CC; }
     .el-input.is-disabled .el-input__inner::-ms-input-placeholder {
-      color: #c0c4cc; }
+      color: #C0C4CC; }
     .el-input.is-disabled .el-input__inner::placeholder {
-      color: #c0c4cc; }
+      color: #C0C4CC; }
   .el-input.is-disabled .el-input__icon {
     cursor: not-allowed; }
   .el-input--suffix .el-input__inner {
@@ -654,7 +646,7 @@
     vertical-align: middle;
     display: table-cell;
     position: relative;
-    border: 1px solid #dcdfe6;
+    border: 1px solid #DCDFE6;
     border-radius: 4px;
     padding: 0 20px;
     width: 1px;
@@ -710,7 +702,7 @@
 /* Element Chalk Variables */
 /* Transition
 -------------------------- */
-/* Colors
+/* Color
 -------------------------- */
 /* 53a8ff */
 /* 66b1ff */
@@ -723,15 +715,11 @@
 /* ecf5ff */
 /* Link
 -------------------------- */
-/* Background
--------------------------- */
 /* Border
--------------------------- */
-/* Box-shadow
 -------------------------- */
 /* Fill
 -------------------------- */
-/* Font
+/* Typography
 -------------------------- */
 /* Size
 -------------------------- */
@@ -814,6 +802,8 @@
 /* Footer
 --------------------------*/
 /* Main
+--------------------------*/
+/* Timeline
 --------------------------*/
 /* Break-point
 --------------------------*/
@@ -828,7 +818,7 @@
 /* Element Chalk Variables */
 /* Transition
 -------------------------- */
-/* Colors
+/* Color
 -------------------------- */
 /* 53a8ff */
 /* 66b1ff */
@@ -841,15 +831,11 @@
 /* ecf5ff */
 /* Link
 -------------------------- */
-/* Background
--------------------------- */
 /* Border
--------------------------- */
-/* Box-shadow
 -------------------------- */
 /* Fill
 -------------------------- */
-/* Font
+/* Typography
 -------------------------- */
 /* Size
 -------------------------- */
@@ -932,6 +918,8 @@
 /* Footer
 --------------------------*/
 /* Main
+--------------------------*/
+/* Timeline
 --------------------------*/
 /* Break-point
 --------------------------*/
@@ -985,7 +973,7 @@
 /* Element Chalk Variables */
 /* Transition
 -------------------------- */
-/* Colors
+/* Color
 -------------------------- */
 /* 53a8ff */
 /* 66b1ff */
@@ -998,15 +986,11 @@
 /* ecf5ff */
 /* Link
 -------------------------- */
-/* Background
--------------------------- */
 /* Border
--------------------------- */
-/* Box-shadow
 -------------------------- */
 /* Fill
 -------------------------- */
-/* Font
+/* Typography
 -------------------------- */
 /* Size
 -------------------------- */
@@ -1089,6 +1073,8 @@
 /* Footer
 --------------------------*/
 /* Main
+--------------------------*/
+/* Timeline
 --------------------------*/
 /* Break-point
 --------------------------*/
@@ -1103,7 +1089,7 @@
 /* Element Chalk Variables */
 /* Transition
 -------------------------- */
-/* Colors
+/* Color
 -------------------------- */
 /* 53a8ff */
 /* 66b1ff */
@@ -1116,15 +1102,11 @@
 /* ecf5ff */
 /* Link
 -------------------------- */
-/* Background
--------------------------- */
 /* Border
--------------------------- */
-/* Box-shadow
 -------------------------- */
 /* Fill
 -------------------------- */
-/* Font
+/* Typography
 -------------------------- */
 /* Size
 -------------------------- */
@@ -1207,6 +1189,8 @@
 /* Footer
 --------------------------*/
 /* Main
+--------------------------*/
+/* Timeline
 --------------------------*/
 /* Break-point
 --------------------------*/
@@ -1235,12 +1219,12 @@
   bottom: -6px;
   left: 50%;
   margin-right: 3px;
-  border-top-color: #ebeef5;
+  border-top-color: #EBEEF5;
   border-bottom-width: 0; }
   .el-popper[x-placement^="top"] .popper__arrow::after {
     bottom: 1px;
     margin-left: -6px;
-    border-top-color: #fff;
+    border-top-color: #FFFFFF;
     border-bottom-width: 0; }
 
 .el-popper[x-placement^="bottom"] {
@@ -1251,12 +1235,12 @@
   left: 50%;
   margin-right: 3px;
   border-top-width: 0;
-  border-bottom-color: #ebeef5; }
+  border-bottom-color: #EBEEF5; }
   .el-popper[x-placement^="bottom"] .popper__arrow::after {
     top: 1px;
     margin-left: -6px;
     border-top-width: 0;
-    border-bottom-color: #fff; }
+    border-bottom-color: #FFFFFF; }
 
 .el-popper[x-placement^="right"] {
   margin-left: 12px; }
@@ -1265,12 +1249,12 @@
   top: 50%;
   left: -6px;
   margin-bottom: 3px;
-  border-right-color: #ebeef5;
+  border-right-color: #EBEEF5;
   border-left-width: 0; }
   .el-popper[x-placement^="right"] .popper__arrow::after {
     bottom: -6px;
     left: 1px;
-    border-right-color: #fff;
+    border-right-color: #FFFFFF;
     border-left-width: 0; }
 
 .el-popper[x-placement^="left"] {
@@ -1281,13 +1265,13 @@
   right: -6px;
   margin-bottom: 3px;
   border-right-width: 0;
-  border-left-color: #ebeef5; }
+  border-left-color: #EBEEF5; }
   .el-popper[x-placement^="left"] .popper__arrow::after {
     right: 1px;
     bottom: -6px;
     margin-left: -6px;
     border-right-width: 0;
-    border-left-color: #fff; }
+    border-left-color: #FFFFFF; }
 
 .el-autocomplete {
   position: relative;
@@ -1298,17 +1282,15 @@
   -webkit-box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
   border-radius: 4px;
-  border: 1px solid #e4e7ed;
-  overflow: hidden;
+  border: 1px solid #E4E7ED;
   -webkit-box-sizing: border-box;
-  box-sizing: border-box; }
+  box-sizing: border-box;
+  background-color: #FFFFFF; }
   .el-autocomplete-suggestion__wrap {
     max-height: 280px;
     padding: 10px 0;
     -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    overflow: auto;
-    background-color: #fff; }
+    box-sizing: border-box; }
   .el-autocomplete-suggestion__list {
     margin: 0;
     padding: 0; }
@@ -1329,7 +1311,7 @@
       background-color: #f5f7fa; }
     .el-autocomplete-suggestion li.divider {
       margin-top: 6px;
-      border-top: 1px solid #000; }
+      border-top: 1px solid #000000; }
     .el-autocomplete-suggestion li.divider:last-child {
       margin-bottom: -6px; }
   .el-autocomplete-suggestion.is-loading li {
@@ -1344,6 +1326,6 @@
       height: 100%;
       vertical-align: middle; }
     .el-autocomplete-suggestion.is-loading li:hover {
-      background-color: #fff; }
+      background-color: #FFFFFF; }
   .el-autocomplete-suggestion.is-loading .el-icon-loading {
     vertical-align: middle; }

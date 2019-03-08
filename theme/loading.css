@@ -3,7 +3,7 @@
 /* Element Chalk Variables */
 /* Transition
 -------------------------- */
-/* Colors
+/* Color
 -------------------------- */
 /* 53a8ff */
 /* 66b1ff */
@@ -16,15 +16,11 @@
 /* ecf5ff */
 /* Link
 -------------------------- */
-/* Background
--------------------------- */
 /* Border
--------------------------- */
-/* Box-shadow
 -------------------------- */
 /* Fill
 -------------------------- */
-/* Font
+/* Typography
 -------------------------- */
 /* Size
 -------------------------- */
@@ -107,6 +103,8 @@
 /* Footer
 --------------------------*/
 /* Main
+--------------------------*/
+/* Timeline
 --------------------------*/
 /* Break-point
 --------------------------*/
@@ -121,7 +119,7 @@
 /* Element Chalk Variables */
 /* Transition
 -------------------------- */
-/* Colors
+/* Color
 -------------------------- */
 /* 53a8ff */
 /* 66b1ff */
@@ -134,15 +132,11 @@
 /* ecf5ff */
 /* Link
 -------------------------- */
-/* Background
--------------------------- */
 /* Border
--------------------------- */
-/* Box-shadow
 -------------------------- */
 /* Fill
 -------------------------- */
-/* Font
+/* Typography
 -------------------------- */
 /* Size
 -------------------------- */
@@ -225,6 +219,8 @@
 /* Footer
 --------------------------*/
 /* Main
+--------------------------*/
+/* Timeline
 --------------------------*/
 /* Break-point
 --------------------------*/
@@ -260,7 +256,7 @@
   text-align: center;
   position: absolute; }
   .el-loading-spinner .el-loading-text {
-    color: #018ea2;
+    color: #ff8019;
     margin: 3px 0;
     font-size: 14px; }
   .el-loading-spinner .circular {
@@ -274,10 +270,10 @@
     stroke-dasharray: 90, 150;
     stroke-dashoffset: 0;
     stroke-width: 2;
-    stroke: #018ea2;
+    stroke: #ff8019;
     stroke-linecap: round; }
   .el-loading-spinner i {
-    color: #018ea2; }
+    color: #ff8019; }
 
 .el-loading-fade-enter,
 .el-loading-fade-leave-active {

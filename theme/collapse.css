@@ -3,7 +3,7 @@
 /* Element Chalk Variables */
 /* Transition
 -------------------------- */
-/* Colors
+/* Color
 -------------------------- */
 /* 53a8ff */
 /* 66b1ff */
@@ -16,15 +16,11 @@
 /* ecf5ff */
 /* Link
 -------------------------- */
-/* Background
--------------------------- */
 /* Border
--------------------------- */
-/* Box-shadow
 -------------------------- */
 /* Fill
 -------------------------- */
-/* Font
+/* Typography
 -------------------------- */
 /* Size
 -------------------------- */
@@ -107,6 +103,8 @@
 /* Footer
 --------------------------*/
 /* Main
+--------------------------*/
+/* Timeline
 --------------------------*/
 /* Break-point
 --------------------------*/
@@ -121,7 +119,7 @@
 /* Element Chalk Variables */
 /* Transition
 -------------------------- */
-/* Colors
+/* Color
 -------------------------- */
 /* 53a8ff */
 /* 66b1ff */
@@ -134,15 +132,11 @@
 /* ecf5ff */
 /* Link
 -------------------------- */
-/* Background
--------------------------- */
 /* Border
--------------------------- */
-/* Box-shadow
 -------------------------- */
 /* Fill
 -------------------------- */
-/* Font
+/* Typography
 -------------------------- */
 /* Size
 -------------------------- */
@@ -225,13 +219,15 @@
 /* Footer
 --------------------------*/
 /* Main
+--------------------------*/
+/* Timeline
 --------------------------*/
 /* Break-point
 --------------------------*/
 /* Element Chalk Variables */
 /* Transition
 -------------------------- */
-/* Colors
+/* Color
 -------------------------- */
 /* 53a8ff */
 /* 66b1ff */
@@ -244,15 +240,11 @@
 /* ecf5ff */
 /* Link
 -------------------------- */
-/* Background
--------------------------- */
 /* Border
--------------------------- */
-/* Box-shadow
 -------------------------- */
 /* Fill
 -------------------------- */
-/* Font
+/* Typography
 -------------------------- */
 /* Size
 -------------------------- */
@@ -335,6 +327,8 @@
 /* Footer
 --------------------------*/
 /* Main
+--------------------------*/
+/* Timeline
 --------------------------*/
 /* Break-point
 --------------------------*/
@@ -455,8 +449,8 @@
   transition: opacity 0.3s cubic-bezier(0.55, 0, 0.1, 1); }
 
 .el-collapse {
-  border-top: 1px solid #ebeef5;
-  border-bottom: 1px solid #ebeef5; }
+  border-top: 1px solid #EBEEF5;
+  border-bottom: 1px solid #EBEEF5; }
 
 .el-collapse-item__header {
   display: -webkit-box;
@@ -467,10 +461,10 @@
   align-items: center;
   height: 48px;
   line-height: 48px;
-  background-color: #fff;
+  background-color: #FFFFFF;
   color: #303133;
   cursor: pointer;
-  border-bottom: 1px solid #ebeef5;
+  border-bottom: 1px solid #EBEEF5;
   font-size: 13px;
   font-weight: 500;
   -webkit-transition: border-bottom-color .3s;
@@ -487,17 +481,17 @@
       -webkit-transform: rotate(90deg);
       transform: rotate(90deg); }
   .el-collapse-item__header.focusing:focus:not(:hover) {
-    color: #018ea2; }
+    color: #ff8019; }
   .el-collapse-item__header.is-active {
     border-bottom-color: transparent; }
 
 .el-collapse-item__wrap {
   will-change: height;
-  background-color: #fff;
+  background-color: #FFFFFF;
   overflow: hidden;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  border-bottom: 1px solid #ebeef5; }
+  border-bottom: 1px solid #EBEEF5; }
 
 .el-collapse-item__content {
   padding-bottom: 25px;
