@@ -1,38 +1,49 @@
 <template>
-  <div>
-    <el-table :data="tableData" :height="tableHeight" border ref="tableEle">
+  <div class="tableClass">
+    <el-table border :ref="tableObject.el"
+      :data="tableObject.data"
+      :height="tableHeight"
+      :row-class-name="tableRowClassName"
+      :header-row-class-name="tableThClassName">
       <el-table-column
-        v-for="item in tableItem"
+        v-for="item in tableObject.arr"
         :key="item.index"
         :prop="item.prop ? item.prop : ''"
         :label="item.tit ? item.tit : ''"
         :width="item.width ? item.width : ''"
         align="center"
-        :className="item.active"
-      >
+        :className="item.active">
         <template slot-scope="scope">
           <div v-if="scope.row[item.prop]">{{scope.row[item.prop]}}</div>
           <div v-if="item.operate && typeof scope.row === 'object'">
-            <el-button
-              v-for="operating in operatingList"
-              :key="operating.index "
-              size="mini"
-              :type="operating.icon"
+            <!-- <el-button circle
+              v-for="operating in tableObject.operatingList"
+              :key="operating.index"
+              :icon="'el-icon-'+operating.icon"
               @click="$emit(operating.event, scope.row)"
-            >{{operating.text}}</el-button>
+            > -->
+            <el-button type="text"
+              v-for="operating in tableObject.operatingList"
+              :key="operating.index"
+              @click="$emit(operating.event, scope.row)">
+              <span class="svg-container">
+                <svg-icon :icon-class="operating.icon"/>
+              </span>
+            </el-button>
           </div>
         </template>
       </el-table-column>
     </el-table>
     <div class="pagination-container">
       <el-pagination
+        background
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
         :current-page.sync="pageNo"
         :page-sizes="[100, 200, 300, 400]"
         :page-size="pageSize"
         layout="total, sizes, prev, pager, next, jumper"
-        :total="pageTotal"
+        :total="tableObject.total"
       ></el-pagination>
     </div>
   </div>
@@ -48,70 +59,111 @@
 //           }
 //         ],
 export default {
-  name: "complexTable",
+  name: 'complexTable',
   props: {
-    tableData: {
-      type: Array
-    },
-    tableItem: {
-      type: Array
+    tableObject: {
+      type: Object
     },
     operatingList: {
       type: Array
     },
-    pageTotal: {
-      type: Number,
-      default: 0
-    },
     spareDistance: {
       type: Number,
-      default: 400
+      default: 340
     }
   },
   data() {
     return {
       pageNo: 1,
       pageSize: 10,
-      tableHeight: 600
+      tableHeight: 420
     };
   },
   mounted() {
     var that = this;
     setTimeout(() => {
-      this.tableHeight =
-        window.innerHeight -
-        this.$refs.tableEle.$el.offsetTop -
-        this.spareDistance;
-    }, 100);
-    window.addEventListener("resize", () => {
       that.tableHeight =
         window.innerHeight -
-        that.$refs.tableEle.$el.offsetTop -
+        that.$refs[that.tableObject.el].$el.offsetTop -
+        that.spareDistance;
+    }, 100);
+    window.addEventListener('resize', () => {
+      that.tableHeight =
+        window.innerHeight -
+        that.$refs[that.tableObject.el].$el.offsetTop -
         that.spareDistance;
     });
   },
   methods: {
     handleSizeChange(val) {
-      console.log(`每页 ${val} 条`);
       this.pageSize = val;
     },
     handleCurrentChange(val) {
-      console.log(`当前页: ${val}`);
       this.$refs.tableEle.bodyWrapper.scrollTop = 0;
       this.pageNo = val;
-      this.$emit("pageCurFun", val);
+      this.$emit('pageCurFun', val);
+    },
+    tableRowClassName({row, rowIndex}) {
+      if (rowIndex % 2) {
+        return 'even-row';
+      } else {
+        return 'odd-row';
+      }
+    },
+    tableThClassName({row, rowIndex}) {
+      return 'even-row';
     }
   }
 };
 </script>
 
 <style rel="stylesheet/scss" lang="scss">
-.el-table .cell {
-  min-height: 23px;
+.tableClass {
+  .el-table--group, .el-table--border{
+    border-color: $--color-sub;
+    th, tr, td{
+      border-color: $--color-sub;
+    }
+    &::after, &::before{
+      background-color: $--color-sub;
+    }
+  }
+  .el-table{
+    font-size: 0.4rem;
+    background: rgba(0,0,0,.2);
+    tr {
+      background: none;
+      &.odd-row{
+        background-color: rgba(201,201,201,.8)
+      }
+      &.even-row{
+        background-color: rgba(255,255,255,.8)
+      } 
+    }
+    .cell{
+      color: #222;
+      line-height: 0.6rem;
+    }
+    .el-table__empty-block{
+      background: rgba(0,0,0,0.3);
+      .el-table__empty-text{
+        color: #f0f0f0;
+      }
+    }
+    .el-button{
+      background: none;
+      border:none;
+      color:#222;
+      &.is-circle{
+        padding: 0 0.05rem;
+      }
+    }
+  }
+  .pagination-container{
+    display: inline-block;
+    margin-top: 0.25rem; 
+    background: rgba(0,0,0,.2);
+  }
 }
 
-.active {
-  color: #409eff;
-  cursor: pointer;
-}
 </style>

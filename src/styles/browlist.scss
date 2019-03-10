@@ -1,0 +1,29 @@
+.list-tabs-show{
+  .el-tabs--card > .el-tabs__header{
+    border:none;
+    margin-bottom: 0.25rem;
+    .el-tabs__nav{
+      border:none;
+      margin-bottom: -0.1rem;
+      .el-tabs__item{
+        background: #fff;
+        border-radius: 0.125rem 0.125rem 0 0;
+        font-size: 0.4rem;
+        line-height: 0.8rem;
+        height: auto;
+        border-color: transparent;
+        margin: 0 0.05rem;
+        &.is-active{
+          background: $--color-primary;
+          color:#fff;
+          line-height: 1rem;
+        }
+      }
+    }
+  }
+  &.chart-tabs-show{
+    .el-tab-pane{
+      background: rgba(255,255,255,0.8)
+    }
+  }
+}

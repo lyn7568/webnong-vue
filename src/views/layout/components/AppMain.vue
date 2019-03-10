@@ -17,12 +17,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-.app-main {
-  /*50 = navbar  */
-  min-height: 100%;
-  position: relative;
-  overflow: hidden;
-}
-</style>

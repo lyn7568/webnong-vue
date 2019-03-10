@@ -52,8 +52,8 @@ export default {
       }
       .el-menu-item{
         height: auto;
-        font-size: 12px;
-        line-height: 21px;
+        font-size: 0.4rem;
+        line-height: 0.9rem;
         border-radius: 0.15rem;
         margin: 0.2rem;
         padding: 0 0.25rem;

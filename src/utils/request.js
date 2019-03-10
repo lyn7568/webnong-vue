@@ -11,7 +11,7 @@ const service = axios.create({
 
 // request拦截器
 service.interceptors.request.use(config => {
-  config.headers.Accept = 'application/json'
+  config.headers.Accept = 'application/json; charser=UTF-8'
   if (config.method === 'post') {
     config.data = qs.stringify(config.data, { arrayFormat: 'repeat' })
     // 处理后后台无需添加RequestBody
@@ -25,6 +25,7 @@ service.interceptors.request.use(config => {
 // respone拦截器
 service.interceptors.response.use(response => {
   let taR = response.data
+  console.log(response)
   if (response && response.status === 200) {
     if (response.data === undefined) { // 解决IE9数据问题
       taR = response.request.responseText
@@ -34,16 +35,17 @@ service.interceptors.response.use(response => {
     if (!(taR instanceof Object)) { // 判断taR不是Object时，解析成Object
       taR = JSON.parse(taR)
     }
-    if (taR.meta.state === '000000') {
+    // if (taR.code === 200) {
       return taR
-    } else if (taR.meta.state === '100100') {
-      Message.error(taR.meta.msg)
-      store.dispatch('FedLogOut').then(() => {
-        router.replace({ path: '/login' })
-      })
-    } else {
-      Message.error(taR.data)
-    }
+    // }
+    //  else if (taR.meta.state === '100100') {
+    //   Message.error(taR.meta.msg)
+    //   store.dispatch('FedLogOut').then(() => {
+    //     router.replace({ path: '/login' })
+    //   })
+    // } else {
+    //   Message.error(taR.data)
+    // }
   } else {
     return Promise.resolve(response)
   }

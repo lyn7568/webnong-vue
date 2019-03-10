@@ -1,9 +1,7 @@
 <template>
   <div class="app-wrapper">
     <TopNavbar></TopNavbar>
-    <div class="main-container">
-      <app-main></app-main>
-    </div>
+    <app-main></app-main>
     <Copyright></Copyright>
   </div>
 </template>

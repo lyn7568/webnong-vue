@@ -1,8 +1,6 @@
 @import './mixin.scss';
-@import '../../element-variables.scss';
-// @import './transition.scss';
-// @import './element-ui.scss';
-// @import './sidebar.scss';
+@import './transition.scss';
+@import './browlist.scss';
 
 html {
   height: 100%;
@@ -70,11 +68,17 @@ a:hover {
 #app{
   height: 100%;
 }
-//main-container全局样式
-.app-main{
-  min-height: 100%
-}
 
 .float-l{
   float: left;
+}
+
+.app-main {
+  /*50 = navbar  */
+  position: relative;
+  overflow: hidden;
+}
+.app-container {
+  width: 40.25rem;
+  margin:1rem auto 0;
 }
