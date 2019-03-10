@@ -4,7 +4,7 @@
 <script>
 import echarts from 'echarts'
 require('echarts/theme/macarons')
-import { debounce } from '@/utils'
+import { debounce, dateFormat } from '@/utils'
 export default {
   props: {
     className: {
@@ -17,7 +17,7 @@ export default {
     },
     height: {
       type: String,
-      default: '350px'
+      default: '420px'
     },
     chartData: {
       type: Object
@@ -60,10 +60,12 @@ export default {
           text: datastr.tit + '走势图',
           subtext: '数据来自公司',
           textStyle: {
+            align: 'center',
             color: '#333',
             fontSize: 14
           },
-          textAlign: 'center'
+          textAlign: 'center',
+          left: 'center'
         },
         tooltip: {
           trigger: 'axis',
@@ -71,11 +73,15 @@ export default {
             type: 'shadow'
           }
         },
+        grid: {
+          bottom: 130
+        },
         dataZoom: [
           {
             type: 'slider',
-            start: 60,
-            end: 100
+            start: 80,
+            end: 100,
+            handleSize: 8
           },
           {
             type: 'inside'
@@ -86,10 +92,21 @@ export default {
           data: datastr.xData,
           axisLabel: {
             interval: 1,
-            rotate: -30
+            rotate: -45,
+            formatter: function(value, index) {
+              dateFormat(value, 'yyyy-MM-dd hh:mm')
+            }
           },
           nameTextStyle: {
             fontSize: 10
+          },
+          splitLine: {
+            show: true,
+            lineStyle: {
+              color: ['red'],
+              width: 1,
+              type: 'solid'
+            }
           }
         },
         yAxis: {
@@ -116,15 +133,8 @@ export default {
         series: [
           {
             type: 'line',
-            name:  + '(' + datastr.unit + ')',
+            // name:  + '(' + datastr.unit + ')',
             data: datastr.zData,
-            itemStyle: {
-              normal: {
-                label: {
-                  show: true
-                }
-              }
-            },
             axisLabel: {
               formatter: datastr.tit + ':{value}' + datastr.unit
             }

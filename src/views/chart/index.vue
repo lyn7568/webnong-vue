@@ -6,7 +6,7 @@
     <div class="list-tabs-show chart-tabs-show">
       <el-tabs v-model="activeName" type="card">
         <el-tab-pane v-for="item in tabList" :label="item.tit" :name="item.tab" :key="item.index">
-          <line-chart :chartData="chartData"></line-chart>
+          <line-chart v-if="chartData" :chartData="chartData"></line-chart>
         </el-tab-pane>
       </el-tabs>
     </div>
@@ -14,7 +14,6 @@
 </template>
 
 <script>
-  import { dateFormat } from '@/utils'
   import lineChart from '@/components/LineChart'
 
   export default {
@@ -77,7 +76,7 @@
           $data.map(log => {
             allData.tit = log.ID_Item.substr(0, 2)
             allData.unit = log.ID_Item.substr(2)
-            allData.xData.push(dateFormat(log.ID_Time))
+            allData.xData.push(log.ID_Time)
             allData.zData.push(log.ID_Value)
           })
           that.chartData = allData
