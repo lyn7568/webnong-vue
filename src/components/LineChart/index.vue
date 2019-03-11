@@ -25,7 +25,8 @@ export default {
   },
   data() {
     return {
-      chart: null
+      chart: null,
+      mainColor: '#ff8019'
     }
   },
   mounted() {
@@ -45,19 +46,17 @@ export default {
     this.chart.dispose()
     this.chart = null
   },
-  // watch: {
-  //   chartData: {
-  //     deep: true,
-  //     handler(val) {
-  //       this.setOptions(val)
-  //     }
-  //   }
-  // },
+  watch: {
+    chartData(val) {
+      this.initChart(val)
+    }
+  },
   methods: {
     setOptions(datastr) {
+      var mainColor = this.mainColor
       this.chart.setOption({
         title: {
-          text: datastr.tit + '走势图',
+          text: datastr.tit || "" + '走势图',
           subtext: '数据来自公司',
           textStyle: {
             align: 'center',
@@ -74,14 +73,24 @@ export default {
           }
         },
         grid: {
-          bottom: 130
+          left: 50,
+          bottom: 110
         },
         dataZoom: [
           {
             type: 'slider',
-            start: 80,
+            start: 86,
             end: 100,
-            handleSize: 8
+            borderColor: mainColor,
+            // handleStyle: {
+            //   color: '#fff',
+            //   borderColor: mainColor
+            // },
+            // dataBackground: {
+            //   areaStyle: {
+            //     borderColor: mainColor 
+            //   }
+            // }
           },
           {
             type: 'inside'
@@ -92,10 +101,12 @@ export default {
           data: datastr.xData,
           axisLabel: {
             interval: 1,
-            rotate: -45,
-            formatter: function(value, index) {
-              dateFormat(value, 'yyyy-MM-dd hh:mm')
-            }
+            rotate: -30,
+            // formatter: function(value, index) {
+            //   if (value) {
+            //     return dateFormat(value, 'yyyy-MM-dd hh:mm')
+            //   }
+            // }
           },
           nameTextStyle: {
             fontSize: 10
@@ -103,7 +114,7 @@ export default {
           splitLine: {
             show: true,
             lineStyle: {
-              color: ['red'],
+              color: [mainColor],
               width: 1,
               type: 'solid'
             }
@@ -111,7 +122,7 @@ export default {
         },
         yAxis: {
           type: 'value',
-          name: '单位(' + datastr.unit + ')'
+          name: '单位(' + datastr.unit || "" + ')'
         },
         // legend: {
         //   data: ['PC端', '移动端', '合计']

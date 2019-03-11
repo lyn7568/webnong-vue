@@ -2,6 +2,16 @@
   <div class="app-container">
     <div class="form-filter">
       
+      <el-date-picker
+        v-model="dateRangerVal"
+        type="daterange"
+        align="right"
+        unlink-panels
+        range-separator="至"
+        start-placeholder="开始日期"
+        end-placeholder="结束日期"
+        :picker-options="pickerOptions">
+      </el-date-picker>
     </div>
     <div class="list-tabs-show chart-tabs-show">
       <el-tabs v-model="activeName" type="card">
@@ -15,11 +25,47 @@
 
 <script>
   import lineChart from '@/components/LineChart'
-
+  import { dateFormat } from '@/utils'
   export default {
     data() {
       return {
         activeName: '1',
+        pickerOptions: {
+          shortcuts: [{
+            text: '今天',
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime());
+              picker.$emit('pick', [start, end]);
+            }
+          }, {
+            text: '最近一周',
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+              picker.$emit('pick', [start, end]);
+            }
+          }, {
+            text: '最近一个月',
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+              picker.$emit('pick', [start, end]);
+            }
+          }, {
+            text: '最近三个月',
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+              picker.$emit('pick', [start, end]);
+            }
+          }]
+        },
+        dateRangerVal: '',
         tabList: [
           {
             tab: '1',
@@ -73,12 +119,19 @@
             xData: [],
             zData: []
           }
-          $data.map(log => {
-            allData.tit = log.ID_Item.substr(0, 2)
-            allData.unit = log.ID_Item.substr(2)
-            allData.xData.push(log.ID_Time)
-            allData.zData.push(log.ID_Value)
-          })
+          var reg = /^[\u4e00-\u9fa5]{2}/g
+          for (let i = 0; i < $data.length; ++i) {
+            if (i === 0) {
+              allData.tit = reg.exec($data[i].ID_Item)[0]
+              allData.unit = $data[i].ID_Item.replace(reg, '')
+            }
+            if ($data[i].ID_Time) {
+              $data[i].ID_Time = dateFormat($data[i].ID_Time, 'yyyy-MM-dd hh:mm')
+            }
+            allData.xData.push($data[i].ID_Time)
+            allData.zData.push($data[i].ID_Value)
+          }
+          console.log(allData)
           that.chartData = allData
         })
       }

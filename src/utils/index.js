@@ -25,7 +25,7 @@ export function dateFormat(date, fmat){
   if (fmat) {
     fmt = fmat
   }
-  if (daterc != null) {
+  if (daterc) {
     var that = new Date(parseInt(daterc.replace('/Date(', '').replace(')/', ''), 10));
     var o = {
       'M+': that.getMonth() + 1, // 月份
