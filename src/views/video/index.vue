@@ -1,5 +1,5 @@
 <template>
-  <div class="ntt_videoPage">
+  <div class="app-container">
     <div class="ntt_videoL">
       <div class="ntt_videoNumbox">
         <el-menu class="el-menu-vertical" unique-opened>
@@ -94,10 +94,6 @@ export default {
 </script>
 
 <style lang="scss">
-.ntt_videoPage{
-  padding: 40px;
-  position: relative;
-}
 .ntt_videoL {
   position: absolute;
   left: 1rem;
@@ -121,6 +117,7 @@ export default {
         border-radius: .075rem;
         margin: 2px;
         .el-submenu__title{
+          font-size: .45rem;
           line-height: .8rem;
           height: auto;
           box-sizing: border-box;
@@ -144,6 +141,7 @@ export default {
           }
         }
         .el-menu-item{
+          font-size: .45rem;
           line-height: .8rem;
           height: auto;
           box-sizing: border-box;
@@ -163,7 +161,7 @@ export default {
   }
   .ntt_videoCtrolbox {
     width: 100%;
-    height: 5rem;
+    height: 5.6rem;
     border: 2px solid $--color-primary;
     border-radius: .2rem;
     margin-top: .25rem;
@@ -232,6 +230,40 @@ export default {
         left: 50%;
         transform: translateY(-50%) translateX(-50%);
         background-position: 0 -2.925rem;
+      }
+    }
+    .ntt_voice {
+      display: inline-block;
+      margin: 0 auto;
+      padding: .2rem .125rem 0;
+      .ntt_upper, .ntt_lower {
+        width: 2.25rem;
+        height: .875rem;
+        border-radius: .125rem;
+        background-color: #fff;
+        display: inline-block;
+        position: relative;
+        cursor: pointer;
+        &:before {
+            content: ' ';
+            width: .675rem;
+            height: .15rem;
+            background-color: #ff8019;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-50%);
+        }
+      }
+      .ntt_upper:after{
+          width: .15rem;
+          height: .675rem;
+          content: ' ';
+          background-color: #ff8019;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translateX(-50%) translateY(-50%);
       }
     }
   }

@@ -1,74 +1,36 @@
 <template>
-  <div class="ntt_videoPage">
-    <div class="ntt_videoL">
-      <div class="ntt_videoNumbox">
-        <el-tree :data="videoList"></el-tree>
-      </div>
-      <div class="ntt_videoCtrolbox">
-        <!-- <div class="ablePanel ng-hide" ng-show="channelNo!=''">
-          <div class="ntt_ctrolPanel">
-            <span
-              class="up-video"
-              ng-mouseup="StopCameraControl()"
-              ng-mousedown="StartCameraControl('0')"
-            ></span>
-            <span
-              class="down-video"
-              ng-mouseup="StopCameraControl()"
-              ng-mousedown="StartCameraControl('1')"
-            ></span>
-            <span
-              class="prev-video"
-              ng-mouseup="StopCameraControl()"
-              ng-mousedown="StartCameraControl('2')"
-            ></span>
-            <span
-              class="next-video"
-              ng-mouseup="StopCameraControl()"
-              ng-mousedown="StartCameraControl('3')"
-            ></span>
-            <span class="middle-video zoomIn"></span>
-          </div>
-          <div class="ntt_voice">
-            <div
-              class="ntt_upper"
-              ng-mouseup="StopCameraControl()"
-              ng-mousedown="StartCameraControl('8')"
-            ></div>
-            <div
-              class="ntt_lower"
-              ng-mouseup="StopCameraControl()"
-              ng-mousedown="StartCameraControl('9')"
-            ></div>
-          </div>
-        </div>
-        <div class="unablePanel" ng-show="channelNo==''">
-          <div class="ntt_ctrolPanel">
-            <span class="up-video"></span>
-            <span class="down-video"></span>
-            <span class="prev-video"></span>
-            <span class="next-video"></span>
-            <em class="middle-video"></em>
-          </div>
-          <div class="ntt_voice">
-            <div class="ntt_upper"></div>
-            <div class="ntt_lower"></div>
-          </div>
-        </div>
-         -->
+  <div class="app-container">
+    <div class="form-filter">
+      <div class="h3 float-l">传感器数据总览</div>
+      <div class="ntt_showbtn float-r" ng-init="AcquisitionMode='Point'">
+        <span
+          ng-click="AcquisitionMode = 'Point';QueryData('F')"
+          ng-class="{nowjiance: AcquisitionMode == 'Point'}"
+          class="nowjiance"
+        >按采集点显示</span>
+        <span
+          ng-click="AcquisitionMode = 'data';QueryData('S')"
+          ng-class="{nowjiance: AcquisitionMode == 'data'}"
+        >按采集数据显示</span>
       </div>
     </div>
-    <!-- <div class="ntt_videoR float-l">
-      <div class="ntt_videoshow">
-        <ul class="clearfix">
-        </ul>
+    <div class="list-tabs-show">
+      <div class="ntt-dataList">
+        <div class="data-btn" :class="{'current-data':item.flag}" v-for="item in videoList" :key="item.index">{{item.type}}</div>
       </div>
-      <div class="ntt_videoOption">
-        <span class="btn-one"></span>
-        <span class="btn-four"></span>
-        <span class="btn-nine"></span>
+      <div class="ntt-dataCount">
+        <el-row>
+          <el-col :span="8" class="colLi">
+            <div class="dataArea">
+              <h3>华御气象站</h3>
+            </div>
+            <div class="datalist">
+                            
+            </div>
+          </el-col>
+        </el-row>
       </div>
-    </div> -->
+    </div>
   </div>
 </template>
 
@@ -80,7 +42,7 @@ export default {
     };
   },
   created() {
-    this.queryInfoList()
+    this.queryInfoList();
   },
   methods: {
     queryInfoList() {

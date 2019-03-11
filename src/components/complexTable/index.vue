@@ -154,9 +154,7 @@ export default {
       background: none;
       border:none;
       color:#222;
-      &.is-circle{
-        padding: 0 0.05rem;
-      }
+      padding: 0 0.05rem;
     }
   }
   .pagination-container{
