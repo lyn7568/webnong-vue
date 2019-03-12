@@ -302,9 +302,9 @@
     position: absolute;
     left: 0;
     top:0;
-    width: 12.5rem;
+    width: 10.5rem;
     .n_newGroup{
-      width: 12.5rem;
+      width: 10.5rem;
       height: 15rem;
       padding: 0.5rem;
       margin-top: 0.25rem;
@@ -313,8 +313,20 @@
       border-radius: .125rem;
       font-size: .45rem;
       .formClass.el-form{
+        .el-form-item .el-form-item__label {
+          width: 2.3rem;
+          padding: 1px 0.2rem 0;
+          text-align: left;
+        }
         .el-input, .el-input__inner, .el-date-editor.el-input, .el-date-editor.el-input__inner{
-          width: 8.6rem;
+          width: 7rem;
+        }
+        .btn-form-item{
+          background:none;
+          text-align:center;
+        }
+        .list-shebei{
+          height: 6rem;
         }
       }
     }
@@ -323,7 +335,10 @@
     width: 100%;
     height: 16.7rem;
     box-sizing: border-box;
-    padding: 0 5rem 0 13rem;
+    padding: 0 5rem 0 11rem;
+    &.n_dapeng_status_contol{
+      padding: 0 5rem 0 5rem;
+    }
     .n_dapeng_statusbox{
       height: 100%;
       background-color: rgba(0,0,0,.5);
@@ -339,25 +354,36 @@
     padding-top: 0;
     border: 1px solid $--color-primary;
     width: 4.25rem;
-    h3{
-      display: block;
-      font-size: 24px;
-      line-height: 60px;
-      text-align: center;
-      color: #fff;
-      background: $--color-primary;
+    &.n_right_plan{
+      position: static;
+      margin-top: 0.25rem;
+      .n_jiaoshui {
+        height: 9rem;
+        padding: 0;
+      }
     }
-    .n_jiaoshui {
-      height: 15rem;
-      border: 1px solid $--color-primary;
-      border-radius: .125rem;
-      padding: 1.1rem 0;
-      position: relative;
-      box-sizing: border-box;
-    }
-    .no-groupright {
-      background: url('/src/assets/no-group.png') 0 0 no-repeat;
-      background-size: 100%;
+    .n_planbox{
+      h3{
+        display: block;
+        font-size: 0.6rem;
+        line-height: 1.2rem;
+        text-align: center;
+        color: #fff;
+        background: $--color-primary;
+      }
+      .n_jiaoshui {
+        height: 15rem;
+        border: 1px solid $--color-primary;
+        border-radius: .125rem;
+        // padding: 1.1rem 0;
+        position: relative;
+        box-sizing: border-box;
+      }
+      .no-groupright {
+        border: none;
+        background: url('/src/assets/no-group.png') 0 0 no-repeat;
+        background-size: 100%;
+      }
     }
   }
 }

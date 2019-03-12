@@ -99,10 +99,15 @@ a:hover {
   padding:40px;
 }
 
-
+.el-button{
+  padding: 0.05rem 0.5rem;
+  line-height: 1rem;
+  font-size: .45rem;
+  border-radius: 0.2rem;
+}
 .el-dropdown-menu{
   background:rgba(0,0,0,.5);
-  border-color: $--color-sub;
+  border-color: $--color-primary;
   .el-dropdown-menu__item{
     color: #fff;
     line-height: 1rem;
@@ -110,8 +115,8 @@ a:hover {
   }
 }
 .el-popper[x-placement^="bottom"] .popper__arrow{
-  border-color: $--color-sub;
+  border-color: $--color-primary;
   &::after{
-    border-color: $--color-sub;
+    border-color: $--color-primary;
   }
 }

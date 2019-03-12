@@ -4,7 +4,7 @@
       <div class="n_dapengL">
         <el-dropdown trigger="click">
           <el-button type="primary">
-            更多菜单<i class="el-icon-arrow-down el-icon--right"></i>
+            展示区<i class="el-icon-arrow-down el-icon--right"></i>
           </el-button>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item v-for="item in videoList" :key="item.index">{{item.type}}</el-dropdown-item>
@@ -13,10 +13,12 @@
         <div class="n_newGroup">
           <el-form :model="formObject.model" :ref="formObject.model" class="formClass">
             <el-form-item v-for="item in formObject.arr" :key="item.index" :label="item.tit + ' :'">
-              <el-date-picker v-if="item.date" v-model="formObject.model[item.prop]" type="date"></el-date-picker>
-              <el-input v-else v-model="formObject.model[item.prop]"></el-input>
+              <el-input v-if="!item.list" v-model="formObject.model[item.prop]"></el-input>
+              <el-row v-if="item.list" class="list-shebei">
+                <el-col></el-col>
+              </el-row>
             </el-form-item>
-            <el-form-item>
+            <el-form-item class="btn-form-item">
               <el-button v-for="operate in formObject.oFun" :key="operate.index" type="primary" @click="$emit(operate.event)">{{operate.name}}</el-button>
             </el-form-item>
           </el-form>
@@ -54,21 +56,29 @@ export default {
         arr: [
           {
             prop: 'Logs_Date',
-            tit: '设备名称',
-            date: true,
+            tit: '设备编组'
+          },
+          {
+            prop: 'Logs_Date',
+            tit: '编组类型'
+          },
+          {
+            prop: 'Logs_Date',
+            tit: '备注'
           },
           {
             prop: 'Control_Type',
-            tit: '所属企业'
+            tit: '所属设备',
+            list: true
           }
         ],
         oFun: [
           {
-            name: '新增',
+            name: '新增编组',
             event: 'editOpenDialogFun'
           },
           {
-            name: '查询',
+            name: '保存',
             event: 'edit'
           }
         ]
