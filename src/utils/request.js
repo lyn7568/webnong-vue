@@ -25,7 +25,6 @@ service.interceptors.request.use(config => {
 // respone拦截器
 service.interceptors.response.use(response => {
   let taR = response.data
-  console.log(response)
   if (response && response.status === 200) {
     if (response.data === undefined) { // 解决IE9数据问题
       taR = response.request.responseText

@@ -163,9 +163,3 @@ export default {
   }
 }
 </script>
-<style>
-  .chart-box{
-    background: rgba(255,255,255,.8);
-  }
-</style>
-

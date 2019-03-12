@@ -1,32 +1,31 @@
 <template>
   <div class="app-container">
-    <div class="form-filter">
-      <div class="h3 float-l">传感器数据总览</div>
-      <div class="ntt_showbtn float-r" ng-init="AcquisitionMode='Point'">
-        <span
-          ng-click="AcquisitionMode = 'Point';QueryData('F')"
-          ng-class="{nowjiance: AcquisitionMode == 'Point'}"
-          class="nowjiance"
-        >按采集点显示</span>
-        <span
-          ng-click="AcquisitionMode = 'data';QueryData('S')"
-          ng-class="{nowjiance: AcquisitionMode == 'data'}"
-        >按采集数据显示</span>
-      </div>
-    </div>
     <div class="list-tabs-show">
-      <div class="ntt-dataList">
+      <div class="n-dataFiter">
+        <h3>传感器数据总览</h3>
+        <div class="showbtn">
+          <span :class="{'active': item.tab === showActive}" v-for="item in showbtnList" :key="item.index" @click="clickShowBtn(item.tab)">{{item.name}}</span>
+        </div>
+      </div>
+      <div class="n-dataList">
         <div class="data-btn" :class="{'current-data':item.flag}" v-for="item in videoList" :key="item.index">{{item.type}}</div>
       </div>
-      <div class="ntt-dataCount">
+      <div class="n-dataCount">
         <el-row>
           <el-col :span="8" class="colLi">
             <div class="dataArea">
               <h3>华御气象站</h3>
             </div>
-            <div class="datalist">
-                            
-            </div>
+            <el-row class="datalist">
+              <el-col :span="12">
+                <span>室外温度</span>
+                <em><i>17.2</i> ℃ </em>
+              </el-col>
+              <el-col :span="12">
+                <span>室外温度</span>
+                <em><i>17.2</i> ℃ </em>
+              </el-col>         
+            </el-row>
           </el-col>
         </el-row>
       </div>
@@ -38,6 +37,17 @@
 export default {
   data() {
     return {
+      showActive: '1',
+      showbtnList: [
+        {
+          tab: '1',
+          name: '按采集点显示'
+        },
+        {
+          tab: '2',
+          name: '按采集数据显示'
+        }
+      ],
       videoList: []
     };
   },
@@ -55,6 +65,9 @@ export default {
           that.videoList = $data;
         }
       );
+    },
+    clickShowBtn(val) {
+      this.showActive = val
     }
   }
 };

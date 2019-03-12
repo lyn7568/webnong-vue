@@ -1,7 +1,6 @@
 <template>
   <div class="app-container">
     <div class="form-filter">
-      
       <el-date-picker
         v-model="dateRangerVal"
         type="daterange"

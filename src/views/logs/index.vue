@@ -106,7 +106,12 @@
               tit: '操作人'
             }
           ],
-          fun: 'submitFirstFun'
+          oFun: [
+            {
+              name: '查询',
+              event: 'submitFirstFun'
+            }
+          ]
         },
         formObjectTwo: {
           model: {
@@ -130,7 +135,12 @@
               tit: '预警方式'
             }
           ],
-          fun: 'submitTwoFun'
+          oFun: [
+            {
+              name: '查询',
+              event: 'edit'
+            }
+          ]
         }
       }
     },
@@ -165,10 +175,6 @@
         this.tableObjectTwo.pageNo = val
         this.queryInfoList()
       },
-      // handleClick(val) {
-      //   console.log(val)
-      //   this.activeName = val
-      // },
       submitFirstFun() {
         console.log(123)
       }

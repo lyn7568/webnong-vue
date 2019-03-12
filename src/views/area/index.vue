@@ -1,15 +1,16 @@
 <template>
   <div class="app-container">
     <div class="form-filter">
-      <filter-form v-show="activeName==='1'" :formObject="formObjectFirst"></filter-form>
+      <filter-form v-show="activeName==='1'" :formObject="formObjectFirst" @editOpenDialogFun="editOpenDialogFun"></filter-form>
     </div>
     <div class="list-tabs-show">
       <el-tabs v-model="activeName" type="card">
         <el-tab-pane label="区域列表明细" name="1">
-          <complex-table :tableObject="tableObjectFirst" @pageCurFun="currentPageChangeFirst"></complex-table>
+          <complex-table :tableObject="tableObjectFirst" @pageCurFun="currentPageChangeFirst" @editOpenDialogFun="editOpenDialogFun"></complex-table>
         </el-tab-pane>
       </el-tabs>
     </div>
+    <add-area ref="openAreaDialog"></add-area>
   </div>
 </template>
 
@@ -17,6 +18,7 @@
   import { dateFormat } from '@/utils'
   import filterForm from '@/components/FilterForm'
   import complexTable from '@/components/ComplexTable'
+  import addArea from './addArea'
 
   export default {
     data() {
@@ -55,10 +57,10 @@
               width: '100'
             }
           ],
-          operatingList: [
+          oFun: [
             {
               icon: 'edit',
-              event: 'edit'
+              event: 'editOpenDialogFun'
             },
             {
               icon: 'delete',
@@ -77,13 +79,23 @@
               tit: '区域名称'
             }
           ],
-          fun: 'submitFirstFun'
+          oFun: [
+            {
+              name: '新增',
+              event: 'editOpenDialogFun'
+            },
+            {
+              name: '查询',
+              event: 'edit'
+            }
+          ]
         }
       }
     },
     components: {
       filterForm,
-      complexTable
+      complexTable,
+      addArea
     },
     computed: {
     },
@@ -108,8 +120,8 @@
         this.tableObjectFirst.pageNo = val
         this.queryInfoList()
       },
-      submitFirstFun() {
-        console.log(123)
+      editOpenDialogFun(val) {
+        this.$refs.openAreaDialog.openDiag(val)
       }
     }
   }

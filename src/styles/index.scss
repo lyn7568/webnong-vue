@@ -98,3 +98,20 @@ a:hover {
   position: relative;
   padding:40px;
 }
+
+
+.el-dropdown-menu{
+  background:rgba(0,0,0,.5);
+  border-color: $--color-sub;
+  .el-dropdown-menu__item{
+    color: #fff;
+    line-height: 1rem;
+    font-size: .45rem;
+  }
+}
+.el-popper[x-placement^="bottom"] .popper__arrow{
+  border-color: $--color-sub;
+  &::after{
+    border-color: $--color-sub;
+  }
+}
