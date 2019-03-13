@@ -13,7 +13,15 @@
         <div class="n_newGroup">
           <el-form :model="formObject.model" :ref="formObject.model" class="formClass">
             <el-form-item v-for="item in formObject.arr" :key="item.index" :label="item.tit + ' :'">
-              <el-input v-if="!item.list" v-model="formObject.model[item.prop]"></el-input>
+              <el-select v-if="item.select && !item.list" v-model="formObject.model[item.prop]" :placeholder="item.tit">
+                <el-option
+                  v-for="item in [{value: '1',label: '单点'},{value: '2',label: '行程'}]"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value">
+                </el-option>
+              </el-select>
+              <el-input v-if="!item.select &&!item.list" v-model="formObject.model[item.prop]" :placeholder="item.tit"></el-input>
               <el-row v-if="item.list" class="list-shebei">
                 <el-col></el-col>
               </el-row>
@@ -55,16 +63,17 @@ export default {
         },
         arr: [
           {
-            prop: 'Logs_Date',
+            prop: 'Logs_Date3',
             tit: '设备编组'
           },
           {
             prop: 'Logs_Date',
-            tit: '编组类型'
+            tit: '编组类型',
+            select: true
           },
           {
-            prop: 'Logs_Date',
-            tit: '备注'
+            prop: 'Logs_Date2',
+            tit: '详情备注'
           },
           {
             prop: 'Control_Type',

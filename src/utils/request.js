@@ -17,6 +17,11 @@ service.interceptors.request.use(config => {
     // 处理后后台无需添加RequestBody
     config.headers['Content-Type'] = 'application/x-www-form-urlencoded'
   }
+  // Do something before request is sent
+  if (store.getters.token) {
+    // 让每个请求携带token
+    config.headers.Authorization = `token ${store.state.token}`;
+  }
   return config
 }, error => {
   Promise.reject(error)
@@ -34,17 +39,15 @@ service.interceptors.response.use(response => {
     if (!(taR instanceof Object)) { // 判断taR不是Object时，解析成Object
       taR = JSON.parse(taR)
     }
-    // if (taR.code === 200) {
-      return taR
-    // }
-    //  else if (taR.meta.state === '100100') {
-    //   Message.error(taR.meta.msg)
+    if (!taR.success) {
+      Message.error(taR.msg)
+    }
+    // if (!taR.success && taR.code === 1) {
     //   store.dispatch('FedLogOut').then(() => {
     //     router.replace({ path: '/login' })
     //   })
-    // } else {
-    //   Message.error(taR.data)
     // }
+    return taR
   } else {
     return Promise.resolve(response)
   }

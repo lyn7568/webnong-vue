@@ -53,8 +53,7 @@ export default {
     return {
       loginForm: {
         username: 'admin',
-        password: '123456',
-        role: 2
+        password: '123456'
       },
       loginRules: {
         // , validator: checkPhoneV
@@ -73,12 +72,11 @@ export default {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
           that.loading = true
-          that.$router.replace({ path: '/' })
-          // that.$store.dispatch('Login', that.loginForm).then(() => {
-          //   that.$router.replace({ path: '/' })
-          // }).catch((error) => {
-          //   that.$error(error.response.data)
-          // })
+          that.$store.dispatch('Login', that.loginForm).then(() => {
+            that.$router.replace({ path: '/' })
+          }).catch((error) => {
+            that.$error(error.response.data)
+          })
           setTimeout(() => {
             that.loading = false
           }, 3000);

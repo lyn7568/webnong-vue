@@ -1,33 +1,33 @@
 <template>
   <div>
     <div class="article-left">
-      <div class="ntt-datas">
-        <div class="ntt-datamodel">
+      <div class="n-datas">
+        <div class="n-datamodel">
           <ul>
             <li>
-              <div class="ntt-dataimg img4"></div>
-              <div class="ntt-datanum">
+              <div class="n-dataimg img4"></div>
+              <div class="n-datanum">
                 触发警报
                 <span class="ng-binding">0</span>
               </div>
             </li>
             <li>
-              <div class="ntt-dataimg img1"></div>
-              <div class="ntt-datanum">
+              <div class="n-dataimg img1"></div>
+              <div class="n-datanum">
                 控制设备
                 <span class="ng-binding">156</span>
               </div>
             </li>
             <li>
-              <div class="ntt-dataimg img2"></div>
-              <div class="ntt-datanum">
+              <div class="n-dataimg img2"></div>
+              <div class="n-datanum">
                 传感器数
                 <span class="ng-binding">92</span>
               </div>
             </li>
             <li>
-              <div class="ntt-dataimg img3"></div>
-              <div class="ntt-datanum">
+              <div class="n-dataimg img3"></div>
+              <div class="n-datanum">
                 在线数量
                 <span class="ng-binding">223</span>
               </div>
@@ -35,6 +35,19 @@
           </ul>
         </div>
       </div>
+    </div>
+    <div class="swiper-carousel">
+      <el-carousel indicator-position="outside">
+        <el-carousel-item>
+          <img src="/src/assets/home_bg.jpg" width="100%" alt="">
+        </el-carousel-item>
+        <el-carousel-item>
+          <img src="/src/assets/page_bg.jpg" width="100%" alt="">
+        </el-carousel-item>
+        <el-carousel-item>
+          <img src="/src/assets/logo_bg.jpg" width="100%" alt="">
+        </el-carousel-item>
+      </el-carousel>
     </div>
   </div>
 </template>
@@ -52,14 +65,14 @@ export default {
 <style rel="stylesheet/scss" lang="scss">
 .article-left {
   position: fixed;
-  .ntt-datas {
+  .n-datas {
     margin-top: 0.875rem;
     width: 3.3rem;
     height: 14.05rem;
     border-radius: 0.125rem;
     margin-left: 0.9rem;
     border: 1px solid $--color-primary;
-    .ntt-datamodel {
+    .n-datamodel {
       width: 2.95rem;
       height: 13.675rem;
       border-radius: 0.125rem;
@@ -74,7 +87,7 @@ export default {
           &:first-child {
             margin-top: 0;
           }
-          .ntt-dataimg {
+          .n-dataimg {
             margin: 0 auto;
             width: 1.5rem;
             height: 1.5rem;
@@ -92,7 +105,7 @@ export default {
               background-image: url("/src/assets/data-1.png");
             }
           }
-          .ntt-datanum {
+          .n-datanum {
             margin: 0.55rem auto 0;
             width: 2.55rem;
             height: 0.95rem;
@@ -116,8 +129,40 @@ export default {
     }
   }
 }
-.ntt_sidebar{
-  width: 29.27%;
-  height: 100%;
+
+.swiper-carousel{
+  position: fixed;
+  overflow: hidden;
+  width: 12rem;
+  height: 9rem;
+  right: 0.5rem;
+  top: 0.5rem;
+  box-sizing: border-box;
+  .el-carousel {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    box-sizing: border-box;
+    .el-carousel__container{
+      width: 100%;
+      height: 90%;
+      .el-carousel__item {
+        border: 1px solid $--color-primary;
+        padding: 0.25rem;
+      }
+    }
+    .el-carousel__indicator{
+      height: 10%;
+      .el-carousel__button{
+        width: 0.5rem;
+        height: 0.5rem;
+        border-radius: 50%;
+        background: $--color-primary;
+      }
+    }
+  }
+  
 }
+
+
 </style>

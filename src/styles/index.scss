@@ -88,6 +88,9 @@ a:hover {
 .float-l{
   float: left;
 }
+.float-r{
+  float: right;
+}
 
 .app-main {
   /*50 = navbar  */
@@ -96,7 +99,7 @@ a:hover {
 }
 .app-container {
   position: relative;
-  padding:40px;
+  padding: 10px 40px 0;
 }
 
 .el-button{
@@ -114,9 +117,21 @@ a:hover {
     font-size: .45rem;
   }
 }
-.el-popper[x-placement^="bottom"] .popper__arrow{
-  border-color: $--color-primary;
-  &::after{
-    border-color: $--color-primary;
-  }
-}
+// .el-select-dropdown{
+//   background:rgba(0,0,0,.5);
+//   border-color: $--color-primary;
+//   .el-select-dropdown__item{
+//     color: #fff;
+//     line-height: 1rem;
+//     font-size: .45rem;
+//     &.hover, &:hover {
+//       background:rgba(0,0,0,.8);
+//     }
+//   }
+// }
+// .el-popper[x-placement^="bottom"] .popper__arrow{
+//   border-color: $--color-primary;
+//   &::after{
+//     border-color: $--color-primary;
+//   }
+// }

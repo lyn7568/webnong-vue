@@ -1,7 +1,7 @@
 <template>
   <div class="ntt_logo">
     <div class="logo" @click="logoClk">
-      <img src="/src/assets/logo_bg.png" width="100%">
+      <img src="/src/assets/logo_bg.png" width="80%">
       <div class="ntt_arrow animate" :class="{animate:isPopup0}"></div>
     </div>
     <sidebar class="sidebar-container"></sidebar>

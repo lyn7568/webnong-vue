@@ -54,7 +54,7 @@
             {
               operate: true,
               tit: '操作',
-              width: '100'
+              width: '200'
             }
           ],
           oFun: [

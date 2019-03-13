@@ -10,7 +10,7 @@
       <div class="n-dataList">
         <div class="data-btn" :class="{'current-data':item.flag}" v-for="item in videoList" :key="item.index">{{item.type}}</div>
       </div>
-      <div class="n-dataCount">
+      <div class="n-dataCount" :style="'height:' + bodyH + 'px'">
         <el-row>
           <el-col :span="8" class="colLi">
             <div class="dataArea">
@@ -48,11 +48,21 @@ export default {
           name: '按采集数据显示'
         }
       ],
-      videoList: []
+      videoList: [],
+      bodyH: 280
     };
   },
   created() {
     this.queryInfoList();
+  },
+  mounted() {
+    var that = this;
+    setTimeout(() => {
+      that.bodyH = window.innerHeight - 420;
+    }, 100);
+    window.addEventListener("resize", () => {
+      that.bodyH = window.innerHeight - 420;
+    });
   },
   methods: {
     queryInfoList() {

@@ -1,16 +1,26 @@
 <template>
   <div class="app-container">
     <div class="form-filter">
-      <el-date-picker
-        v-model="dateRangerVal"
-        type="daterange"
-        align="right"
-        unlink-panels
-        range-separator="至"
-        start-placeholder="开始日期"
-        end-placeholder="结束日期"
-        :picker-options="pickerOptions">
-      </el-date-picker>
+      <div class="chart-filter formClass">
+        <el-dropdown trigger="click" class="float-l">
+          <el-button type="primary">
+            展示区<i class="el-icon-arrow-down el-icon--right"></i>
+          </el-button>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item v-for="item in videoList" :key="item.index">{{item.type}}</el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
+        <el-date-picker class="float-r"
+          v-model="dateRangerVal"
+          type="daterange"
+          align="right"
+          unlink-panels
+          range-separator="至"
+          start-placeholder="开始日期"
+          end-placeholder="结束日期"
+          :picker-options="pickerOptions">
+        </el-date-picker>
+      </div>
     </div>
     <div class="list-tabs-show chart-tabs-show">
       <el-tabs v-model="activeName" type="card">
@@ -95,7 +105,8 @@
             tit: '室外气压'
           }
         ],
-        chartData: {}
+        chartData: {},
+        videoList: []
       }
     },
     components: {
@@ -105,6 +116,7 @@
     },
     created() {
       this.queryInfoList()
+      this.queryList()
     },
     methods: {
       queryInfoList() {
@@ -124,15 +136,25 @@
               allData.tit = reg.exec($data[i].ID_Item)[0]
               allData.unit = $data[i].ID_Item.replace(reg, '')
             }
-            if ($data[i].ID_Time) {
-              $data[i].ID_Time = dateFormat($data[i].ID_Time, 'yyyy-MM-dd hh:mm')
-            }
+            // if ($data[i].ID_Time) {
+            //   $data[i].ID_Time = dateFormat($data[i].ID_Time, 'yyyy-MM-dd hh:mm')
+            // }
             allData.xData.push($data[i].ID_Time)
             allData.zData.push($data[i].ID_Value)
           }
-          console.log(allData)
           that.chartData = allData
         })
+      },
+      queryList() {
+        var that = this;
+        this.$http.get(
+          "/static/json/video.txt?t=" + new Date().getTime(),
+          {},
+          function(res) {
+            var $data = res.rows;
+            that.videoList = $data;
+          }
+        );
       }
     }
   }

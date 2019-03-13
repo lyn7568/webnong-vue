@@ -4,16 +4,16 @@ import { trim } from '@/utils'
 const user = {
   state: {
     userid: sessionStorage.getItem('UID') || '',
-    name: sessionStorage.getItem('UNAME') || ''
+    token: sessionStorage.getItem('TOKEN') || '',
   },
   mutations: {
     SET_USERID: (state, userid) => {
       state.userid = userid
       sessionStorage.setItem('UID', userid)
     },
-    SET_NAME: (state, name) => {
-      state.name = name
-      sessionStorage.setItem('UNAME', name)
+    SET_TOKEN: (state, token) => {
+      state.token = token
+      sessionStorage.setItem('TOKEN', token)
     }
   },
   actions: {
@@ -21,15 +21,13 @@ const user = {
     Login({ commit }, userInfo) {
       const mobile = trim(userInfo.username)
       const password = userInfo.password
-      const role = userInfo.role
       return new Promise((resolve, reject) => {
-        request.post('/sm/login.do', { mobile, password, role }, function(response) {
-          if (response.meta.state === '000000') {
-            if (response.data) {
-              const dataS = response.data
-              commit('SET_NAME', dataS.name)
-              commit('SET_USERID', dataS.id)
-            }
+        request.get('/static/json/login.txt?t='+new Date().getTime(), { mobile, password }, function(response) {
+          console.log(response)
+          if (response.data) {
+            const dataS = response.data
+            commit('SET_USERID', dataS.UserID)
+            commit('SET_TOKEN', dataS.token)
           }
           resolve(response)
         }, function(error) {
@@ -43,8 +41,8 @@ const user = {
       return new Promise((resolve, reject) => {
         request.post('/sm/logout.do', { }, function(response) {
           if (response.meta.state === '000000') {
-            commit('SET_NAME', '')
             commit('SET_USERID', '')
+            commit('SET_TOKEN', '')
           }
           resolve(response)
         }, function(error) {
@@ -56,8 +54,8 @@ const user = {
     // 前端 登出
     FedLogOut({ commit }) {
       return new Promise(resolve => {
-        commit('SET_NAME', '')
         commit('SET_USERID', '')
+        commit('SET_TOKEN', '')
         resolve()
       })
     }

@@ -27,7 +27,7 @@
       return {
         activeName: '1',
         tableObjectFirst: {
-          el: 'tableFirst',
+          el: 'tableLogFirst',
           data: [],
           pageNo: 1,
           total: 0,
@@ -56,7 +56,7 @@
           ]
         },
         tableObjectTwo: {
-          el: 'tableTwo',
+          el: 'tableLogTwo',
           data: [],
           pageNo: 1,
           total: 0,

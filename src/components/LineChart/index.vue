@@ -100,11 +100,11 @@ export default {
           boundaryGap: false,
           data: datastr.xData,
           axisLabel: {
-            interval: 1,
+            // interval: 1,
             rotate: -30,
             // formatter: function(value, index) {
             //   if (value) {
-            //     return dateFormat(value, 'yyyy-MM-dd hh:mm')
+            //     return value
             //   }
             // }
           },
@@ -146,9 +146,9 @@ export default {
             type: 'line',
             // name:  + '(' + datastr.unit + ')',
             data: datastr.zData,
-            axisLabel: {
-              formatter: datastr.tit + ':{value}' + datastr.unit
-            }
+            // axisLabel: {
+            //   formatter: datastr.tit + ':{value}' + datastr.unit
+            // }
           }
         ]
       })

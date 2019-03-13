@@ -25,7 +25,7 @@
       return {
         activeName: '1',
         tableObjectFirst: {
-          el: 'tableFirst',
+          el: 'tableDevice',
           data: [],
           pageNo: 1,
           total: 0,

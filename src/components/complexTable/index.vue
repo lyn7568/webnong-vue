@@ -2,7 +2,6 @@
   <div class="tableClass">
     <el-table
       border
-      :ref="tableObject.el"
       :data="tableObject.data"
       :height="tableHeight"
       :row-class-name="tableRowClassName"
@@ -58,7 +57,7 @@
 
 <script>
 export default {
-  name: "complexTable",
+  name: 'complexTable',
   props: {
     tableObject: {
       type: Object
@@ -78,16 +77,11 @@ export default {
   mounted() {
     var that = this;
     setTimeout(() => {
-      that.tableHeight =
-        window.innerHeight -
-        that.$refs[that.tableObject.el].$el.offsetTop -
-        that.spareDistance;
+      that.tableHeight = window.innerHeight - that.spareDistance;
     }, 100);
-    window.addEventListener("resize", () => {
-      that.tableHeight =
-        window.innerHeight -
-        that.$refs[that.tableObject.el].$el.offsetTop -
-        that.spareDistance;
+    window.addEventListener('resize', () => {
+      that.tableHeight = window.innerHeight - that.spareDistance;
+      // that.$refs[el].$el.offsetTop
     });
   },
   methods: {
@@ -97,17 +91,17 @@ export default {
     handleCurrentChange(val) {
       this.$refs.tableEle.bodyWrapper.scrollTop = 0;
       this.pageNo = val;
-      this.$emit("pageCurFun", val);
+      this.$emit('pageCurFun', val);
     },
     tableRowClassName({ row, rowIndex }) {
       if (rowIndex % 2) {
-        return "even-row";
+        return 'even-row';
       } else {
-        return "odd-row";
+        return 'odd-row';
       }
     },
     tableThClassName({ row, rowIndex }) {
-      return "even-row";
+      return 'even-row';
     }
   }
 };
