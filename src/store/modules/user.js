@@ -1,4 +1,4 @@
-import request from '@/utils/request'
+import axios from 'axios'
 import { trim } from '@/utils'
 
 const user = {
@@ -22,15 +22,15 @@ const user = {
       const mobile = trim(userInfo.username)
       const password = userInfo.password
       return new Promise((resolve, reject) => {
-        request.get('/static/json/login.txt?t='+new Date().getTime(), { mobile, password }, function(response) {
+        axios.get('/static/json/login.txt?t='+new Date().getTime(), { mobile, password }).then(response => {
           console.log(response)
           if (response.data) {
-            const dataS = response.data
+            const dataS = response
             commit('SET_USERID', dataS.UserID)
             commit('SET_TOKEN', dataS.token)
           }
           resolve(response)
-        }, function(error) {
+        }).catch(error => {
           reject(error)
         })
       })
@@ -39,13 +39,13 @@ const user = {
     // 登出
     LogOut({ commit, state }) {
       return new Promise((resolve, reject) => {
-        request.post('/sm/logout.do', { }, function(response) {
+        axios.post('/sm/logout.do', { }).then(response => {
           if (response.meta.state === '000000') {
             commit('SET_USERID', '')
             commit('SET_TOKEN', '')
           }
           resolve(response)
-        }, function(error) {
+        }).catch(error => {
           reject(error)
         })
       })

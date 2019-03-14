@@ -28,7 +28,7 @@ export default {
 
 <style lang="scss">
   .ntt_navbox {
-    width: 28rem;
+    width: 26rem;
     height: 1.35rem;
     position: absolute;
     left: 3.1rem;
