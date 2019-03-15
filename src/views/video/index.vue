@@ -77,14 +77,14 @@ export default {
   methods: {
     queryInfoList() {
       var that = this;
-      this.$http.get(
-        "/static/json/video.txt?t=" + new Date().getTime(),
-        {},
-        function(res) {
-          var $data = res.rows;
-          that.videoList = $data;
-        }
-      );
+      // this.$http.get(
+      //   "/static/json/video.txt?t=" + new Date().getTime(),
+      //   {},
+      //   function(res) {
+      //     var $data = res.rows;
+      //     that.videoList = $data;
+      //   }
+      // );
     },
     handelTapBtn(val) {
       this.btnActive = val

@@ -1,14 +1,6 @@
 /**
- * Created by luyanan on 18/12/14.
+ * Created by luyanan on 19/3/10.
  */
-/**
- * 解析url参数
- * @example ?id=12345&a=b
- * @return Object {id:12345,a:b}
- */
-export function urlParse(name) {
-  return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.href) || ['', ''])[1].replace(/\+/g, '%20')) || null
-}
 
 /**
  * 去除str前后空格

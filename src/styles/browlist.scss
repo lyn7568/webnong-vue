@@ -341,7 +341,6 @@
           left: 0;
           height: 1.03rem;
           z-index: 2;
-          // width: 2.3rem;
           padding: 1px 0.2rem 0;
           text-align: left;
         }
@@ -357,7 +356,76 @@
           text-align:center;
         }
         .list-shebei{
+          padding: 1.2rem 0.25rem 0.25rem;
           height: 6rem;
+          .el-col{
+            font-size: 0.4rem;
+            display: inline-block;
+            margin-bottom: 0.2rem;
+            margin-right: 0.2rem;
+            border:1px solid $--color-sub;
+            width: auto;
+            padding: 0 0.25rem;
+            border-radius: 0.15rem;
+          }
+        }
+      }
+    }
+  }
+  .n_dapeng_switch{
+    overflow: hidden;
+    padding: 0.4rem 0.4rem 0;
+    margin-bottom: -2rem;
+    .n_left{
+      float: left;
+      .n_light_color{
+        float: left;
+        margin-right: 0.25rem;
+        position: relative;
+        padding-left: 0.7rem;
+        color: #fff;
+        &::before{
+          position: absolute;
+          left: 0;
+          content: '';
+          display: inline-block;
+          width: .6rem;
+          height: .6rem;
+          border-radius: 50%;
+          margin-right: 2px;
+        }
+        &.normal_color{
+          &::before {
+            background: #19b957;
+          }
+        }
+        &.run_color{
+          &::before {
+            background: #2a97fe;
+          }
+        }
+        &.close_color{
+          &::before {
+            background: #e06363;
+          }
+        }
+        &.danger_color{
+          &::before {
+            background: #999;
+          }
+        }
+      }
+    }
+    .n_right{
+      float: right;
+      color: $--color-primary;
+      .el-switch{
+        margin-left:0.4rem;
+        .el-switch__label{
+          color: #fff;
+          &.is-active {
+            color: $--color-primary;
+          }
         }
       }
     }
@@ -368,13 +436,31 @@
     box-sizing: border-box;
     padding: 0 5rem 0 11rem;
     &.n_dapeng_status_contol{
-      padding: 0 5rem 0 5rem;
+      height: 18rem;
+      padding: 0 5rem 0 4.5rem;
+      .n_dapeng_statusbox{
+        padding-top: 2.8rem;
+      }
     }
     .n_dapeng_statusbox{
       height: 100%;
       background-color: rgba(0,0,0,.5);
       border-radius: .125rem;
-      padding: 3rem .375rem .5rem .75rem;
+      padding: 1rem;
+      overflow: hidden;
+      .n_left{
+        float: left;
+        width: 20%;
+        height: 100%;
+        border-right: 1px solid $--color-primary;
+      }
+      .n_right{
+        float: left;
+        width: 80%;
+        padding-left: .725rem;
+        max-height: 14.5rem;
+        overflow-y: auto;
+      }
     }
   }
   .n_plan{
@@ -387,9 +473,10 @@
     width: 4.25rem;
     &.n_right_plan{
       position: static;
+      width: 3.6rem;
       margin-top: 0.25rem;
-      .n_jiaoshui {
-        height: 9rem;
+      .n_planbox .n_jiaoshui {
+        height: 13.8rem;
         padding: 0;
       }
     }
@@ -406,7 +493,6 @@
         height: 15rem;
         border: 1px solid $--color-primary;
         border-radius: .125rem;
-        // padding: 1.1rem 0;
         position: relative;
         box-sizing: border-box;
       }
@@ -415,6 +501,95 @@
         background: url('/src/assets/no-group.png') 0 0 no-repeat;
         background-size: 100%;
       }
+    }
+  }
+}
+
+// n_status_normal
+.n_status_icon{
+  line-height: 1.05rem;
+  border-radius: .125rem;
+  width: 3.725rem;
+  margin-right: 0.8rem;
+  margin-bottom: 0.8rem;
+  position: relative;
+  height: 1.05rem;
+  cursor: pointer;
+  padding-left: 1.125rem;
+  border: 1px solid $--color-sub;
+  color: #fff;
+  background-color: rgba(0,0,0,.5);
+  &:hover {
+    background-color: rgba(255,255,255,.6);
+    color: #000;
+  }
+  i {
+    width: 1rem;
+    height: 1.05rem;
+    top: -1px;
+    left: -1px;
+    float: left;
+    border-radius: .125rem;
+    position: absolute;
+    background-position: center;
+    background-repeat: no-repeat;
+    &.icon-gufengji{
+      background-image: url('/src/assets/paifengshan-icon.png');
+      background-size: 70%;
+    }
+    &.icon-shuibeng{
+      background-image: url('/src/assets/shuibeng-icon.png');
+      background-size: 90%;
+    }
+    &.icon-neizheyang{
+      background-image: url('/src/assets/neizheyang-icon.png');
+      background-size: 70%;
+    }
+    &.icon-tianchuang{
+      background-image: url('/src/assets/tianchuang-icon.png');
+      background-size: 70%;
+    }
+    &.icon-waizheyang{
+      background-image: url('/src/assets/waizheyang-icon.png');
+      background-size: 70%;
+    }
+    &.icon-waizheyang{
+      background-image: url('/src/assets/waizheyang-icon.png');
+      background-size: 70%;
+    }
+    &.icon-ylql{
+      background-image: url('/src/assets/ylql-icon.png');
+      background-size: 90%;
+    }
+    &.icon-yckz{
+      background-image: url('/src/assets/yckz-icon.png');
+      background-size: 80%;
+    }
+  }
+  p {
+    max-width: 2.675rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  &.n_status_normal{
+    i {
+      background-color: #19b957;
+    }
+  }
+  &.n_status_run{
+    i {
+      background-color: #2a97fe;
+    }
+  }
+  &.n_status_danger{
+    i {
+      background-color: #e06363;
+    }
+  }
+  &.n_status_close{
+    i {
+      background-color: #999;
     }
   }
 }

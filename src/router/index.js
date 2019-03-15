@@ -7,7 +7,7 @@ Vue.use(Router)
 import Layout from '../views/layout/Layout'
 
 export const constantRouterMap = [
-  { path: '/login', component: resolve => require(['@/views/login/index'], resolve), hidden: true },
+  { path: '/login', name: 'login', component: resolve => require(['@/views/login/index'], resolve), hidden: true },
   {
     path: '/',
     redirect: '/home',

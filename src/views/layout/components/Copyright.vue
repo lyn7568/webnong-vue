@@ -1,6 +1,5 @@
  <template>
-  <div class="n_bottom first_bottom" >
-    <!-- :class="{first_bottom: selectedMeun == 'home',otherpage_bottom: selectedMeun != 'home'}" -->
+  <div class="n_bottom">
     <div class="n_copyrightbtn" @click="copyMove"></div>
     <div class="n_copyright" :class="isPopup?'moveRight':'moveLeft'">
       <div class="n_icon">
@@ -33,7 +32,7 @@ export default {
     position: absolute;
     bottom: .25rem;
     left: 0;
-    width: 11.35rem;
+    width: 100%;
     height: 1.35rem;
     .n_copyrightbtn {
       position: absolute;

@@ -1,6 +1,6 @@
 <template>
-  <el-form :inline="true" :model="formObject.model" :ref="formObject.model" class="formClass">
-    <el-form-item v-for="item in formObject.arr" :key="item.index" :label="item.tit + ' :'">
+  <el-form :inline="true" :model="formObject.model" :ref="formObject.ref || ''" :rules="formObject.rules || {}" class="formClass">
+    <el-form-item v-for="item in formObject.arr" :key="item.index" :label="item.tit + ' :'" :prop="item.prop || ''">
       <el-date-picker v-if="item.date" v-model="formObject.model[item.prop]" type="date"></el-date-picker>
       <el-input v-else v-model="formObject.model[item.prop]"></el-input>
     </el-form-item>

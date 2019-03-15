@@ -7,10 +7,10 @@
     <div class="list-tabs-show">
       <el-tabs v-model="activeName" type="card">
         <el-tab-pane label="设备控制日志列表" name="1">
-          <complex-table :tableObject="tableObjectFirst" @pageCurFun="currentPageChangeFirst"></complex-table>
+          <complex-table ref="tableChildObj" :tableObject="tableObjectFirst" @pageCurFun="currentPageChangeFirst"></complex-table>
         </el-tab-pane>
         <el-tab-pane label="预警日志列表" name="2">
-          <complex-table :tableObject="tableObjectTwo" @pageCurFun="currentPageChangeTwo"></complex-table>
+          <complex-table ref="tableChildObj2" :tableObject="tableObjectTwo" @pageCurFun="currentPageChangeTwo"></complex-table>
         </el-tab-pane>
       </el-tabs>
     </div>
@@ -81,6 +81,7 @@
           ]
         },
         formObjectFirst: {
+          ref: 'first',
           model: {
             Logs_Date: '',
             Control_Type: '',
@@ -114,6 +115,7 @@
           ]
         },
         formObjectTwo: {
+          ref: 'two',
           model: {
             Logs_Date: '',
             Control_Type: '',
@@ -156,16 +158,17 @@
     methods: {
       queryInfoList() {
         var that = this
-        this.$http.get('/static/json/contol.txt?t='+new Date().getTime(), {
-        }, function(res) {
-          for(let i = 0; i < res.rows.length; ++i) {
-            if (res.rows[i].Logs_Date) {
-              res.rows[i].Logs_Date = dateFormat(res.rows[i].Logs_Date)
-            }
-          }
-          that.tableObjectFirst.data = res.rows
-          that.tableObjectFirst.total = res.total
-        })
+        // this.$http.get('/static/json/contol.txt?t='+new Date().getTime(), {
+        // }, function(res) {
+        //   that.$refs.tableChildObj.tableLoading = false
+        //   for(let i = 0; i < res.rows.length; ++i) {
+        //     if (res.rows[i].Logs_Date) {
+        //       res.rows[i].Logs_Date = dateFormat(res.rows[i].Logs_Date)
+        //     }
+        //   }
+        //   that.tableObjectFirst.data = res.rows
+        //   that.tableObjectFirst.total = res.total
+        // })
       },
       currentPageChangeFirst(val) {
         this.tableObjectFirst.pageNo = val

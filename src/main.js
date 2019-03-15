@@ -4,14 +4,14 @@ import Vue from 'vue'
 import '../theme/index.css'
 import ElementUI from 'element-ui'
 
-import '@/styles/index.scss' // global css
+import '@/styles/index.scss'
 
 import App from './App'
 import router from './router'
 import store from './store'
 
-import '@/icons' // icon
-import '@/permission' // permission control
+import '@/icons'
+import '@/permission'
 
 import request from './utils/request'
 Vue.prototype.$http = request

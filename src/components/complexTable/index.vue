@@ -6,6 +6,7 @@
       :height="tableHeight"
       :row-class-name="tableRowClassName"
       :header-row-class-name="tableThClassName"
+      v-loading="tableLoading"
     >
       <el-table-column
         v-for="item in tableObject.arr"
@@ -19,12 +20,6 @@
         <template slot-scope="scope">
           <div v-if="scope.row[item.prop]">{{scope.row[item.prop]}}</div>
           <div v-if="item.operate && typeof scope.row === 'object'">
-            <!-- <el-button circle
-              v-for="operating in tableObject.operatingList"
-              :key="operating.index"
-              :icon="'el-icon-'+operating.icon"
-              @click="$emit(operating.event, scope.row)"
-            >-->
             <el-button
               type="text"
               v-for="operate in tableObject.oFun"
@@ -44,9 +39,9 @@
         background
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
-        :current-page.sync="pageNo"
-        :page-sizes="[100, 200, 300, 400]"
-        :page-size="pageSize"
+        :current-page.sync="tableObject.pageNo"
+        :page-sizes="[10, 20, 30, 40, 50]"
+        :page-size="tableObject.pageSize"
         layout="total, sizes, prev, pager, next, jumper"
         :total="tableObject.total"
       ></el-pagination>
@@ -69,8 +64,7 @@ export default {
   },
   data() {
     return {
-      pageNo: 1,
-      pageSize: 10,
+      tableLoading: false,
       tableHeight: 420
     };
   },
@@ -86,11 +80,12 @@ export default {
   },
   methods: {
     handleSizeChange(val) {
-      this.pageSize = val;
+      this.tableLoading = true
+      this.$emit('pageSizeFun', val)
     },
     handleCurrentChange(val) {
+      this.tableLoading = true
       this.$refs.tableEle.bodyWrapper.scrollTop = 0;
-      this.pageNo = val;
       this.$emit('pageCurFun', val);
     },
     tableRowClassName({ row, rowIndex }) {

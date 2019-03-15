@@ -121,40 +121,40 @@
     methods: {
       queryInfoList() {
         var that = this
-        this.$http.get('/static/json/chart.txt?t='+new Date().getTime(), {
-        }, function(res) {
-          var $data = res.rows
-          var allData = {
-            tit: '温度',
-            unit: '℃',
-            xData: [],
-            zData: []
-          }
-          var reg = /^[\u4e00-\u9fa5]{2}/g
-          for (let i = 0; i < $data.length; ++i) {
-            if (i === 0) {
-              allData.tit = reg.exec($data[i].ID_Item)[0]
-              allData.unit = $data[i].ID_Item.replace(reg, '')
-            }
-            // if ($data[i].ID_Time) {
-            //   $data[i].ID_Time = dateFormat($data[i].ID_Time, 'yyyy-MM-dd hh:mm')
-            // }
-            allData.xData.push($data[i].ID_Time)
-            allData.zData.push($data[i].ID_Value)
-          }
-          that.chartData = allData
-        })
+        // this.$http.get('/static/json/chart.txt?t='+new Date().getTime(), {
+        // }, function(res) {
+        //   var $data = res.rows
+        //   var allData = {
+        //     tit: '温度',
+        //     unit: '℃',
+        //     xData: [],
+        //     zData: []
+        //   }
+        //   var reg = /^[\u4e00-\u9fa5]{2}/g
+        //   for (let i = 0; i < $data.length; ++i) {
+        //     if (i === 0) {
+        //       allData.tit = reg.exec($data[i].ID_Item)[0]
+        //       allData.unit = $data[i].ID_Item.replace(reg, '')
+        //     }
+        //     // if ($data[i].ID_Time) {
+        //     //   $data[i].ID_Time = dateFormat($data[i].ID_Time, 'yyyy-MM-dd hh:mm')
+        //     // }
+        //     allData.xData.push($data[i].ID_Time)
+        //     allData.zData.push($data[i].ID_Value)
+        //   }
+        //   that.chartData = allData
+        // })
       },
       queryList() {
         var that = this;
-        this.$http.get(
-          "/static/json/video.txt?t=" + new Date().getTime(),
-          {},
-          function(res) {
-            var $data = res.rows;
-            that.videoList = $data;
-          }
-        );
+        // this.$http.get(
+        //   "/static/json/video.txt?t=" + new Date().getTime(),
+        //   {},
+        //   function(res) {
+        //     var $data = res.rows;
+        //     that.videoList = $data;
+        //   }
+        // );
       }
     }
   }

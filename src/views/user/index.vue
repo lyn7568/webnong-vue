@@ -6,7 +6,11 @@
     <div class="list-tabs-show">
       <el-tabs v-model="activeName" type="card">
         <el-tab-pane label="用户列表明细" name="1">
-          <complex-table :tableObject="tableObjectFirst" @pageCurFun="currentPageChangeFirst" @editOpenDialogFun="editOpenDialogFun"></complex-table>
+          <complex-table ref="tableChildObj"
+            :tableObject="tableObjectFirst"
+            @pageCurFun="currentPageChangeFirst"
+            @pageSizeFun="pageSizeChangeFirst"
+            @editOpenDialogFun="editOpenDialogFun"></complex-table>
         </el-tab-pane>
       </el-tabs>
     </div>
@@ -32,24 +36,12 @@
           pageSize: 10,
           arr: [
             {
-              prop: 'LogsID',
+              prop: 'id',
               tit: '设备编码'
             },
             {
-              prop: 'Logs_Date',
+              prop: 'test',
               tit: '设备名称'
-            },
-            {
-              prop: 'Control_Type',
-              tit: '设备类型'
-            },
-            {
-              prop: 'Control_Way',
-              tit: '使用地方'
-            },
-            {
-              prop: 'Control_Way',
-              tit: '所属企业'
             },
             {
               operate: true,
@@ -73,6 +65,7 @@
           ]
         },
         formObjectFirst: {
+          ref: 'userForm',
           model: {
             Logs_Date: '',
             Control_Type: ''
@@ -113,16 +106,25 @@
     methods: {
       queryInfoList() {
         var that = this
-        this.$http.get('/static/json/contol.txt?t='+new Date().getTime(), {
+        this.$http.post('/test/getTestList', {
+          where: {'test': '1'},
+          curpage: that.pageNo,
+          pagesize: that.pageSize
         }, function(res) {
-          for(let i = 0; i < res.rows.length; ++i) {
-            if (res.rows[i].Logs_Date) {
-              res.rows[i].Logs_Date = dateFormat(res.rows[i].Logs_Date)
+          that.$refs.tableChildObj.tableLoading = false
+          const obj = res.data.rows
+          for(let i = 0; i < obj.length; ++i) {
+            if (obj[i].Logs_Date) {
+              obj[i].Logs_Date = dateFormat(obj[i].Logs_Date)
             }
           }
-          that.tableObjectFirst.data = res.rows
-          that.tableObjectFirst.total = res.total
+          that.tableObjectFirst.data = obj
+          that.tableObjectFirst.total = res.data.sumcount
         })
+      },
+      pageSizeChangeFirst(val) {
+        this.tableObjectFirst.pageSize = val
+        this.queryInfoList()
       },
       currentPageChangeFirst(val) {
         this.tableObjectFirst.pageNo = val

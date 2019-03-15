@@ -1,14 +1,14 @@
 <template>
   <el-dialog class="dialogClass" :title="dialogTit" :visible.sync="dialogFormVisible" :close-on-click-modal="false">
-    <el-form :model="formObject.model" :ref="formObject.model">
-      <el-form-item v-for="item in formObject.arr" :key="item.index" :label="item.tit + ' :'">
+    <el-form :model="formObject.model" :ref="formObject.ref" :rules="formObject.rules">
+      <el-form-item v-for="item in formObject.arr" :key="item.index" :label="item.tit + ' :'" :prop="item.prop">
         <el-input v-model="formObject.model[item.prop]"></el-input>
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
       <div class="form-tip">注：所有信息均为必填项</div>
       <el-button @click="dialogFormVisible = false">取 消</el-button>
-      <el-button type="primary" @click="dialogFormVisible = false">保 存</el-button>
+      <el-button type="primary" @click="saveSubmitInfo">保 存</el-button>
     </div>
   </el-dialog>
 </template>
@@ -17,33 +17,20 @@
 export default {
   data() {
     return {
-      deviceId: '',
+      objId: '',
       dialogFormVisible: false,
       formObject: {
+        ref: 'formName',
         model: {
-          Logs_Date: '',
-          Control_Type: ''
+          test: ''
+        },
+        rules: {
+          test: [{ required: true, message: '请输入设备名称', trigger: 'blur' }]
         },
         arr: [
           {
-            prop: 'Logs_Date',
+            prop: 'test',
             tit: '设备名称'
-          },
-          {
-            prop: 'Control_Type',
-            tit: '设备类型'
-          },
-          {
-            prop: 'Control_Type',
-            tit: '设备类型'
-          },
-          {
-            prop: 'Control_Type',
-            tit: '设备类型'
-          },
-          {
-            prop: 'Control_Type',
-            tit: '设备类型'
           }
         ]
       } 
@@ -57,14 +44,26 @@ export default {
   methods: {
     openDiag(val) {
       var that = this
-      console.log(val)
       if (val) {
-        this.demandId = val
+        this.objId = val.id
+        this.formObject.model = {
+          test: val.test
+        }
+      } else {
+        this.formObject.model = {
+          test: ''
+        }
       }
-      this.dialogFormVisible = true
       setTimeout(() => {
-        that.$refs[that.formObject.model].resetFields()
+        that.dialogFormVisible = true
       }, 1)
+    },
+    saveSubmitInfo() {
+      var that = this
+      this.$refs[that.formObject.ref].validate(valid => {
+        if (valid) {
+        }
+      })
     }
   }
 };

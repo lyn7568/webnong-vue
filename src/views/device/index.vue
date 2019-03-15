@@ -69,6 +69,7 @@
           ]
         },
         formObjectFirst: {
+          ref: 'first',
           model: {
             Logs_Date: '',
             Control_Type: ''
@@ -110,16 +111,16 @@
     methods: {
       queryInfoList() {
         var that = this
-        this.$http.get('/static/json/contol.txt?t='+new Date().getTime(), {
-        }, function(res) {
-          for(let i = 0; i < res.rows.length; ++i) {
-            if (res.rows[i].Logs_Date) {
-              res.rows[i].Logs_Date = dateFormat(res.rows[i].Logs_Date)
-            }
-          }
-          that.tableObjectFirst.data = res.rows
-          that.tableObjectFirst.total = res.total
-        })
+        // this.$http.get('/static/json/contol.txt?t='+new Date().getTime(), {
+        // }, function(res) {
+        //   for(let i = 0; i < res.rows.length; ++i) {
+        //     if (res.rows[i].Logs_Date) {
+        //       res.rows[i].Logs_Date = dateFormat(res.rows[i].Logs_Date)
+        //     }
+        //   }
+        //   that.tableObjectFirst.data = res.rows
+        //   that.tableObjectFirst.total = res.total
+        // })
       },
       currentPageChangeFirst(val) {
         this.tableObjectFirst.pageNo = val

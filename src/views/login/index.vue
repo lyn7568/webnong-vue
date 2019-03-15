@@ -31,7 +31,7 @@
             <span class="svg-container">
               <svg-icon icon-class="password"/>
             </span>
-            <el-input name="password" :type="pwdType" v-model="loginForm.password" auto-complete="on"
+            <el-input name="password" type="password" v-model="loginForm.password" auto-complete="on"
               placeholder="请输入您的登录密码" maxlength="24" @keyup.enter.native="handleLogin"></el-input>
           </el-form-item>
           <el-form-item class="log-box" align="right">
@@ -45,25 +45,22 @@
 </template>
 
 <script>
-import { requiredTip, checkPhoneV } from '@/utils/validator'
 
 export default {
   name: 'login',
   data() {
     return {
       loginForm: {
-        username: 'admin',
-        password: '123456'
+        username: '',
+        password: ''
       },
       loginRules: {
-        // , validator: checkPhoneV
         username: [{ required: true, trigger: 'blur' }],
         password: [
-          { required: true, message: requiredTip('您的登录密码'), trigger: 'blur' }
+          { required: true, message: '请输入您的账号', trigger: 'blur' }
         ]
       },
-      loading: false,
-      pwdType: 'password'
+      loading: false
     }
   },
   methods: {
@@ -74,8 +71,6 @@ export default {
           that.loading = true
           that.$store.dispatch('Login', that.loginForm).then(() => {
             that.$router.replace({ path: '/' })
-          }).catch((error) => {
-            that.$error(error.response.data)
           })
           setTimeout(() => {
             that.loading = false

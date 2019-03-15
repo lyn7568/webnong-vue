@@ -58,23 +58,23 @@ export default {
   mounted() {
     var that = this;
     setTimeout(() => {
-      that.bodyH = window.innerHeight - 420;
+      that.bodyH = window.innerHeight - 320;
     }, 100);
     window.addEventListener("resize", () => {
-      that.bodyH = window.innerHeight - 420;
+      that.bodyH = window.innerHeight - 320;
     });
   },
   methods: {
     queryInfoList() {
       var that = this;
-      this.$http.get(
-        "/static/json/video.txt?t=" + new Date().getTime(),
-        {},
-        function(res) {
-          var $data = res.rows;
-          that.videoList = $data;
-        }
-      );
+      // this.$http.get(
+      //   "/static/json/video.txt?t=" + new Date().getTime(),
+      //   {},
+      //   function(res) {
+      //     var $data = res.rows;
+      //     that.videoList = $data;
+      //   }
+      // );
     },
     clickShowBtn(val) {
       this.showActive = val

@@ -5,22 +5,23 @@ import store from '@/store'
 import { Message } from 'element-ui'
 
 const service = axios.create({
-  baseURL: process.env.BASE_API, // api的base_url
-  withCredentials: true // 表示跨域请求时是否需要使用凭证
+  baseURL: process.env.BASE_API,
+  withCredentials: true,
+  headers: {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json; charser=UTF-8'
+  }
 })
 
 // request拦截器
 service.interceptors.request.use(config => {
-  config.headers.Accept = 'application/json; charser=UTF-8'
-  if (config.method === 'post') {
-    config.data = qs.stringify(config.data, { arrayFormat: 'repeat' })
-    // 处理后后台无需添加RequestBody
-    config.headers['Content-Type'] = 'application/x-www-form-urlencoded'
-  }
-  // Do something before request is sent
+  config.data = qs.stringify(config.data, { indices: false })
+  // if (config.method === 'post') {
+  //   config.headers['Content-Type'] = 'application/x-www-form-urlencoded'
+  // }
+
   if (store.getters.token) {
-    // 让每个请求携带token
-    config.headers.Authorization = `token ${store.state.token}`;
+    config.headers.Authorization = `token ${store.getters.token}`
   }
   return config
 }, error => {
@@ -42,11 +43,11 @@ service.interceptors.response.use(response => {
     if (!taR.success) {
       Message.error(taR.msg)
     }
-    // if (!taR.success && taR.code === 1) {
-    //   store.dispatch('FedLogOut').then(() => {
-    //     router.replace({ path: '/login' })
-    //   })
-    // }
+    if (!taR.success && (taR.code === 103 || taR.code === 201 || taR.code === 205 || taR.code === 206 || taR.code === 207)) {
+      store.dispatch('FedLogOut').then(() => {
+        router.replace({ path: '/login' })
+      })
+    }
     return taR
   } else {
     return Promise.resolve(response)
@@ -70,17 +71,6 @@ var ret = {
   post: function(url, Da, sh, eh) {
     service({
       method: 'post',
-      url: url,
-      data: Da
-    }).then(res => {
-      sh(res)
-    }).catch(err => {
-      if (eh) eh(err)
-    })
-  },
-  put: function(url, Da, sh, eh) {
-    service({
-      method: 'put',
       url: url,
       data: Da
     }).then(res => {

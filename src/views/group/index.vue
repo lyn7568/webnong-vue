@@ -23,7 +23,8 @@
               </el-select>
               <el-input v-if="!item.select &&!item.list" v-model="formObject.model[item.prop]" :placeholder="item.tit"></el-input>
               <el-row v-if="item.list" class="list-shebei">
-                <el-col></el-col>
+                <el-col>3号点</el-col>
+                <el-col>1#风机</el-col>
               </el-row>
             </el-form-item>
             <el-form-item class="btn-form-item">
@@ -34,7 +35,20 @@
       </div>
       <div class="n_dapeng_status">
         <div class="n_dapeng_statusbox">
-          
+          <el-row>
+            <el-col class="n_status_icon n_status_normal">
+              <i class="icon-gufengji"></i><p>1#风机</p>
+            </el-col>
+            <el-col class="n_status_icon n_status_run">
+              <i class="icon-ylql"></i><p>1号点</p>
+            </el-col>
+            <el-col class="n_status_icon n_status_danger">
+              <i class="icon-ylql"></i><p>2号点</p>
+            </el-col>
+            <el-col class="n_status_icon n_status_close">
+              <i class="icon-ylql"></i><p>3号点</p>
+            </el-col>
+          </el-row>
         </div>
       </div>
       <div class="n_plan">
@@ -100,14 +114,14 @@ export default {
   methods: {
     queryInfoList() {
       var that = this;
-      this.$http.get(
-        "/static/json/video.txt?t=" + new Date().getTime(),
-        {},
-        function(res) {
-          var $data = res.rows;
-          that.videoList = $data;
-        }
-      );
+      // this.$http.get(
+      //   "/static/json/video.txt?t=" + new Date().getTime(),
+      //   {},
+      //   function(res) {
+      //     var $data = res.rows;
+      //     that.videoList = $data;
+      //   }
+      // );
     },
     handelTapBtn(val) {
       this.btnActive = val

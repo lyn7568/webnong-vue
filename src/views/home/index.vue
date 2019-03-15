@@ -124,6 +124,17 @@ export default {
               font-weight: bold;
             }
           }
+          &:hover{
+            .img3 {
+              background-image: url("/src/assets/data-33.gif");
+            }
+            .img2 {
+              background-image: url("/src/assets/data-22.gif");
+            }
+            .img1 {
+              background-image: url("/src/assets/data-11.gif");
+            }
+          }
         }
       }
     }
@@ -164,5 +175,12 @@ export default {
   
 }
 
-
+.fog__img--first {
+  -webkit-animation: marqueeOut 3s ease-in 1 forwards;
+  animation: marqueeOut 3s ease-in 1 forwards;
+}
+.fog__img--second {
+  -webkit-animation: marqueeOut2 3s ease-in 1 forwards;
+  animation: marqueeOut2 3s ease-in 1 forwards;
+}
 </style>

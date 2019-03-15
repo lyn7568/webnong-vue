@@ -20,7 +20,7 @@ function getSize(){
 
 	}else{
 
-	    oHtml.style.fontSize = screenWidth / 1920 * 40 + 'px';
+	    oHtml.style.fontSize = screenWidth / 1920 * 34 + 'px';
 
 	}	
 }

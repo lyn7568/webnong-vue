@@ -27,9 +27,12 @@
     },
     watch: {
       '$route'(to, from) {
+        console.log(to.name)
         if (to.name === 'login' || to.name === 'home') {
+          this.show = true
           this.$store.dispatch('ToggleBG', imgs)
         } else {
+          this.show = false
           this.$store.dispatch('ToggleBG', imgs2)
         }
       }
