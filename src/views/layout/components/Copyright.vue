@@ -3,9 +3,9 @@
     <div class="n_copyrightbtn" @click="copyMove"></div>
     <div class="n_copyright" :class="isPopup?'moveRight':'moveLeft'">
       <div class="n_icon">
-        <svg-icon icon-class="help" />
-        <svg-icon icon-class="reset_password" />
-        <svg-icon icon-class="close" />
+        <div class="n-i"><svg-icon icon-class="help" /></div>
+        <div class="n-i"><svg-icon icon-class="reset_password" /></div>
+        <div class="n-i" @click="logOut"><svg-icon icon-class="close" /></div>
       </div>
       <p>版权所有：上海田韵物联网科技有限公司</p>
     </div>
@@ -22,6 +22,16 @@ export default {
   methods: {
     copyMove() {
       this.isPopup = !this.isPopup
+    },
+    logOut() {
+      console.log(1111)
+      this.$confirm('您确认退出系统吗?', '温馨提示', {
+        type: 'warning'
+      }).then(() => {
+        this.$store.dispatch('LogOut', {}).then(() => {
+          location.reload()
+        })
+      }).catch(() => {})
     }
   }
 }
@@ -68,19 +78,21 @@ export default {
       .n_icon{
         float: left;
       }
-      .svg-icon{
+      .n-i{
         float: left;
-        margin-right: 0.25rem;
-        border: 1px solid $--color-primary;
-        border-radius: 50%;
-        color: $--color-primary;
-        padding: 0.025rem;
-        width: 0.5rem;
-        height: 0.5rem;
-        cursor: pointer;
-        &:hover{
-          background: $--color-primary;
-          color: #fff;
+        .svg-icon{
+          margin-right: 0.25rem;
+          border: 1px solid $--color-primary;
+          border-radius: 50%;
+          color: $--color-primary;
+          padding: 0.025rem;
+          width: 0.5rem;
+          height: 0.5rem;
+          cursor: pointer;
+          &:hover{
+            background: $--color-primary;
+            color: #fff;
+          }
         }
       }
       p {

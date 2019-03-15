@@ -1,11 +1,5 @@
-import axios from 'axios'
+import request from '@/utils/request'
 import { trim } from '@/utils'
-var HOST = process.env.BASE_API
-var config = {
-  headers: {
-      'Content-Type': 'application/x-www-form-urlencoded'
-  }
-}
 const user = {
   state: {
     userid: sessionStorage.getItem('UID') || '',
@@ -27,14 +21,14 @@ const user = {
       const username = trim(userInfo.username)
       const password = userInfo.password
       return new Promise((resolve, reject) => {
-        axios.post(HOST + '/login', { username, password }, config).then(response => {
+        request.post('/login', { username, password }, function(response) {
           if (response.success) {
             const dataS = response.data
             commit('SET_USERID', dataS.userId)
             commit('SET_TOKEN', dataS.jwtToken)
           }
           resolve(response)
-        }). catch(error => {
+        }, function(error){
           reject(error)
         })
       })
@@ -43,11 +37,11 @@ const user = {
     // 登出
     LogOut({ commit, state }) {
       return new Promise((resolve, reject) => {
-        axios.post(HOST + '/loginout', { }, config).then(response => {
+        request.post('/loginout', { }, function(response) {
           commit('SET_USERID', '')
           commit('SET_TOKEN', '')
           resolve(response)
-        }). catch(error => {
+        }, function(error){
           reject(error)
         })
       })

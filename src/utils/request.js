@@ -6,21 +6,21 @@ import { Message } from 'element-ui'
 
 const service = axios.create({
   baseURL: process.env.BASE_API,
-  withCredentials: true,
-  headers: {
-    'Content-Type': 'application/json',
-    'Accept': 'application/json; charser=UTF-8'
-  }
+  withCredentials: true
 })
 
 // request拦截器
 service.interceptors.request.use(config => {
-  config.data = qs.stringify(config.data, { indices: false })
-  // if (config.method === 'post') {
-  //   config.headers['Content-Type'] = 'application/x-www-form-urlencoded'
-  // }
-
+  if (config.method === 'post') {
+    config.data = qs.stringify(config.data)
+    config.headers['Content-Type'] = 'application/x-www-form-urlencoded; charser=UTF-8'
+  }
   if (store.getters.token) {
+    if (config.url.indexOf('loginout') > -1) {
+    } else {
+      config.data = qs.parse(config.data)
+      config.headers['Content-Type'] = 'application/json; charser=UTF-8'
+    }
     config.headers.Authorization = `token ${store.getters.token}`
   }
   return config
