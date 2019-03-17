@@ -42,7 +42,7 @@
           <img src="/src/assets/home_bg.jpg" width="100%" alt="">
         </el-carousel-item>
         <el-carousel-item>
-          <img src="/src/assets/page_bg.jpg" width="100%" alt="">
+          <div>{{weatherInfo}}</div>
         </el-carousel-item>
         <el-carousel-item>
           <img src="/src/assets/logo_bg.jpg" width="100%" alt="">
@@ -53,12 +53,52 @@
 </template>
 
 <script>
+import { AP } from '@/utils'
 export default {
   data() {
-    return {};
+    return {
+      weatherInfo: {}
+    };
   },
-  created() {},
-  methods: {}
+  mounted() {
+    this.getWeather()
+  },
+  methods: {
+    getMap() {
+      return new Promise((resolve, reject) => {
+        AP().then(AMap => {
+          var citysearch = new AMap.CitySearch()
+          console.log(citysearch)
+          citysearch.getLocalCity((status, result) => {
+            console.log(status)
+            console.log(result)
+            if (status === 'complete' && result.info === 'ok') {
+              if (result && result.city && result.bounds) {
+                resolve(result.city)
+              }
+            } else {
+              console.log('定位失败')
+              console.log(result)
+              reject(result.info)
+            }
+          })
+        })
+      })
+    },
+    async getWeather() {
+      let $self = this
+      let countyInfo = await $self.getMap()
+      AMap.plugin('AMap.Weather', () => {
+        var weather = new AMap.Weather()
+        weather.getLive(countyInfo, (err, data) => {
+          console.log(data)
+          if (!err) {
+            $self.weatherInfo = data
+          }
+        })
+      })
+    }
+  }
 };
 </script>
 
