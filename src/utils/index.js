@@ -70,23 +70,3 @@ export function debounce(func, wait, immediate) {
     return result
   }
 }
-
-/**
- * 高德地图-异步
- */
-export function AP(ak = '43defb80b47c04008a056fce3bc8c4c0') {
-  return new Promise(function (resolve, reject) {  
-    window.onload = function () {  
-      resolve(AMap)
-    }  
-    if (typeof AMap === 'undefined') {
-      var script = document.createElement('script')
-      script.type = 'text/javascript'
-      script.src = 'https://webapi.amap.com/maps?v=1.4.13&key='+ak+'&plugin=AMap.CitySearch'
-      script.onerror = reject
-      document.head.appendChild(script)
-    } else {
-      resolve(AMap)
-    }
-  })  
-}

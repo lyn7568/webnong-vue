@@ -5,6 +5,7 @@
 html {
   height: 100%;
   box-sizing: border-box;
+  font-size: 34px;
 }
 body {
   height: 100%;
@@ -146,3 +147,19 @@ a:hover {
 //     border-color: $--color-primary;
 //   }
 // }
+.el-popper[x-placement^="left"]{
+  .popper__arrow{
+    border-left-color:$--color-primary;
+    &::after{
+      border-left-color:rgba(0,0,0,.6);
+    }
+  }
+}
+.el-popover {
+  background: rgba(0,0,0,.6);
+  border: 1px solid $--color-primary;
+  color: #606266;
+  line-height: 1.4rem;
+  font-size: 0.4rem;
+  padding: 0.1rem;
+}

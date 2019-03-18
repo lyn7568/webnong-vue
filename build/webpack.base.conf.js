@@ -14,6 +14,7 @@ module.exports = {
     app: ['babel-polyfill', './src/main.js']
   },
   externals: {
+    'Swiper': 'Swiper',
     'AMap': 'AMap'
   },
   output: {
