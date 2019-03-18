@@ -21,7 +21,7 @@ service.interceptors.request.use(config => {
       config.data = qs.parse(config.data)
       config.headers['Content-Type'] = 'application/json; charser=UTF-8'
     }
-    config.headers.Authorization = `token ${store.getters.token}`
+    config.headers.Authorization = `Bearer ${store.getters.token}`
   }
   return config
 }, error => {
