@@ -72,10 +72,10 @@ export default {
             prop: 'username',
             tit: '用户账户'
           },
-          {
-            prop: 'password',
-            tit: '用户密码'
-          },
+          // {
+          //   prop: 'password',
+          //   tit: '用户密码'
+          // },
           {
             prop: 'name',
             tit: '用户姓名'
@@ -106,9 +106,14 @@ export default {
     openDiag(val) {
       var that = this
       if (val) {
+        this.getRoleList()
         this.objId = val.id
         this.formObject.model = {
-          test: val.test
+          username: val.username,
+          name: val.name,
+          password: val.password,
+          roleId:val.roleList[0].id,
+          status:val.status
         }
       } else {
         this.formObject.model = {
@@ -123,24 +128,24 @@ export default {
       var that = this
       this.$refs[that.formObject.ref].validate(valid => {
         if (valid) {
-          alert(this.objId)
           const paramsData = {
+            userId:that.objId,
             parentId: sessionStorage.getItem('UID'),
             username: that.formObject.model.username,
             name: that.formObject.model.name,
             password: that.formObject.model.password,
             roleId: that.formObject.model.roleId
           }
-          // that.$http.post('/user/add', paramsData, function(res) {
-          //   if (res.success) {
-          //     that.$message({
-          //       message: '信息保存成功',
-          //       type: 'success'
-          //     })
-          //     that.closeDialog()
-          //     that.$parent.qureyInfoList()
-          //   }
-          // })
+          that.$http.post('/user/update', paramsData, function(res) {
+            if (res.success) {
+              that.$message({
+                message: '信息编辑成功',
+                type: 'success'
+              })
+              that.closeDialog()
+              that.$parent.qureyInfoList()
+            }
+          })
         }
       })
     },
