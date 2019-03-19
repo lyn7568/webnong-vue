@@ -2,12 +2,15 @@
   <el-dialog class="dialogClass" :title="dialogTit" :visible.sync="dialogFormVisible" :close-on-click-modal="false">
     <el-form :model="formObject.model" :ref="formObject.ref" :rules="formObject.rules">
       <el-form-item v-for="item in formObject.arr" :key="item.index" :label="item.tit + ' :'" :prop="item.prop">
-        <el-input v-model="formObject.model[item.prop]"></el-input>
+        <el-select v-if="item.select" v-model="formObject.model[item.prop]">
+          <el-option v-for="sel in selectOptions" :key="sel.index" :label="sel.name" :value="sel.id"></el-option>
+        </el-select>
+        <el-input v-else v-model="formObject.model[item.prop]"></el-input>
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
       <div class="form-tip">注：所有信息均为必填项</div>
-      <el-button @click="dialogFormVisible = false">取 消</el-button>
+      <el-button @click="closeDialog">取 消</el-button>
       <el-button type="primary" @click="saveSubmitInfo">保 存</el-button>
     </div>
   </el-dialog>
@@ -19,13 +22,37 @@ export default {
     return {
       objId: '',
       dialogFormVisible: false,
+      selectOptions: [
+        {
+          id: '1',
+          name: '普通用户'
+        },
+        {
+          id: '2',
+          name: '厂商'
+        },
+        {
+          id: '3',
+          name: '经销售'
+        },
+        {
+          id: '4',
+          name: '超级管理员'
+        }
+      ],
       formObject: {
         ref: 'formName',
         model: {
-          name: ''
+          username: '',
+          name: '',
+          password: '',
+          roleId: ''
         },
         rules: {
-          name: [{ required: true, message: '请输入用戶姓名', trigger: 'blur' }]
+          name: [{ required: true, message: '请输入用戶姓名', trigger: 'blur' }],
+          username: [{ required: true, message: '请输入用戶账户', trigger: 'blur' }],
+          password: [{ required: true, message: '请输入用戶密码', trigger: 'blur' }],
+          roleId: [{ required: true, message: '请选择用戶类型', trigger: 'blur' }],
         },
         arr: [
           {
@@ -42,7 +69,8 @@ export default {
           },
           {
             prop: 'roleId',
-            tit: '用户类型'
+            tit: '用户类型',
+            select: true
           }
         ]
       }
@@ -83,13 +111,16 @@ export default {
                 message: '信息保存成功',
                 type: 'success'
               })
-              that.$refs[that.formObject.ref].resetFields()
-              that.dialogFormVisible = false
+              that.closeDialog()
               that.$parent.qureyInfoList()
             }
           })
         }
       })
+    },
+    closeDialog() {
+      this.$refs[this.formObject.ref].resetFields()
+      this.dialogFormVisible = false
     }
   }
 };

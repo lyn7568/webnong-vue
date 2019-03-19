@@ -129,7 +129,7 @@
       .el-form-item{
         border-radius: .125rem;
         background: #fff;
-        margin-bottom: 0.1rem;
+        margin-bottom: 0.5rem;
         .el-form-item__label {
           line-height: 1rem;
           font-size: .4rem;
@@ -143,7 +143,13 @@
           color: #000;
           font-size: .4rem;
         }
-        
+        .el-select{
+          width: 100%;
+          .el-input .el-select__caret{
+            font-size: 0.4rem;
+            line-height: 1rem;
+          }
+        }
       }
     }
     .dialog-footer{
