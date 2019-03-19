@@ -22,23 +22,35 @@ export default {
       formObject: {
         ref: 'formName',
         model: {
-          test: ''
+          name: ''
         },
         rules: {
-          test: [{ required: true, message: '请输入设备名称', trigger: 'blur' }]
+          name: [{ required: true, message: '请输入用戶姓名', trigger: 'blur' }]
         },
         arr: [
           {
-            prop: 'test',
-            tit: '设备名称'
+            prop: 'username',
+            tit: '用户账户'
+          },
+          {
+            prop: 'password',
+            tit: '用户密码'
+          },
+          {
+            prop: 'name',
+            tit: '用户姓名'
+          },
+          {
+            prop: 'roleId',
+            tit: '用户类型'
           }
         ]
-      } 
+      }
     };
   },
   computed: {
     dialogTit() {
-      return !this.deviceId ? '新建设备信息' : '设备信息编辑'
+      return !this.deviceId ? '新建用户' : '编辑用户'
     }
   },
   methods: {

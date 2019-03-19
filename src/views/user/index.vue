@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <div class="form-filter">
-      <filter-form v-show="activeName==='1'" :formObject="formObjectFirst" @editOpenDialogFun="editOpenDialogFun"></filter-form>
+      <filter-form v-show="activeName==='1'" :formObject="formObjectFirst" @editOpenDialogFun="editOpenDialogFun" @search="search"></filter-form>
     </div>
     <div class="list-tabs-show">
       <el-tabs v-model="activeName" type="card">
@@ -83,16 +83,16 @@
         formObjectFirst: {
           ref: 'userForm',
           model: {
-            Logs_Date: '',
-            Control_Type: ''
+            username: '',
+            name: ''
           },
           arr: [
             {
-              prop: 'Logs_Date',
+              prop: 'username',
               tit: '登录账户'
             },
             {
-              prop: 'Control_Type',
+              prop: 'name',
               tit: '用户名称'
             }
           ],
@@ -103,7 +103,7 @@
             },
             {
               name: '查询',
-              event: 'edit'
+              event: 'search'
             }
           ]
         }
@@ -122,8 +122,15 @@
     methods: {
       queryInfoList() {
         var that = this
+        var whereObj={'parentId': sessionStorage.getItem('UID')}
+        if(this.formObjectFirst.model.username!=''){
+          whereObj.username=this.formObjectFirst.model.username
+        }
+        if(this.formObjectFirst.model.name!=''){
+          whereObj.name=this.formObjectFirst.model.name
+        }
         this.$http.post('/user/getUserList', {
-          where: {'parentId': sessionStorage.getItem('UID')},
+          where: whereObj,
           curpage: that.pageNo,
           pagesize: that.pageSize
         }, function(res) {
@@ -144,6 +151,9 @@
           that.tableObjectFirst.data = objData
           that.tableObjectFirst.total = res.data.sumcount
         })
+      },
+      search(){
+        this.queryInfoList()
       },
       pageSizeChangeFirst(val) {
         this.tableObjectFirst.pageSize = val
