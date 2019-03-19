@@ -49,10 +49,10 @@ export default {
           roleId: ''
         },
         rules: {
-          name: [{ required: true, message: '请输入用戶姓名', trigger: 'blur' }],
-          username: [{ required: true, message: '请输入用戶账户', trigger: 'blur' }],
-          password: [{ required: true, message: '请输入用戶密码', trigger: 'blur' }],
-          roleId: [{ required: true, message: '请选择用戶类型', trigger: 'blur' }],
+          name: [{ required: true, message: '请输入用户姓名', trigger: 'blur' }],
+          username: [{ required: true, message: '请输入用户账户', trigger: 'blur' }],
+          password: [{ required: true, message: '请输入用户密码', trigger: 'blur' }],
+          roleId: [{ required: true, message: '请选择用户类型', trigger: 'blur' }],
         },
         arr: [
           {
@@ -75,6 +75,9 @@ export default {
         ]
       }
     };
+  },
+  created() {
+    this.getRoleList()
   },
   computed: {
     dialogTit() {
@@ -103,9 +106,13 @@ export default {
       this.$refs[that.formObject.ref].validate(valid => {
         if (valid) {
           const paramsData = {
-            test: that.formObject.model.test
+            parentId: sessionStorage.getItem('UID'),
+            username: that.formObject.model.username,
+            name: that.formObject.model.name,
+            password: that.formObject.model.password,
+            roleId: that.formObject.model.roleId
           }
-          that.$http.post('/test/save', paramsData, function(res) {
+          that.$http.post('/user/add', paramsData, function(res) {
             if (res.success) {
               that.$message({
                 message: '信息保存成功',
@@ -121,6 +128,16 @@ export default {
     closeDialog() {
       this.$refs[this.formObject.ref].resetFields()
       this.dialogFormVisible = false
+    },
+    getRoleList() {
+      var that = this
+      that.$http.post('/user/getRoleListByUserId',
+        {"userId":sessionStorage.getItem('UID')}
+        , function(res) {
+        if (res.success) {
+         that.selectOptions=res.data;
+        }
+      })
     }
   }
 };
