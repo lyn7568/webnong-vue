@@ -37,11 +37,15 @@
           arr: [
             {
               prop: 'id',
-              tit: '设备编码'
+              tit: '用户ID'
             },
             {
-              prop: 'test',
-              tit: '设备名称'
+              prop: 'name',
+              tit: '用户姓名'
+            },
+            {
+              prop: 'username',
+              tit: '登录账户'
             },
             {
               operate: true,
@@ -106,8 +110,8 @@
     methods: {
       queryInfoList() {
         var that = this
-        this.$http.post('/test/getTestList', {
-          where: {'test': '1'},
+        this.$http.post('/user/getUserList', {
+          where: {'parentId': sessionStorage.getItem('UID')},
           curpage: that.pageNo,
           pagesize: that.pageSize
         }, function(res) {
