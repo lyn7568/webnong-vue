@@ -48,6 +48,18 @@
               tit: '登录账户'
             },
             {
+              prop: 'roleName',
+              tit: '用户类型'
+            },
+            {
+              prop: 'status',
+              tit: '用户状态'
+            },
+            {
+              prop: 'updateTime',
+              tit: '最后登录时间'
+            },
+            {
               operate: true,
               tit: '操作',
               width: '200'
@@ -117,12 +129,19 @@
         }, function(res) {
           that.$refs.tableChildObj.tableLoading = false
           const obj = res.data.rows
+          const objData = res.data.rows
           for(let i = 0; i < obj.length; ++i) {
             if (obj[i].Logs_Date) {
               obj[i].Logs_Date = dateFormat(obj[i].Logs_Date)
             }
+            if(obj[i].status=="0"){
+              objData[i].status='正常';
+            }else if(obj[i].status=="1"){
+              objData[i].status='已锁定';
+            }
+            objData[i].roleName=obj[i].roleList[0].name
           }
-          that.tableObjectFirst.data = obj
+          that.tableObjectFirst.data = objData
           that.tableObjectFirst.total = res.data.sumcount
         })
       },
