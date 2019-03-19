@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <div class="form-filter">
-      <filter-form v-show="activeName==='1'" :formObject="formObjectFirst" @editOpenDialogFun="editOpenDialogFun" @search="search"></filter-form>
+      <filter-form v-show="activeName==='1'" :formObject="formObjectFirst" @editOpenDialogFun="showOpenDialogFun" @search="search"></filter-form>
     </div>
     <div class="list-tabs-show">
       <el-tabs v-model="activeName" type="card">
@@ -15,6 +15,7 @@
       </el-tabs>
     </div>
     <add-user ref="openUserDialog"></add-user>
+    <update-user ref="openUserUpdateDialog"></update-user>
   </div>
 </template>
 
@@ -23,6 +24,7 @@
   import filterForm from '@/components/FilterForm'
   import complexTable from '@/components/ComplexTable'
   import addUser from './addUser'
+  import updateUser from './updateUser'
 
   export default {
     data() {
@@ -112,7 +114,8 @@
     components: {
       filterForm,
       complexTable,
-      addUser
+      addUser,
+      updateUser
     },
     computed: {
     },
@@ -164,6 +167,9 @@
         this.queryInfoList()
       },
       editOpenDialogFun(val) {
+        this.$refs.openUserUpdateDialog.openDiag(val)
+      },
+      showOpenDialogFun(val) {
         this.$refs.openUserDialog.openDiag(val)
       }
     }
