@@ -32,24 +32,32 @@
           pageSize: 10,
           arr: [
             {
-              prop: 'LogsID',
-              tit: '设备编码'
+              prop: 'sn',
+              tit: '区域编码'
             },
             {
-              prop: 'Logs_Date',
-              tit: '设备名称'
+              prop: 'name',
+              tit: '区域名称'
             },
             {
-              prop: 'Control_Type',
-              tit: '设备类型'
+              prop: 'imageUrl',
+              tit: '区域图片Url'
             },
             {
-              prop: 'Control_Way',
-              tit: '使用地方'
+              prop: 'imageParam',
+              tit: '配置参数'
             },
             {
-              prop: 'Control_Way',
-              tit: '所属企业'
+              prop: 'type',
+              tit: '区域类别'
+            },
+            {
+              prop: 'qkSn',
+              tit: '所属区域'
+            },
+            {
+              prop: 'description',
+              tit: '备注'
             },
             {
               operate: 'edit',
