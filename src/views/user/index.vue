@@ -10,6 +10,7 @@
             :tableObject="tableObjectFirst"
             @pageCurFun="currentPageChangeFirst"
             @pageSizeFun="pageSizeChangeFirst"
+            @deleteFun="deleteFun"
             @editOpenDialogFun="editOpenDialogFun"></complex-table>
         </el-tab-pane>
       </el-tabs>
@@ -78,7 +79,7 @@
             },
             {
               icon: 'reset_password',
-              event: 'deleteFun'
+              event: 'deleteFun1'
             }
           ]
         },
@@ -157,6 +158,20 @@
       },
       search(){
         this.queryInfoList()
+      },
+      deleteFun(val){
+        var that=this
+        this.$http.post('/user/delete', {
+          userId: val.id
+        }, function(res) {
+          if (res.success) {
+            that.$message({
+              message: "删除成功",
+              type: 'success'
+            })
+            that.$parent.qureyInfoList()
+          }
+        })
       },
       pageSizeChangeFirst(val) {
         this.tableObjectFirst.pageSize = val
