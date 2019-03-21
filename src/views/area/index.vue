@@ -79,12 +79,12 @@
         formObjectFirst: {
           ref: 'first',
           model: {
-            Logs_Date: '',
+            name: '',
             Control_Type: ''
           },
           arr: [
             {
-              prop: 'Logs_Date',
+              prop: 'name',
               tit: '区域名称'
             }
           ],
@@ -114,16 +114,25 @@
     methods: {
       queryInfoList() {
         var that = this
-        // this.$http.get('/static/json/contol.txt?t='+new Date().getTime(), {
-        // }, function(res) {
-        //   for(let i = 0; i < res.rows.length; ++i) {
-        //     if (res.rows[i].Logs_Date) {
-        //       res.rows[i].Logs_Date = dateFormat(res.rows[i].Logs_Date)
-        //     }
-        //   }
-        //   that.tableObjectFirst.data = res.rows
-        //   that.tableObjectFirst.total = res.total
-        // })
+        var whereObj={'userId': sessionStorage.getItem('UID')}
+        if(this.formObjectFirst.model.name!=''){
+          whereObj.name=this.formObjectFirst.model.name
+        }
+        this.$http.post('/userArea/getUserAreaList', {
+          where: whereObj,
+          curpage: that.pageNo,
+          pagesize: that.pageSize
+        }, function(res) {
+          that.$refs.tableChildObj.tableLoading = false
+          const obj = res.data.rows
+          for(let i = 0; i < obj.length; ++i) {
+            if (obj[i].Logs_Date) {
+              obj[i].Logs_Date = dateFormat(obj[i].Logs_Date)
+            }
+          }
+          that.tableObjectFirst.data = obj
+          that.tableObjectFirst.total = res.data.sumcount
+        })
       },
       currentPageChangeFirst(val) {
         this.tableObjectFirst.pageNo = val
