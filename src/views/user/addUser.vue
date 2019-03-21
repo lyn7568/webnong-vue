@@ -1,5 +1,5 @@
 <template>
-  <el-dialog class="dialogClass" :title="dialogTit" :visible.sync="dialogFormVisible" :close-on-click-modal="false">
+  <el-dialog class="dialogClass" title="新建用户" :visible.sync="dialogFormVisible" :close-on-click-modal="false">
     <el-form :model="formObject.model" :ref="formObject.ref" :rules="formObject.rules">
       <el-form-item v-for="item in formObject.arr" :key="item.index" :label="item.tit + ' :'" :prop="item.prop">
         <el-select v-if="item.select" v-model="formObject.model[item.prop]">
@@ -20,26 +20,8 @@
 export default {
   data() {
     return {
-      objId: '',
       dialogFormVisible: false,
-      selectOptions: [
-        {
-          id: '1',
-          name: '普通用户'
-        },
-        {
-          id: '2',
-          name: '厂商'
-        },
-        {
-          id: '3',
-          name: '经销售'
-        },
-        {
-          id: '4',
-          name: '超级管理员'
-        }
-      ],
+      selectOptions: [],
       formObject: {
         ref: 'formName',
         model: {
@@ -52,7 +34,7 @@ export default {
           name: [{ required: true, message: '请输入用户姓名', trigger: 'blur' }],
           username: [{ required: true, message: '请输入用户账户', trigger: 'blur' }],
           password: [{ required: true, message: '请输入用户密码', trigger: 'blur' }],
-          roleId: [{ required: true, message: '请选择用户类型', trigger: 'blur' }],
+          roleId: [{ required: true, message: '请选择用户类型', trigger: 'blur' }]
         },
         arr: [
           {
@@ -80,23 +62,13 @@ export default {
     this.getRoleList()
   },
   computed: {
-    dialogTit() {
-      return !this.deviceId ? '新建用户' : '编辑用户'
+    UID() {
+      return this.$store.getters.userid
     }
   },
   methods: {
-    openDiag(val) {
+    openDiag() {
       var that = this
-      if (val) {
-        this.objId = val.id
-        this.formObject.model = {
-          test: val.test
-        }
-      } else {
-        this.formObject.model = {
-          test: ''
-        }
-      }
       setTimeout(() => {
         that.dialogFormVisible = true
       }, 1)
@@ -106,7 +78,7 @@ export default {
       this.$refs[that.formObject.ref].validate(valid => {
         if (valid) {
           const paramsData = {
-            parentId: sessionStorage.getItem('UID'),
+            parentId: that.UID,
             username: that.formObject.model.username,
             name: that.formObject.model.name,
             password: that.formObject.model.password,
@@ -119,7 +91,7 @@ export default {
                 type: 'success'
               })
               that.closeDialog()
-              that.$parent.qureyInfoList()
+              that.$parent.resetInfo()
             }
           })
         }
@@ -131,9 +103,9 @@ export default {
     },
     getRoleList() {
       var that = this
-      that.$http.post('/user/getRoleListByUserId',
-        {"userId":sessionStorage.getItem('UID')}
-        , function(res) {
+      that.$http.post('/user/getRoleListByUserId', {
+        'userId': that.UID
+      }, function(res) {
         if (res.success) {
          that.selectOptions=res.data;
         }

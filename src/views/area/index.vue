@@ -1,12 +1,12 @@
 <template>
   <div class="app-container">
     <div class="form-filter">
-      <filter-form v-show="activeName==='1'" :formObject="formObjectFirst" @editOpenDialogFun="showOpenDialogFun" @search="search"></filter-form>
+      <filter-form v-show="activeName==='1'" :formObject="formObjectFirst" @addOpenDialogFun="addOpenDialogFun" @search="search"></filter-form>
     </div>
     <div class="list-tabs-show">
       <el-tabs v-model="activeName" type="card">
         <el-tab-pane label="区域列表明细" name="1">
-          <complex-table ref="tableChildObj"
+          <complex-table ref="tableChildObj" v-loading="tableLoading"
                          :tableObject="tableObjectFirst"
                          @pageCurFun="currentPageChangeFirst"
                          @pageSizeFun="pageSizeChangeFirst"
@@ -21,15 +21,16 @@
 </template>
 
 <script>
-  import { dateFormat } from '@/utils'
   import filterForm from '@/components/FilterForm'
   import complexTable from '@/components/ComplexTable'
   import addArea from './addArea'
+  import updateArea from './updateArea'
 
   export default {
     data() {
       return {
         activeName: '1',
+        tableLoading: false,
         tableObjectFirst: {
           el: 'tableArea',
           data: [],
@@ -97,7 +98,7 @@
           oFun: [
             {
               name: '新增',
-              event: 'editOpenDialogFun'
+              event: 'addOpenDialogFun'
             },
             {
               name: '查询',
@@ -110,9 +111,13 @@
     components: {
       filterForm,
       complexTable,
-      addArea
+      addArea,
+      updateArea
     },
     computed: {
+      UID() {
+        return this.$store.getters.userid
+      }
     },
     created() {
       this.queryInfoList()
@@ -120,27 +125,30 @@
     methods: {
       queryInfoList() {
         var that = this
-        var whereObj={'userId': sessionStorage.getItem('UID')}
+        that.tableLoading = true
+        var whereObj={'userId': that.UID}
         if(this.formObjectFirst.model.name!=''){
           whereObj.name=this.formObjectFirst.model.name
         }
         this.$http.post('/userArea/getUserAreaList', {
           where: whereObj,
-          curpage: that.pageNo,
-          pagesize: that.pageSize
+          curpage: that.tableObjectFirst.pageNo,
+          pagesize: that.tableObjectFirst.pageSize
         }, function(res) {
-          that.$refs.tableChildObj.tableLoading = false
+          that.tableLoading = false
           const obj = res.data.rows
-          // for(let i = 0; i < obj.length; ++i) {
-          //   if (obj[i].Logs_Date) {
-          //     obj[i].Logs_Date = dateFormat(obj[i].Logs_Date)
-          //   }
-          // }
           that.tableObjectFirst.data = obj
           that.tableObjectFirst.total = res.data.sumcount
         })
       },
       search(){
+        this.resetInfo()
+      },
+      resetInfo() {
+        this.tableObjectFirst.data = []
+        this.tableObjectFirst.pageNo = 1
+        this.tableObjectFirst.total = 0
+        this.tableObjectFirst.pageSize = 10
         this.queryInfoList()
       },
       deleteFun(val){
@@ -168,8 +176,8 @@
       editOpenDialogFun(val) {
         this.$refs.openUserUpdateDialog.openDiag(val)
       },
-      showOpenDialogFun(val) {
-        this.$refs.openUserAreaDialog.openDiag(val)
+      addOpenDialogFun() {
+        this.$refs.openUserAreaDialog.openDiag()
       }
     }
   }

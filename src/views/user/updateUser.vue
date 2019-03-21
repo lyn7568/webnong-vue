@@ -1,5 +1,5 @@
 <template>
-  <el-dialog class="dialogClass" :title="dialogTit" :visible.sync="dialogFormVisible" :close-on-click-modal="false">
+  <el-dialog class="dialogClass" title="编辑用户" :visible.sync="dialogFormVisible" :close-on-click-modal="false">
     <el-form :model="formObject.model" :ref="formObject.ref" :rules="formObject.rules">
       <el-form-item v-for="item in formObject.arr" :key="item.index" :label="item.tit + ' :'" :prop="item.prop">
         <el-select v-if="item.select&&item.prop=='roleId'" v-model="formObject.model[item.prop]">
@@ -8,7 +8,7 @@
         <el-select v-if="item.select&&item.prop=='status'" v-model="formObject.model[item.prop]">
           <el-option v-for="sel in selectOptionsStatus" :key="sel.index" :label="sel.name" :value="sel.id"></el-option>
         </el-select>
-        <el-input v-else v-model="formObject.model[item.prop]"></el-input>
+        <el-input v-if="!item.select" v-model="formObject.model[item.prop]"></el-input>
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
@@ -35,47 +35,27 @@ export default {
           name:'锁定'
         }
       ],
-      selectOptions: [
-        {
-          id: '1',
-          name: '普通用户'
-        },
-        {
-          id: '2',
-          name: '厂商'
-        },
-        {
-          id: '3',
-          name: '经销售'
-        },
-        {
-          id: '4',
-          name: '超级管理员'
-        }
-      ],
+      selectOptions: [],
       formObject: {
         ref: 'formName',
         model: {
           username: '',
           name: '',
           password: '',
-          roleId: ''
+          roleId: '',
+          status: ''
         },
         rules: {
           name: [{ required: true, message: '请输入用户姓名', trigger: 'blur' }],
           username: [{ required: true, message: '请输入用户账户', trigger: 'blur' }],
-          password: [{ required: true, message: '请输入用户密码', trigger: 'blur' }],
           roleId: [{ required: true, message: '请选择用户类型', trigger: 'blur' }],
+          status: [{ required: true, message: '请选择用户状态', trigger: 'blur' }]
         },
         arr: [
           {
             prop: 'username',
             tit: '用户账户'
           },
-          // {
-          //   prop: 'password',
-          //   tit: '用户密码'
-          // },
           {
             prop: 'name',
             tit: '用户姓名'
@@ -98,26 +78,24 @@ export default {
     this.getRoleList()
   },
   computed: {
-    dialogTit() {
-      return  '编辑用户'
+    UID() {
+      return this.$store.getters.userid
     }
   },
   methods: {
     openDiag(val) {
       var that = this
       if (val) {
-        this.getRoleList()
         this.objId = val.id
+        let st = this.selectOptionsStatus.find((item)=>{
+          return item.name === val.status
+        })
         this.formObject.model = {
           username: val.username,
           name: val.name,
           password: val.password,
-          roleId:val.roleList[0].id,
-          status:val.status
-        }
-      } else {
-        this.formObject.model = {
-          test: ''
+          roleId: val.roleList[0].id,
+          status: st.id
         }
       }
       setTimeout(() => {
@@ -130,7 +108,7 @@ export default {
         if (valid) {
           const paramsData = {
             userId:that.objId,
-            parentId: sessionStorage.getItem('UID'),
+            parentId: that.UID,
             username: that.formObject.model.username,
             name: that.formObject.model.name,
             password: that.formObject.model.password,
@@ -143,7 +121,7 @@ export default {
                 type: 'success'
               })
               that.closeDialog()
-              that.$parent.qureyInfoList()
+              that.$parent.resetInfo()
             }
           })
         }
@@ -155,9 +133,9 @@ export default {
     },
     getRoleList() {
       var that = this
-      that.$http.post('/user/getRoleListByUserId',
-        {"userId":sessionStorage.getItem('UID')}
-        , function(res) {
+      that.$http.post('/user/getRoleListByUserId', {
+        'userId': that.UID
+      }, function(res) {
         if (res.success) {
          that.selectOptions=res.data;
         }

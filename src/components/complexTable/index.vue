@@ -6,7 +6,6 @@
       :height="tableHeight"
       :row-class-name="tableRowClassName"
       :header-row-class-name="tableThClassName"
-      v-loading="tableLoading"
     >
       <el-table-column
         v-for="item in tableObject.arr"
@@ -64,7 +63,6 @@ export default {
   },
   data() {
     return {
-      tableLoading: false,
       tableHeight: 420
     };
   },
@@ -75,17 +73,13 @@ export default {
     }, 100);
     window.addEventListener('resize', () => {
       that.tableHeight = window.innerHeight - that.spareDistance;
-      // that.$refs[el].$el.offsetTop
     });
   },
   methods: {
     handleSizeChange(val) {
-      this.tableLoading = true
       this.$emit('pageSizeFun', val)
     },
     handleCurrentChange(val) {
-      this.tableLoading = true
-      this.$refs.tableEle.bodyWrapper.scrollTop = 0;
       this.$emit('pageCurFun', val);
     },
     tableRowClassName({ row, rowIndex }) {

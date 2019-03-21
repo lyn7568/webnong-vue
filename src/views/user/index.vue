@@ -1,12 +1,12 @@
 <template>
   <div class="app-container">
     <div class="form-filter">
-      <filter-form v-show="activeName==='1'" :formObject="formObjectFirst" @editOpenDialogFun="showOpenDialogFun" @search="search"></filter-form>
+      <filter-form v-show="activeName==='1'" :formObject="formObjectFirst" @addOpenDialogFun="addOpenDialogFun" @search="search"></filter-form>
     </div>
     <div class="list-tabs-show">
       <el-tabs v-model="activeName" type="card">
         <el-tab-pane label="用户列表明细" name="1">
-          <complex-table ref="tableChildObj"
+          <complex-table v-loading="tableLoading"
             :tableObject="tableObjectFirst"
             @pageCurFun="currentPageChangeFirst"
             @pageSizeFun="pageSizeChangeFirst"
@@ -31,6 +31,7 @@
     data() {
       return {
         activeName: '1',
+        tableLoading: false,
         tableObjectFirst: {
           el: 'tableFirst',
           data: [],
@@ -79,7 +80,7 @@
             },
             {
               icon: 'reset_password',
-              event: 'deleteFun1'
+              event: 'resetPwdFun'
             }
           ]
         },
@@ -102,7 +103,7 @@
           oFun: [
             {
               name: '新增',
-              event: 'editOpenDialogFun'
+              event: 'addOpenDialogFun'
             },
             {
               name: '查询',
@@ -119,6 +120,9 @@
       updateUser
     },
     computed: {
+      UID() {
+        return this.$store.getters.userid
+      }
     },
     created() {
       this.queryInfoList()
@@ -126,7 +130,8 @@
     methods: {
       queryInfoList() {
         var that = this
-        var whereObj={'parentId': sessionStorage.getItem('UID')}
+        that.tableLoading = true
+        var whereObj={'parentId': that.UID}
         if(this.formObjectFirst.model.username!=''){
           whereObj.username=this.formObjectFirst.model.username
         }
@@ -135,10 +140,10 @@
         }
         this.$http.post('/user/getUserList', {
           where: whereObj,
-          curpage: that.pageNo,
-          pagesize: that.pageSize
+          curpage: that.tableObjectFirst.pageNo,
+          pagesize: that.tableObjectFirst.pageSize
         }, function(res) {
-          that.$refs.tableChildObj.tableLoading = false
+          that.tableLoading = false
           const obj = res.data.rows
           const objData = res.data.rows
           for(let i = 0; i < obj.length; ++i) {
@@ -157,6 +162,13 @@
         })
       },
       search(){
+        this.resetInfo()
+      },
+      resetInfo() {
+        this.tableObjectFirst.data = []
+        this.tableObjectFirst.pageNo = 1
+        this.tableObjectFirst.total = 0
+        this.tableObjectFirst.pageSize = 10
         this.queryInfoList()
       },
       deleteFun(val){
@@ -184,7 +196,7 @@
       editOpenDialogFun(val) {
         this.$refs.openUserUpdateDialog.openDiag(val)
       },
-      showOpenDialogFun(val) {
+      addOpenDialogFun(val) {
         this.$refs.openUserDialog.openDiag(val)
       }
     }

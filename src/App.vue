@@ -1,6 +1,6 @@
 <template>
   <div id="app" class="fog">
-    <div class="absolute-bg" :style="{backgroundImage:'url('+ bg + ')'}"></div>
+    <div class="absolute-bg" :style="{backgroundImage:'url('+ $store.getters.bg + ')'}"></div>
     <div class="fog__container" v-if="show">
         <div class="fog__img fog__img--first"></div>
         <div class="fog__img fog__img--second"></div>
@@ -12,18 +12,12 @@
 <script>
   import imgs from './assets/home_bg.jpg'
   import imgs2 from './assets/page_bg.jpg'
-  import { mapGetters } from 'vuex'
   export default {
     name: 'App',
     data() {
       return {
         show: false
       }
-    },
-    computed: {
-      ...mapGetters([
-        'bg'
-      ])
     },
     watch: {
       '$route'(to, from) {

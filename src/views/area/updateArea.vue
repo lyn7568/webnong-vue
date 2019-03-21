@@ -1,5 +1,5 @@
 <template>
-  <el-dialog class="dialogClass" title="新建区域" :visible.sync="dialogFormVisible" :close-on-click-modal="false">
+  <el-dialog class="dialogClass" title="编辑区域" :visible.sync="dialogFormVisible" :close-on-click-modal="false">
     <el-form :model="formObject.model" :ref="formObject.ref" :rules="formObject.rules">
       <el-form-item v-for="item in formObject.arr" :key="item.index" :label="item.tit + ' :'" :prop="item.prop">
         <el-select v-if="item.select" v-model="formObject.model[item.prop]">
@@ -10,7 +10,7 @@
     </el-form>
     <div slot="footer" class="dialog-footer">
       <div class="form-tip">注：所有信息均为必填项</div>
-      <el-button @click="dialogFormVisible = false">取 消</el-button>
+      <el-button @click="closeDialog">取 消</el-button>
       <el-button type="primary" @click="saveSubmitInfo">保 存</el-button>
     </div>
   </el-dialog>
@@ -20,6 +20,7 @@
 export default {
   data() {
     return {
+      objId: '',
       dialogFormVisible: false,
       selectOptionsType: [
         {
@@ -82,6 +83,9 @@ export default {
       }
     };
   },
+  created() {
+    this.getRoleList()
+  },
   computed: {
     UID() {
       return this.$store.getters.userid
@@ -90,13 +94,21 @@ export default {
   methods: {
     openDiag(val) {
       var that = this
+      if (val) {
+        this.objId = val.id
+        this.formObject.model = {
+          name: val.name,
+          sn: val.sn,
+          imageUrl: val.imageUrl,
+          imageParam: val.imageParam,
+          type: val.type,
+          qkSn: val.qkSn,
+          description: val.description
+        }
+      }
       setTimeout(() => {
         that.dialogFormVisible = true
       }, 1)
-    },
-    closeDialog() {
-      this.$refs[this.formObject.ref].resetFields()
-      this.dialogFormVisible = false
     },
     saveSubmitInfo() {
       var that = this
@@ -104,6 +116,7 @@ export default {
         if (valid) {
           const paramsData = {
             userId: that.UID,
+            id: that.objId,
             name: that.formObject.model.name,
             sn: that.formObject.model.sn,
             type: that.formObject.model.type,
@@ -112,16 +125,30 @@ export default {
             qkSn: that.formObject.model.qkSn,
             description: that.formObject.model.description,
           }
-          that.$http.post('/userArea/add', paramsData, function(res) {
+          that.$http.post('/userArea/update', paramsData, function(res) {
             if (res.success) {
               that.$message({
-                message: '保存成功',
+                message: '信息编辑成功',
                 type: 'success'
               })
               that.closeDialog()
               that.$parent.resetInfo()
             }
           })
+        }
+      })
+    },
+    closeDialog() {
+      this.$refs[this.formObject.ref].resetFields()
+      this.dialogFormVisible = false
+    },
+    getRoleList() {
+      var that = this
+      that.$http.post('/user/getRoleListByUserId', {
+        'userId': that.UID
+      }, function(res) {
+        if (res.success) {
+         that.selectOptions=res.data;
         }
       })
     }
