@@ -1,16 +1,22 @@
 <template>
   <div class="app-container">
     <div class="form-filter">
-      <filter-form v-show="activeName==='1'" :formObject="formObjectFirst" @editOpenDialogFun="editOpenDialogFun"></filter-form>
+      <filter-form v-show="activeName==='1'" :formObject="formObjectFirst" @editOpenDialogFun="showOpenDialogFun" @search="search"></filter-form>
     </div>
     <div class="list-tabs-show">
       <el-tabs v-model="activeName" type="card">
         <el-tab-pane label="区域列表明细" name="1">
-          <complex-table :tableObject="tableObjectFirst" @pageCurFun="currentPageChangeFirst" @editOpenDialogFun="editOpenDialogFun"></complex-table>
+          <complex-table ref="tableChildObj"
+                         :tableObject="tableObjectFirst"
+                         @pageCurFun="currentPageChangeFirst"
+                         @pageSizeFun="pageSizeChangeFirst"
+                         @deleteFun="deleteFun"
+                         @editOpenDialogFun="editOpenDialogFun"></complex-table>
         </el-tab-pane>
       </el-tabs>
     </div>
-    <add-area ref="openAreaDialog"></add-area>
+    <add-user ref="openUserDialog"></add-user>
+    <update-user ref="openUserUpdateDialog"></update-user>
   </div>
 </template>
 
@@ -95,7 +101,7 @@
             },
             {
               name: '查询',
-              event: 'edit'
+              event: 'search'
             }
           ]
         }
@@ -125,21 +131,45 @@
         }, function(res) {
           that.$refs.tableChildObj.tableLoading = false
           const obj = res.data.rows
-          for(let i = 0; i < obj.length; ++i) {
-            if (obj[i].Logs_Date) {
-              obj[i].Logs_Date = dateFormat(obj[i].Logs_Date)
-            }
-          }
+          // for(let i = 0; i < obj.length; ++i) {
+          //   if (obj[i].Logs_Date) {
+          //     obj[i].Logs_Date = dateFormat(obj[i].Logs_Date)
+          //   }
+          // }
           that.tableObjectFirst.data = obj
           that.tableObjectFirst.total = res.data.sumcount
         })
+      },
+      search(){
+        this.queryInfoList()
+      },
+      deleteFun(val){
+        var that=this
+        this.$http.post('/user/delete', {
+          userId: val.id
+        }, function(res) {
+          if (res.success) {
+            that.$message({
+              message: "删除成功",
+              type: 'success'
+            })
+            that.$parent.qureyInfoList()
+          }
+        })
+      },
+      pageSizeChangeFirst(val) {
+        this.tableObjectFirst.pageSize = val
+        this.queryInfoList()
       },
       currentPageChangeFirst(val) {
         this.tableObjectFirst.pageNo = val
         this.queryInfoList()
       },
       editOpenDialogFun(val) {
-        this.$refs.openAreaDialog.openDiag(val)
+        this.$refs.openUserUpdateDialog.openDiag(val)
+      },
+      showOpenDialogFun(val) {
+        this.$refs.openUserDialog.openDiag(val)
       }
     }
   }
