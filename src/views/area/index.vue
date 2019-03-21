@@ -15,8 +15,8 @@
         </el-tab-pane>
       </el-tabs>
     </div>
-    <add-user ref="openUserDialog"></add-user>
-    <update-user ref="openUserUpdateDialog"></update-user>
+    <add-Area ref="openUserAreaDialog"></add-Area>
+    <update-area ref="openUserUpdateDialog"></update-area>
   </div>
 </template>
 
@@ -169,7 +169,7 @@
         this.$refs.openUserUpdateDialog.openDiag(val)
       },
       showOpenDialogFun(val) {
-        this.$refs.openUserDialog.openDiag(val)
+        this.$refs.openUserAreaDialog.openDiag(val)
       }
     }
   }
