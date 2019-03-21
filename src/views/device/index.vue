@@ -1,16 +1,22 @@
 <template>
   <div class="app-container">
     <div class="form-filter">
-      <filter-form v-show="activeName==='1'" :formObject="formObjectFirst" @editOpenDialogFun="editOpenDialogFun"></filter-form>
+      <filter-form v-show="activeName==='1'" :formObject="formObjectFirst" @addOpenDialogFun="addOpenDialogFun" @search="search"></filter-form>
     </div>
     <div class="list-tabs-show">
       <el-tabs v-model="activeName" type="card">
         <el-tab-pane label="设备列表明细" name="1">
-          <complex-table :tableObject="tableObjectFirst" @pageCurFun="currentPageChangeFirst" @editOpenDialogFun="editOpenDialogFun"></complex-table>
+          <complex-table v-loading="tableLoading"
+                         :tableObject="tableObjectFirst"
+                         @pageCurFun="currentPageChangeFirst"
+                         @pageSizeFun="pageSizeChangeFirst"
+                         @deleteFun="deleteFun"
+                         @editOpenDialogFun="editOpenDialogFun"></complex-table>
         </el-tab-pane>
       </el-tabs>
     </div>
-    <add-device ref="openDeviceDialog"></add-device>
+    <!--<add-user ref="openUserDialog"></add-user>-->
+    <!--<update-user ref="openUserUpdateDialog"></update-user>-->
   </div>
 </template>
 
@@ -24,6 +30,7 @@
     data() {
       return {
         activeName: '1',
+        tableLoading: false,
         tableObjectFirst: {
           el: 'tableDevice',
           data: [],
@@ -32,24 +39,40 @@
           pageSize: 10,
           arr: [
             {
-              prop: 'LogsID',
-              tit: '设备编码'
-            },
-            {
-              prop: 'Logs_Date',
+              prop: 'name',
               tit: '设备名称'
             },
             {
-              prop: 'Control_Type',
+              prop: 'type',
               tit: '设备类型'
             },
             {
-              prop: 'Control_Way',
-              tit: '使用地方'
+              prop: 'address',
+              tit: '使用地点'
             },
             {
-              prop: 'Control_Way',
+              prop: 'company',
               tit: '所属企业'
+            },
+            {
+              prop: 'cgData',
+              tit: '传感数据项'
+            },
+            {
+              prop: 'unit',
+              tit: '数值单位'
+            },
+            {
+              prop: 'owner',
+              tit: '设备属于者'
+            },
+            {
+              prop: 'nowData',
+              tit: '实时读数'
+            },
+            {
+              prop: 'nowDataTime',
+              tit: '数据抓取时间'
             },
             {
               operate: 'edit',
@@ -71,8 +94,8 @@
         formObjectFirst: {
           ref: 'first',
           model: {
-            Logs_Date: '',
-            Control_Type: ''
+            name: '',
+            company: ''
           },
           arr: [
             {
@@ -92,7 +115,7 @@
             },
             {
               name: '查询',
-              event: 'edit'
+              event: 'search'
             }
           ]
         }
@@ -104,6 +127,9 @@
       addDevice
     },
     computed: {
+      UID() {
+        return this.$store.getters.userid
+      }
     },
     created() {
       this.queryInfoList()
@@ -111,23 +137,62 @@
     methods: {
       queryInfoList() {
         var that = this
-        // this.$http.get('/static/json/contol.txt?t='+new Date().getTime(), {
-        // }, function(res) {
-        //   for(let i = 0; i < res.rows.length; ++i) {
-        //     if (res.rows[i].Logs_Date) {
-        //       res.rows[i].Logs_Date = dateFormat(res.rows[i].Logs_Date)
-        //     }
-        //   }
-        //   that.tableObjectFirst.data = res.rows
-        //   that.tableObjectFirst.total = res.total
-        // })
+        that.tableLoading = true
+        var whereObj={'userId': that.UID}
+        if(this.formObjectFirst.model.name!=''){
+          whereObj.name=this.formObjectFirst.model.name
+        }
+        if(this.formObjectFirst.model.company!=''){
+          whereObj.company=this.formObjectFirst.model.company
+        }
+        this.$http.post('/esn/getUserEsnList', {
+          where: whereObj,
+          curpage: that.tableObjectFirst.pageNo,
+          pagesize: that.tableObjectFirst.pageSize
+        }, function(res) {
+          that.tableLoading = false
+          const obj = res.data.rows
+          that.tableObjectFirst.data = obj
+          that.tableObjectFirst.total = res.data.sumcount
+        })
+      },
+      search(){
+        this.resetInfo()
+      },
+      resetInfo() {
+        this.tableObjectFirst.data = []
+        this.tableObjectFirst.pageNo = 1
+        this.tableObjectFirst.total = 0
+        this.tableObjectFirst.pageSize = 10
+        this.queryInfoList()
+      },
+      deleteFun(val){
+        var that=this
+        this.$http.post('/user/delete', {
+          userId: val.id
+        }, function(res) {
+          if (res.success) {
+            that.$message({
+              message: "删除成功",
+              type: 'success'
+            })
+            that.$parent.qureyInfoList()
+          }
+        })
+      },
+      pageSizeChangeFirst(val) {
+        this.tableObjectFirst.pageSize = val
+        this.queryInfoList()
       },
       currentPageChangeFirst(val) {
         this.tableObjectFirst.pageNo = val
         this.queryInfoList()
       },
       editOpenDialogFun(val) {
-        this.$refs.openDeviceDialog.openDiag(val)
+        this.$refs.openUserUpdateDialog.openDiag(val)
+      },
+      addOpenDialogFun(val) {
+        this.$refs.openUserDialog.openDiag(val)
       }
     }
   }
