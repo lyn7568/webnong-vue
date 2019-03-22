@@ -4,21 +4,21 @@
       <div class="chart-filter formClass">
         <el-dropdown trigger="click" class="float-l">
           <el-button type="primary">
-            展示区<i class="el-icon-arrow-down el-icon--right"></i>
+            选择区<i class="el-icon-arrow-down el-icon--right"></i>
           </el-button>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item v-for="item in videoList" :key="item.index">{{item.type}}</el-dropdown-item>
+            <el-dropdown-item v-for="item in videoList" :key="item.index">{{item.name}}</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
         <el-date-picker class="float-r"
-          v-model="dateRangerVal"
-          type="daterange"
-          align="right"
-          unlink-panels
-          range-separator="至"
-          start-placeholder="开始日期"
-          end-placeholder="结束日期"
-          :picker-options="pickerOptions">
+                        v-model="dateRangerVal"
+                        type="daterange"
+                        align="right"
+                        unlink-panels
+                        range-separator="至"
+                        start-placeholder="开始日期"
+                        end-placeholder="结束日期"
+                        :picker-options="pickerOptions">
         </el-date-picker>
       </div>
     </div>
@@ -34,11 +34,13 @@
 
 <script>
   import lineChart from '@/components/LineChart'
-  import { dateFormat } from '@/utils'
+  import {dateFormat} from '@/utils'
+
   export default {
     data() {
       return {
         activeName: '1',
+        userAreaId: '',
         pickerOptions: {
           shortcuts: [{
             text: '今天',
@@ -113,10 +115,13 @@
       lineChart
     },
     computed: {
+      UID() {
+        return this.$store.getters.userid
+      }
     },
     created() {
-      this.queryInfoList()
-      this.queryList()
+      // this.queryInfoList()
+      this.queryUserAreaList()
     },
     methods: {
       queryInfoList() {
@@ -145,16 +150,15 @@
         //   that.chartData = allData
         // })
       },
-      queryList() {
+      queryUserAreaList() {
         var that = this;
-        // this.$http.get(
-        //   "/static/json/video.txt?t=" + new Date().getTime(),
-        //   {},
-        //   function(res) {
-        //     var $data = res.rows;
-        //     that.videoList = $data;
-        //   }
-        // );
+        this.$http.post('/chart/getUserAreaByUserId', {
+          userId: that.UID,
+        }, function (res) {
+          const obj = res.data
+          that.videoList=obj
+        })
+
       }
     }
   }
