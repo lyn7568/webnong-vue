@@ -154,14 +154,14 @@
       deleteFun(val){
         var that=this
         this.$http.post('/user/delete', {
-          userId: val.id
+          id: val.id
         }, function(res) {
           if (res.success) {
             that.$message({
               message: "删除成功",
               type: 'success'
             })
-            that.$parent.qureyInfoList()
+            that.resetInfo()
           }
         })
       },

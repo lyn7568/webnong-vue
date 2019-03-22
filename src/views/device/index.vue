@@ -16,7 +16,7 @@
       </el-tabs>
     </div>
     <add-device ref="openUserEsnDialog"></add-device>
-    <!--<update-user ref="openUserUpdateDialog"></update-user>-->
+    <update-device ref="openUserEsnUpdateDialog"></update-device>
   </div>
 </template>
 
@@ -25,6 +25,7 @@
   import filterForm from '@/components/FilterForm'
   import complexTable from '@/components/ComplexTable'
   import addDevice from './addDevice'
+  import updateDevice from './updateDevice'
 
   export default {
     data() {
@@ -124,7 +125,8 @@
     components: {
       filterForm,
       complexTable,
-      addDevice
+      addDevice,
+      updateDevice
     },
     computed: {
       UID() {
@@ -154,6 +156,7 @@
           const obj = res.data.rows
           for(let i = 0; i < obj.length; ++i) {
             obj[i].address=obj[i].userArea.name
+            obj[i].addressId=obj[i].userArea.id
           }
           that.tableObjectFirst.data = obj
           that.tableObjectFirst.total = res.data.sumcount
@@ -161,6 +164,20 @@
       },
       search(){
         this.resetInfo()
+      },
+      deleteFun(val){
+        var that=this
+        this.$http.post('/esn/delete', {
+          id: val.id
+        }, function(res) {
+          if (res.success) {
+            that.$message({
+              message: "删除成功",
+              type: 'success'
+            })
+            that.$parent.qureyInfoList()
+          }
+        })
       },
       resetInfo() {
         this.tableObjectFirst.data = []
@@ -171,15 +188,15 @@
       },
       deleteFun(val){
         var that=this
-        this.$http.post('/user/delete', {
-          userId: val.id
+        this.$http.post('/esn/delete', {
+          id: val.id
         }, function(res) {
           if (res.success) {
             that.$message({
               message: "删除成功",
               type: 'success'
             })
-            that.$parent.qureyInfoList()
+            that.resetInfo()
           }
         })
       },
@@ -192,7 +209,7 @@
         this.queryInfoList()
       },
       editOpenDialogFun(val) {
-        this.$refs.openUserUpdateDialog.openDiag(val)
+        this.$refs.openUserEsnUpdateDialog.openDiag(val)
       },
       addOpenDialogFun(val) {
         this.$refs.openUserEsnDialog.openDiag(val)

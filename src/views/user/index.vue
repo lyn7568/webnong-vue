@@ -181,7 +181,7 @@
               message: "删除成功",
               type: 'success'
             })
-            that.$parent.qureyInfoList()
+            that.resetInfo()
           }
         })
       },

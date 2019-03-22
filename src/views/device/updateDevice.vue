@@ -67,10 +67,10 @@ export default {
             prop: 'name',
             tit: '设备名称'
           },
-          {
-            prop: 'ip',
-            tit: '设备地址'
-          },
+          // {
+          //   prop: 'ip',
+          //   tit: '设备地址'
+          // },
           {
             prop: 'type',
             tit: '设备类型'
@@ -117,8 +117,17 @@ export default {
       var that = this
       if (val) {
         this.objId = val.id
+        // let st = this.selectOptionsAddress.find((item)=>{
+        //   return item.name === val.address
+        // })
         this.formObject.model = {
-          test: val.test
+          name: val.name,
+          type: val.type,
+          address: val.addressId,
+          company: val.company,
+          cgData: val.cgData,
+          unit: val.unit,
+          owner: val.owner
         }
       } else {
         this.formObject.model = {
@@ -134,6 +143,7 @@ export default {
       this.$refs[that.formObject.ref].validate(valid => {
         if (valid) {
           const paramsData = {
+            id:that.objId,
             userId: that.UID,
             name: that.formObject.model.name,
             ip: that.formObject.model.ip,
@@ -144,7 +154,7 @@ export default {
             unit: that.formObject.model.unit,
             owner: that.formObject.model.owner
           }
-          that.$http.post('/esn/add', paramsData, function(res) {
+          that.$http.post('/esn/update', paramsData, function(res) {
             if (res.success) {
               that.$message({
                 message: '信息保存成功',
