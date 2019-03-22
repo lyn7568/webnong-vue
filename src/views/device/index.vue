@@ -15,7 +15,7 @@
         </el-tab-pane>
       </el-tabs>
     </div>
-    <!--<add-user ref="openUserDialog"></add-user>-->
+    <add-device ref="openUserEsnDialog"></add-device>
     <!--<update-user ref="openUserUpdateDialog"></update-user>-->
   </div>
 </template>
@@ -111,7 +111,7 @@
           oFun: [
             {
               name: '新增',
-              event: 'editOpenDialogFun'
+              event: 'addOpenDialogFun'
             },
             {
               name: '查询',
@@ -152,6 +152,9 @@
         }, function(res) {
           that.tableLoading = false
           const obj = res.data.rows
+          for(let i = 0; i < obj.length; ++i) {
+            obj[i].address=obj[i].userArea.name
+          }
           that.tableObjectFirst.data = obj
           that.tableObjectFirst.total = res.data.sumcount
         })
@@ -192,7 +195,7 @@
         this.$refs.openUserUpdateDialog.openDiag(val)
       },
       addOpenDialogFun(val) {
-        this.$refs.openUserDialog.openDiag(val)
+        this.$refs.openUserEsnDialog.openDiag(val)
       }
     }
   }

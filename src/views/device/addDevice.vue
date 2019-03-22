@@ -2,7 +2,10 @@
   <el-dialog class="dialogClass" :title="dialogTit" :visible.sync="dialogFormVisible" :close-on-click-modal="false">
     <el-form :model="formObject.model" :ref="formObject.ref" :rules="formObject.rules">
       <el-form-item v-for="item in formObject.arr" :key="item.index" :label="item.tit + ' :'" :prop="item.prop">
-        <el-input v-model="formObject.model[item.prop]"></el-input>
+        <el-select v-if="item.select" v-model="formObject.model[item.prop]">
+          <el-option v-for="sel in selectOptionsAddress" :key="sel.index" :label="sel.name" :value="sel.id"></el-option>
+        </el-select>
+        <el-input v-else v-model="formObject.model[item.prop]"></el-input>
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
@@ -19,6 +22,7 @@ export default {
     return {
       objId: '',
       dialogFormVisible: false,
+      selectOptionsAddress: [],
       formObject: {
         ref: 'formName',
         model: {
@@ -29,17 +33,52 @@ export default {
         },
         arr: [
           {
-            prop: 'test',
+            prop: 'name',
             tit: '设备名称'
+          },
+          {
+            prop: 'ip',
+            tit: '设备地址'
+          },
+          {
+            prop: 'type',
+            tit: '设备类型'
+          },
+          {
+            prop: 'address',
+            tit: '使用地点',
+            select:true
+          },
+          {
+            prop: 'company',
+            tit: '所属企业'
+          },
+          {
+            prop: 'cgData',
+            tit: '传感数据项'
+          },
+          {
+            prop: 'unit',
+            tit: '数值单位'
+          },
+          {
+            prop: 'owner',
+            tit: '设备属于者'
           }
         ]
-      } 
+      }
     };
   },
   computed: {
     dialogTit() {
-      return !this.deviceId ? '新建设备信息' : '设备信息编辑'
+      return  '新建设备'
+    },
+    UID() {
+      return this.$store.getters.userid
     }
+  },
+  created() {
+    this.queryUserAreaList()
   },
   methods: {
     openDiag(val) {
@@ -76,6 +115,16 @@ export default {
           //     that.$parent.qureyInfoList()
           //   }
           // })
+        }
+      })
+    },
+    queryUserAreaList(){
+      var that = this
+      that.$http.post('/esn/getUserAreaByUserId', {
+        'userId': that.UID
+      }, function(res) {
+        if (res.success) {
+          that.selectOptionsAddress=res.data;
         }
       })
     }
