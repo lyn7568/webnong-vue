@@ -504,7 +504,7 @@
       }
       .no-groupright {
         border: none;
-        background: url('/src/assets/no-group.png') 0 0 no-repeat;
+        background: url('/static/img/no-group.png') 0 0 no-repeat;
         background-size: 100%;
       }
     }
@@ -540,35 +540,35 @@
     background-position: center;
     background-repeat: no-repeat;
     &.icon-gufengji{
-      background-image: url('/src/assets/paifengshan-icon.png');
+      background-image: url('/static/img/paifengshan-icon.png');
       background-size: 70%;
     }
     &.icon-shuibeng{
-      background-image: url('/src/assets/shuibeng-icon.png');
+      background-image: url('/static/img/shuibeng-icon.png');
       background-size: 90%;
     }
     &.icon-neizheyang{
-      background-image: url('/src/assets/neizheyang-icon.png');
+      background-image: url('/static/img/neizheyang-icon.png');
       background-size: 70%;
     }
     &.icon-tianchuang{
-      background-image: url('/src/assets/tianchuang-icon.png');
+      background-image: url('/static/img/tianchuang-icon.png');
       background-size: 70%;
     }
     &.icon-waizheyang{
-      background-image: url('/src/assets/waizheyang-icon.png');
+      background-image: url('/static/img/waizheyang-icon.png');
       background-size: 70%;
     }
     &.icon-waizheyang{
-      background-image: url('/src/assets/waizheyang-icon.png');
+      background-image: url('/static/img/waizheyang-icon.png');
       background-size: 70%;
     }
     &.icon-ylql{
-      background-image: url('/src/assets/ylql-icon.png');
+      background-image: url('/static/img/ylql-icon.png');
       background-size: 90%;
     }
     &.icon-yckz{
-      background-image: url('/src/assets/yckz-icon.png');
+      background-image: url('/static/img/yckz-icon.png');
       background-size: 80%;
     }
   }

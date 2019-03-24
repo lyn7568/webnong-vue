@@ -28,14 +28,14 @@
     width: 300vw;
 }
 .fog__img--first {
-    background: url("/src/assets/fog-1.png") repeat-x;
+    background: url("/static/img/fog-1.png") repeat-x;
     background-size: contain;
     background-position: center;
     -webkit-animation: marquee 60s linear infinite;
     animation: marquee 60s linear infinite;
 }
 .fog__img--second {
-    background: url("/src/assets/fog-2.png") repeat-x;
+    background: url("/static/img/fog-2.png") repeat-x;
     background-size: contain;
     background-position: center;
     -webkit-animation: marquee 40s linear infinite;

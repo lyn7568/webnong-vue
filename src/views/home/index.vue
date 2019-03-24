@@ -27,13 +27,13 @@
     <div class="swiper-carousel">
       <el-carousel indicator-position="outside">
         <el-carousel-item>
-          <img src="/src/assets/home_bg.jpg" width="100%" alt="">
+          <img src="/static/img/home_bg.jpg" width="100%" alt="">
         </el-carousel-item>
         <el-carousel-item>
           <div class="map-con" ref="mapContainer">{{weatherInfo}}</div>
         </el-carousel-item>
         <el-carousel-item>
-          <img src="/src/assets/logo_bg.jpg" width="100%" alt="">
+          <img src="/static/img/logo_bg.jpg" width="100%" alt="">
         </el-carousel-item>
       </el-carousel>
     </div>
@@ -191,23 +191,23 @@ export default {
             height: 1.5rem;
             background-size: 100%;
             &.img4 {
-              background-image: url("/src/assets/data-44.gif");
+              background-image: url("/static/img/data-44.gif");
             }
             &.img3 {
-              background-image: url("/src/assets/data-3.png");
+              background-image: url("/static/img/data-3.png");
             }
             &.img2 {
-              background-image: url("/src/assets/data-2.png");
+              background-image: url("/static/img/data-2.png");
             }
             &.img1 {
-              background-image: url("/src/assets/data-1.png");
+              background-image: url("/static/img/data-1.png");
             }
           }
           .n-datanum {
             margin: 0.55rem auto 0;
             width: 2.55rem;
             height: 0.95rem;
-            background: url("/src/assets/data-bg.png");
+            background: url("/static/img/data-bg.png");
             background-size: 100%;
             line-height: 1rem;
             text-align: center;
@@ -224,13 +224,13 @@ export default {
           }
           &:hover{
             .img3 {
-              background-image: url("/src/assets/data-33.gif");
+              background-image: url("/static/img/data-33.gif");
             }
             .img2 {
-              background-image: url("/src/assets/data-22.gif");
+              background-image: url("/static/img/data-22.gif");
             }
             .img1 {
-              background-image: url("/src/assets/data-11.gif");
+              background-image: url("/static/img/data-11.gif");
             }
           }
         }

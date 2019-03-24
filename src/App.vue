@@ -10,8 +10,8 @@
 </template>
 
 <script>
-  import imgs from './assets/home_bg.jpg'
-  import imgs2 from './assets/page_bg.jpg'
+  import imgs from '../static/img/home_bg.jpg'
+  import imgs2 from '../static/img/page_bg.jpg'
   export default {
     name: 'App',
     data() {

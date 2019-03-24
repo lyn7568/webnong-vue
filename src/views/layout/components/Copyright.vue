@@ -51,7 +51,7 @@ export default {
       width: .725rem;
       height: 1.35rem;
       z-index: 10;
-      background: url('/src/assets/copyright-btn.png') 0 0 no-repeat;
+      background: url('/static/img/copyright-btn.png') 0 0 no-repeat;
       background-size: 100%;
       cursor: pointer;
     }

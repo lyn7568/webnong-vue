@@ -73,7 +73,7 @@ export default {
       right: -.7rem;
       width: .7rem;
       height: 1.35rem;
-      background: url('/src/assets/nav_bg2.png') 0 0 no-repeat;
+      background: url('/static/img/nav_bg2.png') 0 0 no-repeat;
       -webkit-background-size: 100%;
       background-size: 100%;
     }

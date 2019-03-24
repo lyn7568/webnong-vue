@@ -1,7 +1,7 @@
 <template>
   <div class="ntt_logo">
     <div class="logo" @click="logoClk">
-      <img src="/src/assets/logo_bg.png" width="80%">
+      <img src="/static/img/logo_bg.png" width="80%">
       <div class="ntt_arrow" :class="{animate:isPopup0}"></div>
     </div>
     <sidebar class="sidebar-container" :class="isPopup0 ? 'animateSlideTo' : 'animateSlide'"></sidebar>
@@ -47,7 +47,7 @@ export default {
       left: 2.625rem;
       top: 50%;
       transform: translateY(-50%);
-      background: url('/src/assets/ntt-arrorw.png');
+      background: url('/static/img/ntt-arrorw.png');
       background-size: 100% 100%;
       z-index: -1;
       cursor: pointer;

@@ -170,7 +170,7 @@ export default {
       margin: 0 auto;
       width: 4.1rem;
       height: 4.1rem;
-      background: url('/src/assets/video-ctrol-bg.png') 0 0 no-repeat;
+      background: url('/static/img/video-ctrol-bg.png') 0 0 no-repeat;
       background-size: 100%;
       position: relative;
       span {
@@ -178,7 +178,7 @@ export default {
         height: 1rem;
         position: absolute;
         cursor: pointer;
-        background: url('/src/assets/video-ctrol.png') 0 0 no-repeat;
+        background: url('/static/img/video-ctrol.png') 0 0 no-repeat;
         background-size: 100%;
         border-radius: 50%;
         &.up-video{
@@ -224,7 +224,7 @@ export default {
         border-radius: 50%;
         position: absolute;
         cursor: pointer;
-        background: url('/src/assets/video-scale.png') 0 0 no-repeat;
+        background: url('/static/img/video-scale.png') 0 0 no-repeat;
         background-size: 100%;
         top: 50%;
         left: 50%;
@@ -297,7 +297,7 @@ export default {
       display: inline-block;
       width: 1.15rem;
       height: .85rem;
-      background: url('/src/assets/video-option.png') no-repeat;
+      background: url('/static/img/video-option.png') no-repeat;
       background-size: auto 100%;
       margin-right: .125rem;
       cursor: pointer;
