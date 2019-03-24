@@ -4,10 +4,12 @@
       <div class="chart-filter formClass">
         <el-dropdown trigger="click" class="float-l">
           <el-button type="primary">
-            选择区<i class="el-icon-arrow-down el-icon--right"></i>
+            {{showAreaName}}<i class="el-icon-arrow-down el-icon--right"></i>
           </el-button>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item v-for="item in videoList" :key="item.index">{{item.name}}</el-dropdown-item>
+            <el-dropdown-item v-for="item in videoList" :key="item.index"
+                              @click.native="chooseQyCck(item.id,item.name)">{{item.name}}
+            </el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
         <el-date-picker class="float-r"
@@ -23,7 +25,7 @@
       </div>
     </div>
     <div class="list-tabs-show chart-tabs-show">
-      <el-tabs v-model="activeName" type="card">
+      <el-tabs v-model="activeName" type="card" @tab-click="esnTabClk">
         <el-tab-pane v-for="item in tabList" :label="item.tit" :name="item.tab" :key="item.index">
           <line-chart v-if="chartData" :chartData="chartData"></line-chart>
         </el-tab-pane>
@@ -41,6 +43,7 @@
       return {
         activeName: '1',
         userAreaId: '',
+        showAreaName: '选择',
         pickerOptions: {
           shortcuts: [{
             text: '今天',
@@ -78,34 +81,34 @@
         },
         dateRangerVal: '',
         tabList: [
-          {
-            tab: '1',
-            tit: '室外温度'
-          },
-          {
-            tab: '2',
-            tit: '室外湿度'
-          },
-          {
-            tab: '3',
-            tit: '室外照度'
-          },
-          {
-            tab: '4',
-            tit: '室外风速'
-          },
-          {
-            tab: '5',
-            tit: '室外风向'
-          },
-          {
-            tab: '6',
-            tit: '室外雨量'
-          },
-          {
-            tab: '7',
-            tit: '室外气压'
-          }
+          // {
+          //   tab: '1',
+          //   tit: '室外温度'
+          // },
+          // {
+          //   tab: '2',
+          //   tit: '室外湿度'
+          // },
+          // {
+          //   tab: '3',
+          //   tit: '室外照度'
+          // },
+          // {
+          //   tab: '4',
+          //   tit: '室外风速'
+          // },
+          // {
+          //   tab: '5',
+          //   tit: '室外风向'
+          // },
+          // {
+          //   tab: '6',
+          //   tit: '室外雨量'
+          // },
+          // {
+          //   tab: '7',
+          //   tit: '室外气压'
+          // }
         ],
         chartData: {},
         videoList: []
@@ -126,29 +129,31 @@
     methods: {
       queryInfoList() {
         var that = this
-        // this.$http.get('/static/json/chart.txt?t='+new Date().getTime(), {
-        // }, function(res) {
-        //   var $data = res.rows
-        //   var allData = {
-        //     tit: '温度',
-        //     unit: '℃',
-        //     xData: [],
-        //     zData: []
-        //   }
-        //   var reg = /^[\u4e00-\u9fa5]{2}/g
-        //   for (let i = 0; i < $data.length; ++i) {
-        //     if (i === 0) {
-        //       allData.tit = reg.exec($data[i].ID_Item)[0]
-        //       allData.unit = $data[i].ID_Item.replace(reg, '')
-        //     }
-        //     // if ($data[i].ID_Time) {
-        //     //   $data[i].ID_Time = dateFormat($data[i].ID_Time, 'yyyy-MM-dd hh:mm')
-        //     // }
-        //     allData.xData.push($data[i].ID_Time)
-        //     allData.zData.push($data[i].ID_Value)
-        //   }
-        //   that.chartData = allData
-        // })
+        var whereObj={'ip': that.activeName}
+        this.$http.post('/chart/getEsnCgqDataList', {
+          where: whereObj,
+          curpage: 1,
+          pagesize: 20
+        }, function(res) {
+          that.tableLoading = false
+            var $data = res.data.rows
+            var allData = {
+              tit: '温度',
+              unit: '℃',
+              xData: [],
+              zData: []
+            }
+            var reg = /^[\u4e00-\u9fa5]{2}/g
+            for (let i = 0; i < $data.length; ++i) {
+              // if (i === 0) {
+              //   allData.tit = reg.exec($data[i].ID_Item)[0]
+              //   allData.unit = $data[i].ID_Item.replace(reg, '')
+              // }
+              allData.xData.push($data[i].createTime)
+              allData.zData.push($data[i].value)
+            }
+            that.chartData = allData
+        })
       },
       queryUserAreaList() {
         var that = this;
@@ -156,8 +161,36 @@
           userId: that.UID,
         }, function (res) {
           const obj = res.data
-          that.videoList=obj
+          if (obj.length != 0) {
+            that.videoList = obj
+            that.chooseQyCck(obj[0].id,obj[0].name)
+          }
         })
+
+      },
+      queryUserEsnListByUserAreaId(userAreaId) {
+        var that = this;
+        this.$http.post('/chart/getUserEsnByUserAreaId', {
+          type: 'NTT无线传感器',
+          userAreaId: userAreaId,
+        }, function (res) {
+          const obj = res.data
+          for (let i = 0; i < obj.length; ++i) {
+            obj[i].tab = obj[i].ip
+            obj[i].tit = obj[i].name
+          }
+          that.tabList = obj
+          console.log(that.tabList);
+        })
+
+      },
+      chooseQyCck(id, name) {
+        this.showAreaName = name
+        this.queryUserEsnListByUserAreaId(id)
+      },
+      esnTabClk(){
+        console.log("得到ip:"+this.activeName);
+        this.queryInfoList();
 
       }
     }
