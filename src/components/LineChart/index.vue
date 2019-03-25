@@ -1,5 +1,5 @@
 <template>
-  <div :class="className" :style="{height:height,width:width}"></div>
+  <div :style="{height:height,width:width}" :class="className" ref="chartContent"></div> 
 </template>
 <script>
 import echarts from 'echarts'
@@ -20,6 +20,9 @@ export default {
       default: '420px'
     },
     chartData: {
+      type: Object
+    },
+    chartOption: {
       type: Object
     }
   },
@@ -48,15 +51,21 @@ export default {
   },
   watch: {
     chartData(val) {
+      this.chart.dispose()
+      this.chart = null
       this.initChart(val)
     }
   },
   methods: {
-    setOptions(datastr) {
+    setOptions(datastr, options) {
       var mainColor = this.mainColor
+      if (JSON.stringify(datastr) === '{}') {
+        this.$refs.chartContent.innerHTML = '<span class="nochart-data">无数据显示</span>'
+        return
+      }
       this.chart.setOption({
         title: {
-          text: datastr.tit || "" + '走势图',
+          text: options.tit + '走势图',
           subtext: '数据来自公司',
           textStyle: {
             align: 'center',
@@ -66,47 +75,12 @@ export default {
           textAlign: 'center',
           left: 'center'
         },
-        tooltip: {
-          trigger: 'axis',
-          axisPointer: {
-            type: 'shadow'
-          }
-        },
-        grid: {
-          left: 50,
-          bottom: 110
-        },
-        dataZoom: [
-          {
-            type: 'slider',
-            start: 86,
-            end: 100,
-            borderColor: mainColor,
-            // handleStyle: {
-            //   color: '#fff',
-            //   borderColor: mainColor
-            // },
-            // dataBackground: {
-            //   areaStyle: {
-            //     borderColor: mainColor 
-            //   }
-            // }
-          },
-          {
-            type: 'inside'
-          }
-        ],
         xAxis: {
           boundaryGap: false,
           data: datastr.xData,
           axisLabel: {
-            // interval: 1,
-            rotate: -30,
-            // formatter: function(value, index) {
-            //   if (value) {
-            //     return value
-            //   }
-            // }
+            interval: 0,
+            rotate: -30
           },
           nameTextStyle: {
             fontSize: 10
@@ -122,11 +96,19 @@ export default {
         },
         yAxis: {
           type: 'value',
-          name: '单位(' + datastr.unit || "" + ')'
+          name: '单位(' + options.unit + ')'
         },
-        // legend: {
-        //   data: ['PC端', '移动端', '合计']
-        // },
+        series: [
+          {
+            type: 'line',
+            name: options.tit + '(' + options.unit + ')',
+            data: datastr.zData,
+            label: {
+              show: true,
+              formatter: '{c}'+ options.unit
+            }
+          }
+        ],
         toolbox: {
           show: true,
           feature: {
@@ -141,25 +123,47 @@ export default {
             saveAsImage: {}
           }
         },
-        series: [
-          {
-            type: 'line',
-            // name:  + '(' + datastr.unit + ')',
-            data: datastr.zData,
-            // axisLabel: {
-            //   formatter: datastr.tit + ':{value}' + datastr.unit
-            // }
+        tooltip: {
+          trigger: 'axis',
+          axisPointer: {
+            type: 'shadow'
           }
-        ]
+        },
+        grid: {
+          left: 50,
+          bottom: 80,
+          y2: 140
+        }
+        // dataZoom: [
+        //   {
+        //     type: 'slider',
+        //     start: 86,
+        //     end: 100,
+        //     borderColor: mainColor
+        //   },
+        //   {
+        //     type: 'inside'
+        //   }
+        // ],
       })
     },
     initChart() {
-      this.chart = echarts.init(this.$el, 'macarons')
       var that = this
+      that.chart = echarts.init(that.$el, 'macarons')
       setTimeout(function() {
-        that.setOptions(that.chartData)
-      }, 1)
+        that.setOptions(that.chartData, that.chartOption)
+      }, 50)
     }
   }
 }
 </script>
+
+<style>
+  .nochart-data{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    color: #666;
+  }
+</style>

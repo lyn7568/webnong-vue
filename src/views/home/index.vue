@@ -311,6 +311,61 @@ export default {
   }
 }
 
+.n_content{
+  // position: relative;
+  // z-index: 2;
+  // padding: 0rem 6rem 0rem;
+  // .farm-lang-img {
+  //   width: 80%;
+  //   padding: 0.25rem;
+  //   border-radius: 0.2rem;
+  //   border: 1px solid $--color-primary;
+  //   box-shadow: 1px 1px 10px rgba(0,0,0,0.8);
+  // }
+  .n_fieldNum{
+    .n_fielditem{
+      left: 32rem;
+      top: 11.9rem;
+      width: 1.175rem;
+      height: 1.975rem;
+      position: absolute;
+      cursor: pointer;
+      z-index: 1000;
+      .fieldnum {
+        background: url('/src/assets/farm-icon.png') 0 0 no-repeat;
+        background-size: 100%;
+        height: 100%;
+        position: relative;
+        &.el-button{
+          border:none;
+          line-height: 0;
+        }
+        em {
+          font-style: normal;
+          color: $--color-primary;
+          font-size: .5rem;
+          font-weight: bold;
+          top: .5rem;
+          left: 50%;
+          transform: translateX(-50%);
+          position: absolute;
+        }
+      }
+      .n-numtxt {
+          height: .85rem;
+          position: absolute;
+          line-height: .85rem;
+          text-align: center;
+          left: -4.125rem;
+          font-size: .45rem;
+          padding: 0 .5rem 0 .6rem;
+          border-radius: .425rem;
+          background-color: rgba(255,255,255,.75);
+      }
+    }
+  }
+}
+
 .el-popover{
   .swiper-video-nav{
     .swiper-wrapper{
