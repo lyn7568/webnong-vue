@@ -2,16 +2,7 @@
   <div class="app-container">
     <div class="form-filter">
       <div class="chart-filter formClass">
-        <el-dropdown trigger="click" class="float-l">
-          <el-button type="primary">
-            {{showAreaName}}<i class="el-icon-arrow-down el-icon--right"></i>
-          </el-button>
-          <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item v-for="item in videoList" :key="item.index"
-                              @click.native="chooseQyCck(item.id,item.name)">{{item.name}}
-            </el-dropdown-item>
-          </el-dropdown-menu>
-        </el-dropdown>
+        <drop-down class="float-l" :options="{list: videoList, cur: showAreaName}" @chooseFun="chooseQyCck"></drop-down>
         <el-date-picker class="float-r"
           v-model="dateRangerVal"
           type="daterange"
@@ -36,7 +27,7 @@
 
 <script>
   import lineChart from '@/components/LineChart'
-  import {dateFormat} from '@/utils'
+  import dropDown from '@/components/DropDown'
 
   export default {
     data() {
@@ -91,7 +82,8 @@
       }
     },
     components: {
-      lineChart
+      lineChart,
+      dropDown
     },
     computed: {
       UID() {
@@ -139,7 +131,7 @@
           const obj = res.data
           if (obj.length != 0) {
             that.videoList = obj
-            that.chooseQyCck(obj[0].id,obj[0].name)
+            that.chooseQyCck(obj[0])
           }
         })
       },
@@ -155,9 +147,9 @@
           that.findActiveInfo()
         })
       },
-      chooseQyCck(id, name) {
-        this.showAreaName = name
-        this.queryUserEsnListByUserAreaId(id)
+      chooseQyCck(val) {
+        this.showAreaName = val.name
+        this.queryUserEsnListByUserAreaId(val.id)
       },
       esnTabClk() {
         this.findActiveInfo()

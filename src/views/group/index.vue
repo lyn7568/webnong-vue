@@ -2,14 +2,7 @@
   <div class="app-container">
     <div class="n_group_content">
       <div class="n_dapengL">
-        <el-dropdown trigger="click">
-          <el-button type="primary">
-            展示区<i class="el-icon-arrow-down el-icon--right"></i>
-          </el-button>
-          <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item v-for="item in videoList" :key="item.index">{{item.type}}</el-dropdown-item>
-          </el-dropdown-menu>
-        </el-dropdown>
+        <drop-down :options="{list: videoList, cur: showName}" @chooseFun="chooseQyCck"></drop-down>
         <div class="n_newGroup">
           <el-form :model="formObject.model" :ref="formObject.model" class="formClass">
             <el-form-item v-for="item in formObject.arr" :key="item.index" :label="item.tit + ' :'">
@@ -66,10 +59,29 @@
 </template>
 
 <script>
+import dropDown from '@/components/DropDown'
 export default {
   data() {
     return {
-      videoList: [],
+      showName: '1区',
+      videoList: [
+        {
+          id: '1',
+          name: '1区'
+        },
+        {
+          id: '2',
+          name: '2区'
+        },
+        {
+          id: '3',
+          name: '3区'
+        },
+        {
+          id: '4',
+          name: '4区'
+        }
+      ],
       formObject: {
         model: {
           Logs_Date: '',
@@ -108,6 +120,9 @@ export default {
       }
     };
   },
+  components: {
+    dropDown
+  },
   created() {
     this.queryInfoList()
   },
@@ -125,6 +140,9 @@ export default {
     },
     handelTapBtn(val) {
       this.btnActive = val
+    },
+    chooseQyCck(val) {
+      console.log(val)
     }
   }
 };

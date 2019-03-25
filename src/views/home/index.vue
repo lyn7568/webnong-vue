@@ -136,8 +136,6 @@ export default {
             //地图显示当前城市
             map.setBounds(citybounds)
           }
-        } else {
-          console.log(result.info)
         }
       })
     // async getWeather() {

@@ -2,14 +2,7 @@
   <div class="app-container">
     <div class="n_group_content">
       <div class="n_dapengL" style="width:3.2rem">
-        <el-dropdown trigger="click">
-          <el-button type="primary">
-            展示区<i class="el-icon-arrow-down el-icon--right"></i>
-          </el-button>
-          <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item v-for="item in videoList" :key="item.index">{{item.type}}</el-dropdown-item>
-          </el-dropdown-menu>
-        </el-dropdown>
+        <drop-down :options="{list: videoList, cur: showName}" :width="'96px'" @chooseFun="chooseQyCck"></drop-down>
         <div class="n_plan n_right_plan">
           <div class="n_planbox">
             <h3>编组信息</h3>
@@ -72,11 +65,30 @@
 </template>
 
 <script>
+import dropDown from '@/components/DropDown'
 export default {
   data() {
     return {
       lightSwitch: true,
-      videoList: [],
+      showName: '1区',
+      videoList: [
+        {
+          id: '1',
+          name: '1区'
+        },
+        {
+          id: '2',
+          name: '2区'
+        },
+        {
+          id: '3',
+          name: '3区'
+        },
+        {
+          id: '4',
+          name: '4区'
+        }
+      ],
       formObject: {
         model: {
           Logs_Date: '',
@@ -106,6 +118,9 @@ export default {
       }
     };
   },
+  components: {
+    dropDown
+  },
   created() {
     this.queryInfoList()
   },
@@ -123,6 +138,9 @@ export default {
     },
     handelTapBtn(val) {
       this.btnActive = val
+    },
+    chooseQyCck(val) {
+      console.log(val)
     }
   }
 };
