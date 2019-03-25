@@ -55,10 +55,8 @@ export default {
         password: ''
       },
       loginRules: {
-        username: [{ required: true, trigger: 'blur' }],
-        password: [
-          { required: true, message: '请输入您的账号', trigger: 'blur' }
-        ]
+        username: [{ required: true, message: '请输入您的账号',  trigger: 'blur' }],
+        password: [ { required: true, message: '请输入您的登录密码', trigger: 'blur' }]
       },
       loading: false
     }

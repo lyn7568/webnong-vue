@@ -330,7 +330,7 @@ export default {
       cursor: pointer;
       z-index: 1000;
       .fieldnum {
-        background: url('/src/assets/farm-icon.png') 0 0 no-repeat;
+        background: url('/static/img/farm-icon.png') 0 0 no-repeat;
         background-size: 100%;
         height: 100%;
         position: relative;
