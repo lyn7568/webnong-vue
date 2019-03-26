@@ -6,7 +6,7 @@
         <div class="n_newGroup">
           <el-form :model="formObject.model" :ref="formObject.model" class="formClass">
             <el-form-item v-for="item in formObject.arr" :key="item.index" :label="item.tit + ' :'">
-              <el-select v-if="item.select && !item.list" v-model="formObject.model[item.prop]" :placeholder="item.tit">
+              <el-select v-if="item.select && !item.list" v-model="showType" :placeholder="item.tit">
                 <el-option
                   v-for="item in [{value: '1',label: '单点'},{value: '2',label: '行程'}]"
                   :key="item.value"
@@ -63,6 +63,7 @@ import dropDown from '@/components/DropDown'
 export default {
   data() {
     return {
+      showType:'1',
       showName: '1区',
       videoList: [
         {
@@ -124,7 +125,13 @@ export default {
     dropDown
   },
   created() {
-    this.queryInfoList()
+    // this.queryInfoList()
+    this.queryUserAreaList()
+  },
+  computed: {
+    UID() {
+      return this.$store.getters.userid
+    }
   },
   methods: {
     queryInfoList() {
@@ -141,9 +148,36 @@ export default {
     handelTapBtn(val) {
       this.btnActive = val
     },
+    queryUserEsnListByUserAreaId(userAreaId) {
+      var that = this;
+      this.$http.post('/chart/getUserEsnByUserAreaId', {
+        type: 'NTT无线传感器',
+        userAreaId: userAreaId,
+      }, function (res) {
+        const obj = res.data
+        that.tabList = obj
+        that.activeName = obj[0].ip
+        that.findActiveInfo()
+      })
+    },
     chooseQyCck(val) {
-      console.log(val)
-    }
+      console.log(val.id)
+      this.showAreaName = val.name
+      this.queryUserEsnListByUserAreaId(val.id)
+    },
+
+    queryUserAreaList() {
+      var that = this;
+      this.$http.post('/group/getUserAreaByUserId', {
+        userId: that.UID,
+      }, function (res) {
+        const obj = res.data
+        if (obj.length != 0) {
+          that.videoList = obj
+          // that.chooseQyCck(obj[0])
+        }
+      })
+    },
   }
 };
 </script>
