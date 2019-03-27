@@ -8,20 +8,24 @@
             <el-form-item v-for="item in formObject.arr" :key="item.index" :label="item.tit + ' :'">
               <el-select v-if="item.select && !item.list" v-model="showType" :placeholder="item.tit">
                 <el-option
-                  v-for="item in [{value: '1',label: '单点'},{value: '2',label: '行程'}]"
+                  v-for="item in [{value: 'PLC单点控制器',label: '单点'},{value: 'PLC行程手动控制器',label: '行程'}]"
                   :key="item.value"
                   :label="item.label"
-                  :value="item.value">
+                  :value="item.value"
+                  @click.native="chooseTypeClk">
                 </el-option>
               </el-select>
-              <el-input v-if="!item.select &&!item.list" v-model="formObject.model[item.prop]" :placeholder="item.tit"></el-input>
+              <el-input v-if="!item.select &&!item.list" v-model="formObject.model[item.prop]"
+                        :placeholder="item.tit"></el-input>
               <el-row v-if="item.list" class="list-shebei">
                 <el-col>3号点</el-col>
                 <el-col>1#风机</el-col>
               </el-row>
             </el-form-item>
             <el-form-item class="btn-form-item">
-              <el-button v-for="operate in formObject.oFun" :key="operate.index" type="primary" @click="$emit(operate.event)">{{operate.name}}</el-button>
+              <el-button v-for="operate in formObject.oFun" :key="operate.index" type="primary"
+                         @click="$emit(operate.event)">{{operate.name}}
+              </el-button>
             </el-form-item>
           </el-form>
         </div>
@@ -29,18 +33,19 @@
       <div class="n_dapeng_status">
         <div class="n_dapeng_statusbox">
           <el-row>
-            <el-col class="n_status_icon n_status_normal">
-              <i class="icon-gufengji"></i><p>1#风机</p>
+            <el-col v-for="item in esnList" class="n_status_icon n_status_normal">
+              <i class="icon-gufengji"></i>
+              <p>{{item.name}}</p>
             </el-col>
-            <el-col class="n_status_icon n_status_run">
-              <i class="icon-ylql"></i><p>1号点</p>
-            </el-col>
-            <el-col class="n_status_icon n_status_danger">
-              <i class="icon-ylql"></i><p>2号点</p>
-            </el-col>
-            <el-col class="n_status_icon n_status_close">
-              <i class="icon-ylql"></i><p>3号点</p>
-            </el-col>
+            <!--<el-col class="n_status_icon n_status_run">-->
+            <!--<i class="icon-ylql"></i><p>1号点</p>-->
+            <!--</el-col>-->
+            <!--<el-col class="n_status_icon n_status_danger">-->
+            <!--<i class="icon-ylql"></i><p>2号点</p>-->
+            <!--</el-col>-->
+            <!--<el-col class="n_status_icon n_status_close">-->
+            <!--<i class="icon-ylql"></i><p>3号点</p>-->
+            <!--</el-col>-->
           </el-row>
         </div>
       </div>
@@ -59,125 +64,133 @@
 </template>
 
 <script>
-import dropDown from '@/components/DropDown'
-export default {
-  data() {
-    return {
-      showType:'1',
-      showName: '1区',
-      videoList: [
-        {
-          id: '1',
-          name: '1区'
-        },
-        {
-          id: '2',
-          name: '2区'
-        },
-        {
-          id: '3',
-          name: '3区'
-        },
-        {
-          id: '4',
-          name: '4区'
-        }
-      ],
-      formObject: {
-        model: {
-          Logs_Date: '',
-          Control_Type: ''
-        },
-        arr: [
+  import dropDown from '@/components/DropDown'
+
+  export default {
+    data() {
+      return {
+        showType: 'PLC行程手动控制器',
+        showName: '1区',
+        showNameId: '',
+        esnList: [],
+        videoList: [
           {
-            prop: 'Logs_Date3',
-            tit: '设备编组'
+            id: '1',
+            name: '1区'
           },
           {
-            prop: 'Logs_Date',
-            tit: '编组类型',
-            select: true
+            id: '2',
+            name: '2区'
           },
           {
-            prop: 'Logs_Date2',
-            tit: '详情备注'
+            id: '3',
+            name: '3区'
           },
           {
-            prop: 'Control_Type',
-            tit: '所属设备',
-            list: true
+            id: '4',
+            name: '4区'
           }
         ],
-        oFun: [
-          {
-            name: '新增编组',
-            event: 'editOpenDialogFun'
+        formObject: {
+          model: {
+            Logs_Date: '',
+            Control_Type: ''
           },
-          {
-            name: '保存',
-            event: 'edit'
-          }
-        ]
-      }
-    };
-  },
-  components: {
-    dropDown
-  },
-  created() {
-    // this.queryInfoList()
-    this.queryUserAreaList()
-  },
-  computed: {
-    UID() {
-      return this.$store.getters.userid
-    }
-  },
-  methods: {
-    queryInfoList() {
-      var that = this;
-      // this.$http.get(
-      //   "/static/json/video.txt?t=" + new Date().getTime(),
-      //   {},
-      //   function(res) {
-      //     var $data = res.rows;
-      //     that.videoList = $data;
-      //   }
-      // );
-    },
-    handelTapBtn(val) {
-      this.btnActive = val
-    },
-    queryUserEsnListByUserAreaId(userAreaId) {
-      var that = this;
-      this.$http.post('/chart/getUserEsnByUserAreaId', {
-        type: 'NTT无线传感器',
-        userAreaId: userAreaId,
-      }, function (res) {
-        const obj = res.data
-        that.tabList = obj
-        that.activeName = obj[0].ip
-        that.findActiveInfo()
-      })
-    },
-    chooseQyCck(val) {
-      console.log(val.id)
-      this.showAreaName = val.name
-      this.queryUserEsnListByUserAreaId(val.id)
-    },
-
-    queryUserAreaList() {
-      var that = this;
-      this.$http.post('/group/getUserAreaByUserId', {
-        userId: that.UID,
-      }, function (res) {
-        const obj = res.data
-        if (obj.length != 0) {
-          that.videoList = obj
-          // that.chooseQyCck(obj[0])
+          arr: [
+            {
+              prop: 'Logs_Date3',
+              tit: '设备编组'
+            },
+            {
+              prop: 'Logs_Date',
+              tit: '编组类型',
+              select: true
+            },
+            {
+              prop: 'Logs_Date2',
+              tit: '详情备注'
+            },
+            {
+              prop: 'Control_Type',
+              tit: '所属设备',
+              list: true
+            }
+          ],
+          oFun: [
+            {
+              name: '新增编组',
+              event: 'editOpenDialogFun'
+            },
+            {
+              name: '保存',
+              event: 'edit'
+            }
+          ]
         }
-      })
+      };
     },
-  }
-};
+    components: {
+      dropDown
+    },
+    created() {
+      // this.queryInfoList()
+      this.queryUserAreaList()
+    },
+    computed: {
+      UID() {
+        return this.$store.getters.userid
+      }
+    },
+    methods: {
+      queryInfoList() {
+        var that = this;
+        // this.$http.get(
+        //   "/static/json/video.txt?t=" + new Date().getTime(),
+        //   {},
+        //   function(res) {
+        //     var $data = res.rows;
+        //     that.videoList = $data;
+        //   }
+        // );
+      },
+      handelTapBtn(val) {
+        this.btnActive = val
+      },
+      queryUserEsnListByUserAreaId(userAreaId) {
+        var that = this;
+        this.$http.post('/group/getUserEsnByUserAreaIdAndType', {
+          type: that.showType,
+          userAreaId: userAreaId,
+        }, function (res) {
+          const obj = res.data
+          if (obj.length != 0) {
+            that.esnList = obj;
+          }
+        })
+      },
+      chooseQyCck(val) {
+        console.log(val.id)
+        this.esnList = []
+        this.showName = val.name
+        this.showNameId=val.id
+        this.queryUserEsnListByUserAreaId(val.id)
+      },
+      chooseTypeClk() {
+        this.esnList = []
+        this.queryUserEsnListByUserAreaId(this.showNameId)
+      },
+      queryUserAreaList() {
+        var that = this;
+        this.$http.post('/group/getUserAreaByUserId', {
+          userId: that.UID,
+        }, function (res) {
+          const obj = res.data
+          if (obj.length != 0) {
+            that.videoList = obj
+            that.chooseQyCck(obj[0])
+          }
+        })
+      },
+    }
+  };
 </script>
