@@ -34,7 +34,13 @@
         <div class="n_dapeng_statusbox">
           <el-row>
             <el-col v-for="item in esnList" class="n_status_icon n_status_normal">
-              <i class="icon-gufengji"></i>
+              <i v-show="item.cgData=='鼓风机'" class="icon-gufengji"></i>
+              <i v-show="item.cgData=='水泵'" class="icon-shuibeng"></i>
+              <i v-show="item.cgData=='内遮阳'" class="icon-neizheyang"></i>
+              <i v-show="item.cgData=='天窗'" class="icon-tianchuang"></i>
+              <i v-show="item.cgData=='外遮阳'" class="icon-waizheyang"></i>
+              <i v-show="item.cgData=='雨量清零'" class="icon-ylql"></i>
+              <i v-show="item.cgData=='远程控制开关'" class="icon-yckz"></i>
               <p>{{item.name}}</p>
             </el-col>
             <!--<el-col class="n_status_icon n_status_run">-->
@@ -73,6 +79,9 @@
         showName: '1区',
         showNameId: '',
         esnList: [],
+        showIoc:{
+          '内遮阳':'icon-neizheyang'
+        },
         videoList: [
           {
             id: '1',
