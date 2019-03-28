@@ -18,14 +18,13 @@
               <el-input v-if="!item.select &&!item.list" v-model="formObject.model[item.prop]"
                         :placeholder="item.tit"></el-input>
               <el-row v-if="item.list" class="list-shebei">
-                <el-col>3号点</el-col>
-                <el-col>1#风机</el-col>
+                <el-col v-for="esnItem in esnIdsList" :key="esnItem.id">{{esnItem.name}}</el-col>
+                <!--<el-col>1#风机</el-col>-->
               </el-row>
             </el-form-item>
             <el-form-item class="btn-form-item">
-              <el-button v-for="operate in formObject.oFun" :key="operate.index" type="primary"
-                         @click="$emit(operate.event)">{{operate.name}}
-              </el-button>
+              <el-button type="primary" @click="addClear">新增设备</el-button>
+              <el-button type="primary" @click="save">保存</el-button>
             </el-form-item>
           </el-form>
         </div>
@@ -33,15 +32,15 @@
       <div class="n_dapeng_status">
         <div class="n_dapeng_statusbox">
           <el-row>
-            <el-col v-for="item in esnList" class="n_status_icon n_status_normal">
-              <i v-show="item.cgData=='鼓风机'" class="icon-gufengji"></i>
-              <i v-show="item.cgData=='水泵'" class="icon-shuibeng"></i>
-              <i v-show="item.cgData=='内遮阳'" class="icon-neizheyang"></i>
-              <i v-show="item.cgData=='天窗'" class="icon-tianchuang"></i>
-              <i v-show="item.cgData=='外遮阳'" class="icon-waizheyang"></i>
-              <i v-show="item.cgData=='雨量清零'" class="icon-ylql"></i>
-              <i v-show="item.cgData=='远程控制开关'" class="icon-yckz"></i>
-              <p>{{item.name}}</p>
+            <el-col v-for="items in esnList" :key="items.id" class="n_status_icon n_status_normal">
+              <i v-show="items.cgData=='鼓风机'" class="icon-gufengji"></i>
+              <i v-show="items.cgData=='水泵'" class="icon-shuibeng"></i>
+              <i v-show="items.cgData=='内遮阳'" class="icon-neizheyang"></i>
+              <i v-show="items.cgData=='天窗'" class="icon-tianchuang"></i>
+              <i v-show="items.cgData=='外遮阳'" class="icon-waizheyang"></i>
+              <i v-show="items.cgData=='雨量清零'" class="icon-ylql"></i>
+              <i v-show="items.cgData=='远程控制开关'" class="icon-yckz"></i>
+              <p>{{items.name}}</p>
             </el-col>
             <!--<el-col class="n_status_icon n_status_run">-->
             <!--<i class="icon-ylql"></i><p>1号点</p>-->
@@ -79,9 +78,11 @@
         showName: '1区',
         showNameId: '',
         esnList: [],
-        showIoc:{
-          '内遮阳':'icon-neizheyang'
-        },
+        esnIdsList: [
+          {id: '1', name: '01#内遮阳'},
+          {id: '2', name: '01#左天窗'},
+          {id: '3', name: '03#右天窗'},
+        ],
         videoList: [
           {
             id: '1',
@@ -102,25 +103,27 @@
         ],
         formObject: {
           model: {
-            Logs_Date: '',
-            Control_Type: ''
+            name: '',
+            type: 'PLC行程手动控制器',
+            description: '',
+            esnIds: ''
           },
           arr: [
             {
-              prop: 'Logs_Date3',
+              prop: 'name',
               tit: '设备编组'
             },
             {
-              prop: 'Logs_Date',
+              prop: 'type',
               tit: '编组类型',
               select: true
             },
             {
-              prop: 'Logs_Date2',
+              prop: 'description',
               tit: '详情备注'
             },
             {
-              prop: 'Control_Type',
+              prop: 'esnIds',
               tit: '所属设备',
               list: true
             }
@@ -128,7 +131,7 @@
           oFun: [
             {
               name: '新增编组',
-              event: 'editOpenDialogFun'
+              event: 'addClear'
             },
             {
               name: '保存',
@@ -181,12 +184,21 @@
         console.log(val.id)
         this.esnList = []
         this.showName = val.name
-        this.showNameId=val.id
+        this.showNameId = val.id
         this.queryUserEsnListByUserAreaId(val.id)
       },
       chooseTypeClk() {
         this.esnList = []
         this.queryUserEsnListByUserAreaId(this.showNameId)
+      },
+      addClear() {//新增编组
+        alert('新增编组')
+        this.esnIdsList = []
+        this.showType = 'PLC行程手动控制器'
+        this.esnIdsList = []
+      },
+      save() {//保存
+        alert('保存')
       },
       queryUserAreaList() {
         var that = this;
