@@ -220,6 +220,7 @@
       },
       chooseTypeClk() {
         this.esnList = []
+        this.addClear()
         this.queryUserEsnListByUserAreaId(this.showNameId)
       },
       chooseGroupEsnClk(id, name) {
