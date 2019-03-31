@@ -12,6 +12,12 @@
   .el-table{
     font-size: 0.4rem;
     background: rgba(0,0,0,.2);
+    th{
+      padding: 0.1rem 0;
+    }
+    td{
+      padding: 0.025rem;
+    }
     tr {
       background: none;
       &.odd-row{
@@ -83,8 +89,9 @@
     .el-form-item{
       border-radius: .125rem;
       background: #fff;
+      margin-bottom: 0.5rem;
       .el-form-item__label {
-          padding: 1px 0.3rem 0;
+          padding: 0.025rem 0.3rem 0;
           line-height: 1rem;
           font-size: .4rem;
           border-radius: .125rem;
@@ -174,7 +181,7 @@
 .form-filter{
   .chart-filter{
     overflow: hidden;
-    margin-bottom: 22px;
+    margin-bottom: 0.5rem;
   }
 }
 // layout show
@@ -204,7 +211,7 @@
   &.chart-tabs-show{
     .el-tab-pane{
       background: rgba(255,255,255,0.8);
-      padding: 10px;
+      padding: 0.25rem;
     }
   }
   .n-dataFiter{
@@ -248,19 +255,19 @@
       text-align: center;
       background: rgba(255,255,255,.9);
       border-radius: .15rem .15rem 0 0;
-      margin: 0.28rem 2px 0;
+      margin: 0.28rem 0.05rem 0;
       cursor: pointer;
       &.current-data {
         background: $--color-primary;
         color: #fff;
         line-height: .95rem;
         height: .95rem;
-        margin: .05rem 2px;
+        margin: .05rem;
       }
     }
   }
   .n-dataCount {
-    padding-top: 2px;
+    padding-top: 0.05rem;
     background-color: rgba(255,255,255,.8);
     overflow-y: scroll;
     padding: .5rem 1rem;
@@ -360,6 +367,9 @@
         .btn-form-item{
           background:none;
           text-align:center;
+          .el-button{
+            margin-bottom: 0.25rem;
+          }
         }
         .list-shebei{
           padding: 1.2rem 0.25rem 0.25rem;
@@ -501,6 +511,11 @@
         border-radius: .125rem;
         position: relative;
         box-sizing: border-box;
+        .el-button{
+          background: rgba(0,0,0,.5);
+          margin: 0.1rem;
+          margin-bottom: 0;
+        }
       }
       .no-groupright {
         border: none;

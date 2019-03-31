@@ -10,6 +10,7 @@ const app = {
   actions: {
     ToggleBG({ commit }, bg) {
       commit('TOGGLE_BG', bg)
+      document.body.style.backgroundImage = 'url('+ bg + ')'
     }
   }
 }

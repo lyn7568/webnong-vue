@@ -61,7 +61,7 @@
           <h3>编组信息</h3>
           <div v-show="groupList.length==0" class="n_jiaoshui no-groupright"><!--  <div class="n_jiaoshuibox"></div>--></div>
           <div v-show="groupList.length!=0" class="n_jiaoshui">
-              <el-button v-for="(groupItem,index) in groupList" :key="groupItem.id" type="primary" @click="showGroupInfo(index)">{{groupItem.name}}</el-button>
+            <el-button v-for="(groupItem,index) in groupList" :key="groupItem.id" type="primary" @click="showGroupInfo(index)">{{groupItem.name}}</el-button>
               <!--<el-button type="primary" @click="save">保存</el-button>-->
           </div>
         </div>

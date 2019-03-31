@@ -17,7 +17,7 @@ export default {
     },
     height: {
       type: String,
-      default: '420px'
+      default: '10rem'
     },
     chartData: {
       type: Object
@@ -66,11 +66,12 @@ export default {
       this.chart.setOption({
         title: {
           text: options.tit + '走势图',
-          subtext: '数据来自公司',
           textStyle: {
-            align: 'center',
-            color: '#333',
-            fontSize: 14
+            fontSize: '100%'
+          },
+          subtext: '数据来自公司',
+          subtextStyle: {
+            fontSize: '100%'
           },
           textAlign: 'center',
           left: 'center'
@@ -80,10 +81,8 @@ export default {
           data: datastr.xData,
           axisLabel: {
             interval: 0,
-            rotate: -30
-          },
-          nameTextStyle: {
-            fontSize: 10
+            rotate: -30,
+            fontSize: '96%'
           },
           splitLine: {
             show: true,
@@ -96,7 +95,13 @@ export default {
         },
         yAxis: {
           type: 'value',
-          name: '单位(' + options.unit + ')'
+          name: '单位(' + options.unit + ')',
+          axisLabel: {
+            fontSize: '100%'
+          },
+          nameTextStyle: {
+            fontSize: '100%'
+          }
         },
         series: [
           {
@@ -105,6 +110,7 @@ export default {
             data: datastr.zData,
             label: {
               show: true,
+              fontSize: '100%',
               formatter: '{c}'+ options.unit
             }
           }
@@ -121,12 +127,16 @@ export default {
             },
             restore: {},
             saveAsImage: {}
-          }
+          },
+          itemSize: 12
         },
         tooltip: {
           trigger: 'axis',
           axisPointer: {
             type: 'shadow'
+          },
+          textStyle: {
+            fontSize: '100%'
           }
         },
         grid: {

@@ -65,8 +65,7 @@
             },
             {
               operate: true,
-              tit: '操作',
-              width: '200'
+              tit: '操作'
             }
           ],
           oFun: [

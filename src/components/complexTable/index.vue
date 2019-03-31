@@ -3,7 +3,7 @@
     <el-table
       border
       :data="tableObject.data"
-      :height="tableHeight"
+      :height="tableHeight+'rem'"
       :row-class-name="tableRowClassName"
       :header-row-class-name="tableThClassName"
     >
@@ -55,25 +55,12 @@ export default {
   props: {
     tableObject: {
       type: Object
-    },
-    spareDistance: {
-      type: Number,
-      default: 400
     }
   },
   data() {
     return {
-      tableHeight: 420
+      tableHeight: 9.6
     };
-  },
-  mounted() {
-    var that = this;
-    setTimeout(() => {
-      that.tableHeight = window.innerHeight - that.spareDistance;
-    }, 100);
-    window.addEventListener('resize', () => {
-      that.tableHeight = window.innerHeight - that.spareDistance;
-    });
   },
   methods: {
     handleSizeChange(val) {

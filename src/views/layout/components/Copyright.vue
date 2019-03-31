@@ -16,7 +16,7 @@
 export default {
   data() {
     return {
-      isPopup: false
+      isPopup: true
     }
   },
   methods: {
@@ -39,7 +39,7 @@ export default {
 
 <style lang="scss">
   .n_bottom {
-    position: absolute;
+    position: fixed;
     bottom: .25rem;
     left: 0;
     width: 100%;
@@ -104,12 +104,12 @@ export default {
 
   }
   @keyframes move-right{
-    0%{ left: 0.5rem; }
-    100%{ left: -10.6rem; }
+    0%{ left: 0.5rem; opacity: 1; }
+    100%{ left: -10.6rem; opacity: 0; }
   }
   @keyframes move-left{
-    0%{ left: -10.6rem; }
-    100%{ left: 0.5rem; }
+    0%{ left: -10.6rem; opacity: 0;}
+    100%{ left: 0.5rem; opacity: 1;}
   }
 </style>
 

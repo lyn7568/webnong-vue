@@ -1,11 +1,12 @@
 <template>
-  <div id="app" class="fog">
-    <div class="absolute-bg" :style="{backgroundImage:'url('+ $store.getters.bg + ')'}"></div>
-    <div class="fog__container" v-if="show">
-        <div class="fog__img fog__img--first"></div>
-        <div class="fog__img fog__img--second"></div>
+  <div id="app">
+    <div class="fog">
+      <div class="fog__container" v-if="show">
+          <div class="fog__img fog__img--first"></div>
+          <div class="fog__img fog__img--second"></div>
+      </div>
+      <router-view></router-view>
     </div>
-    <router-view></router-view>
   </div>
 </template>
 
@@ -18,6 +19,9 @@
       return {
         show: false
       }
+    },
+    created() {
+      
     },
     watch: {
       '$route'(to, from) {
