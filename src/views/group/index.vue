@@ -257,9 +257,9 @@
         that.formObject.model.name=that.groupList[index].name
         that.formObject.model.description=that.groupList[index].description
         that.showType=that.groupList[index].type
+        that.esnIdsList=[]
         that.getEsnListByEsnIds(that.groupList[index].esnIds)
         that.id=that.groupList[index].id
-        // that.esnIdsList
       },
       save() {//保存
         var that=this
