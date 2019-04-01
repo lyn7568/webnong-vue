@@ -10,7 +10,7 @@
       <div class="n-dataList">
         <div class="data-btn" :class="{'current-data':item.flag}" v-for="item in videoList" :key="item.index">{{item.type}}</div>
       </div>
-      <div class="n-dataCount" :style="'height:' + bodyH + 'px'">
+      <div class="n-dataCount" ref="conBody" :style="'height:' + bodyH + 'rem'">
         <el-row>
           <el-col :span="8" class="colLi">
             <div class="dataArea">
@@ -49,7 +49,7 @@ export default {
         }
       ],
       videoList: [],
-      bodyH: 280
+      bodyH: 12
     };
   },
   created() {
@@ -58,11 +58,11 @@ export default {
   mounted() {
     var that = this;
     setTimeout(() => {
-      that.bodyH = window.innerHeight - 320;
+      that.tableHeight = (window.innerHeight - that.$refs.conBody.offsetTop - 150) * 0.025;
     }, 100);
-    window.addEventListener("resize", () => {
-      that.bodyH = window.innerHeight - 320;
-    });
+    window.addEventListener('resize', () => {
+      that.tableHeight = (window.innerHeight - that.$refs.conBody.offsetTop - 150) * 0.025;
+    })
   },
   methods: {
     queryInfoList() {

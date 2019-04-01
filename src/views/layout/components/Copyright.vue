@@ -44,6 +44,7 @@ export default {
     left: 0;
     width: 100%;
     height: 1.35rem;
+    z-index: 10;
     .n_copyrightbtn {
       position: absolute;
       bottom: 0;

@@ -13,10 +13,10 @@
     font-size: 0.4rem;
     background: rgba(0,0,0,.2);
     th{
-      padding: 0.1rem 0;
+      padding: 0.3rem 0;
     }
     td{
-      padding: 0.025rem;
+      padding: 0.25rem;
     }
     tr {
       background: none;
@@ -369,6 +369,7 @@
           text-align:center;
           .el-button{
             margin-bottom: 0.25rem;
+            padding:0 0.3rem;
           }
         }
         .list-shebei{

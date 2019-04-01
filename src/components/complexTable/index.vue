@@ -1,6 +1,7 @@
 <template>
   <div class="tableClass">
     <el-table
+      ref="tableBody"
       border
       :data="tableObject.data"
       :height="tableHeight+'rem'"
@@ -62,7 +63,17 @@ export default {
       tableHeight: 9.6
     };
   },
+  mounted() {
+    var that = this;
+    setTimeout(() => {
+      that._reHeight()
+    }, 100);
+    window.addEventListener('resize', that._reHeight)
+  },
   methods: {
+    _reHeight() {
+      this.tableHeight = (window.innerHeight - this.$refs.tableBody.$el.offsetTop - 150) * 0.025;
+    },
     handleSizeChange(val) {
       this.$emit('pageSizeFun', val)
     },
@@ -79,6 +90,9 @@ export default {
     tableThClassName({ row, rowIndex }) {
       return 'even-row';
     }
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this._reHeight)
   }
 };
 </script>
