@@ -12,7 +12,7 @@
       </div>
       <div class="n-dataCount" ref="conBody" :style="'height:' + bodyH + 'rem'">
         <el-row>
-          <el-col :span="8" class="colLi" v-for="areaItem in videoList" :key="areaItem.index">
+          <el-col :span="8" class="colLi" v-for="(areaItem,index) in videoList" v-show="flagArr[index]" :key="areaItem.index">
             <div class="dataArea">
               <h3>{{areaItem.name}}</h3>
             </div>
@@ -103,12 +103,8 @@ export default {
       this.showActive = val
     },
     showAreaEsnClk(index){
-      alert(index)
-      alert(this.flagArr[index])
-      this.flagArr[index]=!(this.flagArr[index])
-      alert(this.flagArr[index])
-      this.$set(this.flagArr,index,this.flagArr[index])
-      // Vue.set( this.flagArr,index,this.flagArr[index])
+      let value=this.flagArr[index]
+      this.$set(this.flagArr,index,!value)
     }
   }
 };
