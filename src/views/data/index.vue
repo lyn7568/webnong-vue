@@ -8,11 +8,11 @@
         </div>
       </div>
       <div class="n-dataList">
-        <div class="data-btn" :class="{'current-data':item.flag}" v-for="item in videoList" :key="item.index">{{item.type}}</div>
+        <div class="data-btn" :class="{'current-data':flagArr[index]}" v-for="(item,index) in videoList" :key="item.index">{{item.name}}</div>
       </div>
       <div class="n-dataCount" :style="'height:' + bodyH + 'px'">
         <el-row>
-          <el-col :span="8" class="colLi">
+          <el-col :span="8" class="colLi" v-for="areaItem in videoList" :key="areaItem.index">
             <div class="dataArea">
               <h3>华御气象站</h3>
             </div>
@@ -24,7 +24,7 @@
               <el-col :span="12">
                 <span>室外温度</span>
                 <em><i>17.2</i> ℃ </em>
-              </el-col>         
+              </el-col>
             </el-row>
           </el-col>
         </el-row>
@@ -38,6 +38,8 @@ export default {
   data() {
     return {
       showActive: '1',
+      flagArr:[],
+      esnList:[],
       showbtnList: [
         {
           tab: '1',
@@ -52,8 +54,14 @@ export default {
       bodyH: 280
     };
   },
+  computed: {
+    UID() {
+      return this.$store.getters.userid
+    }
+  },
   created() {
-    this.queryInfoList();
+    this.queryAreaInfoList();
+    this.queryEsnInfoList();
   },
   mounted() {
     var that = this;
@@ -65,16 +73,31 @@ export default {
     });
   },
   methods: {
-    queryInfoList() {
+    queryAreaInfoList() {
       var that = this;
-      // this.$http.get(
-      //   "/static/json/video.txt?t=" + new Date().getTime(),
-      //   {},
-      //   function(res) {
-      //     var $data = res.rows;
-      //     that.videoList = $data;
-      //   }
-      // );
+      this.$http.post('/data/getUserAreaByUserId', {
+        userId: that.UID,
+      }, function (res) {
+        const obj = res.data
+        if (obj.length != 0) {
+          that.videoList = obj
+         for (let i=0;i<that.videoList.length;i++){
+            that.flagArr.push(true)
+          }
+        }
+      })
+    },
+    queryEsnInfoList() {
+      var that = this;
+      this.$http.post('/data/getEsnCgqDataList', {
+        userId: that.UID,
+        type:'NTT无线传感器'
+      }, function (res) {
+        const obj = res.data
+        if (obj.length != 0) {
+          that.esnList = obj
+        }
+      })
     },
     clickShowBtn(val) {
       this.showActive = val
