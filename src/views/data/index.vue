@@ -8,23 +8,23 @@
         </div>
       </div>
       <div class="n-dataList">
-        <div class="data-btn" :class="{'current-data':flagArr[index]}" v-for="(item,index) in videoList" :key="item.index">{{item.name}}</div>
+        <div class="data-btn" :class="{'current-data':flagArr[index]}" v-for="(item,index) in videoList"  @click="showAreaEsnClk(index)" :key="item.index">{{item.name}}</div>
       </div>
       <div class="n-dataCount" ref="conBody" :style="'height:' + bodyH + 'rem'">
         <el-row>
           <el-col :span="8" class="colLi" v-for="areaItem in videoList" :key="areaItem.index">
             <div class="dataArea">
-              <h3>华御气象站</h3>
+              <h3>{{areaItem.name}}</h3>
             </div>
             <el-row class="datalist">
-              <el-col :span="12">
-                <span>室外温度</span>
-                <em><i>17.2</i> ℃ </em>
+              <el-col :span="12" v-for="(esnItem,index) in esnList" :key="esnItem.index" >
+                <span v-show="areaItem.id==esnItem.userArea.id">{{esnItem.name}}</span>
+                <em v-show="areaItem.id==esnItem.userArea.id"><i>{{esnItem.nowData}}</i>{{esnItem.unit}}</em>
               </el-col>
-              <el-col :span="12">
-                <span>室外温度</span>
-                <em><i>17.2</i> ℃ </em>
-              </el-col>
+              <!--<el-col :span="12">-->
+                <!--<span>室外温度</span>-->
+                <!--<em><i>17.2</i> ℃ </em>-->
+              <!--</el-col>-->
             </el-row>
           </el-col>
         </el-row>
@@ -89,7 +89,7 @@ export default {
     },
     queryEsnInfoList() {
       var that = this;
-      this.$http.post('/data/getEsnCgqDataList', {
+      this.$http.post('/data/getUserEsnByUserIdAndType', {
         userId: that.UID,
         type:'NTT无线传感器'
       }, function (res) {
@@ -101,6 +101,14 @@ export default {
     },
     clickShowBtn(val) {
       this.showActive = val
+    },
+    showAreaEsnClk(index){
+      alert(index)
+      alert(this.flagArr[index])
+      this.flagArr[index]=!(this.flagArr[index])
+      alert(this.flagArr[index])
+      this.$set(this.flagArr,index,this.flagArr[index])
+      // Vue.set( this.flagArr,index,this.flagArr[index])
     }
   }
 };
