@@ -93,6 +93,9 @@ a:hover {
 .float-r{
   float: right;
 }
+.margin-right-10{
+  margin-right: 0.5rem;
+}
 #app{
   width: 100%;
   min-height: 100vh;
@@ -126,10 +129,24 @@ a:hover {
   font-size: .4rem;
   border-radius: 0.2rem;
 }
-.el-input__inner{
+.el-input, .el-input__inner, .el-date-editor.el-input, .el-date-editor.el-input__inner, .el-date-editor .el-range-input, .el-date-editor .el-range-separator{
+  line-height: 1rem;
+  height: 1rem;
+  color: #000;
+  font-size: .4rem;
+}
+.el-date-editor .el-range-separator{
+  width: 10%;
+}
+.el-input__icon, .el-date-editor .el-range__icon, .el-date-editor .el-range__close-icon{
+  line-height: 0;
+  color: $--color-sub;
+}
+.el-radio-button__inner{
   line-height: 1rem;
   font-size: .4rem;
   height: 1rem;
+  padding: 0.025rem 0.25rem;
 }
 /** el-message-box **/
 
@@ -201,9 +218,9 @@ a:hover {
 .el-popper[x-placement^="bottom"]{
   margin-top: 0.1rem;
   .popper__arrow{
-    border-bottom-color:rgba(0,0,0,.8);
+    border-bottom-color:transparent;
     &::after{
-      border-bottom-color:rgba(0,0,0,.6);
+      border-bottom-color:transparent;
     }
   }
 }

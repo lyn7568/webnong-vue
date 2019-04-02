@@ -66,15 +66,7 @@
 // components FilterForm
 .formClass{
   .el-input, .el-input__inner, .el-date-editor.el-input, .el-date-editor.el-input__inner, .el-date-editor .el-range-input, .el-date-editor .el-range-separator{
-    line-height: 1rem;
-    height: 1rem;
-    color: #000;
-    font-size: .4rem;
     border: none;
-  }
-  .el-input__icon, .el-date-editor .el-range__icon{
-    line-height: 0;
-    color: $--color-sub;
   }
   .el-button{
     padding: 0 .85rem;
@@ -105,17 +97,6 @@
       .el-input, .el-input__inner, .el-date-editor.el-input, .el-date-editor.el-input__inner{
         width: 4.75rem;
       }
-      // .el-input__icon, .el-date-editor .el-range__icon{
-      //   line-height: 1rem;
-      //   color: $--color-sub;
-      // }
-      // .el-button{
-      //   padding: 0 .85rem;
-      //   line-height: 1rem;
-      //   font-size: .4rem;
-      //   border-color: $--color-primary;
-      //   border-radius: .125rem;
-      // }
     }
   }
 }
@@ -124,6 +105,8 @@
 .dialogClass{
   .el-dialog {
     width: 16rem;
+    overflow: hidden;
+    position: relative;
     .el-dialog__header{
       border-bottom: 1px solid #eee;
       .el-dialog__title{
@@ -132,29 +115,118 @@
         line-height: 0.6rem;
       }
     }
-    .el-dialog__body .el-form{
-      .el-form-item{
-        border-radius: .125rem;
-        background: #fff;
-        margin-bottom: 0.5rem;
-        .el-form-item__label {
+    .planInfor{
+      width: 30%;
+      color: #fff;
+      line-height: .8rem;
+      position: absolute;
+      right: -0.8rem;
+      top: -0.5rem;
+      padding: 1rem 0 .5rem .5rem;
+      background-color: #19b957;
+      font-size: 0.45rem;
+      line-height: 0.8rem;
+      i{
+        font-style: normal;
+      }
+      .icon_planInfor {
+        position: absolute;
+        width: .55rem;
+        height: .75rem;
+        background: url('/static/img/icon-planInfor.png') 0 0 no-repeat;
+        background-size: 100%;
+        top: .225rem;
+        right: .375rem;
+      }
+    }
+    .el-dialog__body{
+      padding: 0.5rem 0.8rem;
+      .el-form{
+        .el-form-item{
+          border-radius: .125rem;
+          background: #fff;
+          margin-bottom: 0.5rem;
+          font-size: 0.4rem;
           line-height: 1rem;
-          font-size: .4rem;
-        }
-        .el-form-item__content{
-          line-height: 1rem;
-        }
-        .el-input, .el-input__inner, .el-date-editor.el-input, .el-date-editor.el-input__inner{
-          line-height: 1rem;
-          height: 1rem;
-          color: #000;
-          font-size: .4rem;
-        }
-        .el-select{
-          width: 100%;
-          .el-input .el-select__caret{
+          .fontSiz{
             font-size: 0.4rem;
             line-height: 1rem;
+            vertical-align: top;
+          }
+          &.split-con{
+            margin-left: -3.8rem;
+            .split-tit{
+              font-size: 0.5rem;
+              color: $--color-primary;
+              background: none;
+              border-bottom: 1px solid $--color-primary;
+              border-radius: 0;
+              &>span{
+                margin-bottom: 0.1rem;
+              }
+              .right-btn{
+                margin-bottom: 0.2rem;
+              }
+            }
+            .split-con-show{
+              padding: 0.25rem;
+              .def-tip{
+                font-size: 0.4rem;
+                padding: 0.25rem 2rem;
+              }
+              .con-list-li{
+                margin: 0.25rem 0.1rem;
+              }
+              .el-checkbox{
+                margin-right: 0.25rem;
+              }
+              .n_status_icon{
+                margin-bottom: 0;
+              }
+              .eq_plan_statusIcon{
+                position: relative;
+                border-radius: 1rem;
+                padding-right: .5rem;
+                .i-delay{
+                  width: 1rem;
+                  height: 1rem;
+                  margin-right: 0.25rem;
+                  background: url('/static/img/icon-clock.png') 0 0;
+                  background-size: 100%;
+                  display: inline-block;
+                  cursor: pointer;
+                }
+                &.active{
+                  border: 1px solid $--color-primary;
+                  .i-delay{
+                    background-position: 0 -1rem;
+                  }
+                }
+              }
+            }
+          }
+          .el-form-item__label {
+            line-height: 1rem;
+            font-size: .4rem;
+          }
+          .el-form-item__content{
+            line-height: 1rem;
+          }
+          .el-date-editor--timerange.el-input__inner{
+            width: 220px;
+            height: 1.1rem;
+          }
+          .el-select{
+            width: 100%;
+            .el-input .el-select__caret{
+              font-size: 0.4rem;
+              line-height: 1rem;
+            }
+          }
+          .el-input-number__increase, .el-input-number__decrease{
+            font-size: 0.4rem;
+            line-height: 0.9rem;
+            width: 1rem;
           }
         }
       }
@@ -488,7 +560,7 @@
     padding-top: 0;
     border: 1px solid $--color-primary;
     width: 4.25rem;
-    &.n_right_plan{
+    &.n_left_plan{
       position: static;
       width: 3.6rem;
       margin-top: 0.25rem;
@@ -497,7 +569,42 @@
         padding: 0;
       }
     }
+    &.n_right_plan{
+      border:none;
+      .n_planbox{
+        height: 16.8rem;
+      }
+    }
     .n_planbox{
+      .addpan {
+        width: 100%;
+        height: .875rem;
+        border-radius: .125rem;
+        border: 1px solid #ff8019;
+        margin: .25rem auto;
+        cursor: pointer;
+        position: relative;
+        background-color: #fff;
+        &:hover{
+          background-color: rgba(0,0,0,.3);
+        }
+        &:before, &:after {
+          content: '';
+          position: absolute;
+          background-color: #ff8019;
+          top: 50%;
+          left: 50%;
+          transform: translateX(-50%) translateY(-50%);
+        }
+        &:before {
+          width: .425rem;
+          height: .075rem;
+        }
+        &:after {
+          width: .075rem;
+          height: .425rem;
+        }
+      }
       h3{
         display: block;
         font-size: 0.6rem;
@@ -505,6 +612,21 @@
         text-align: center;
         color: #fff;
         background: $--color-primary;
+        &.n_planbox_btn {
+          height: 1.875rem;
+          background-color: #ff8019;
+          background-image:url('/static/img/plan0.png');
+          background-position:0 0;
+          background-repeat:no-repeat;
+          -webkit-background-size: 100%;
+          background-size: 100%;
+          border-radius: .125rem .125rem .125rem .125rem;
+          cursor: pointer;
+          &:hover {
+            background-image:url('/static/img/plan.png');
+            background-color: rgba(255,128,25,.7);
+          }
+        }
       }
       .n_jiaoshui {
         height: 15rem;
@@ -525,6 +647,7 @@
       }
     }
   }
+  
 }
 
 // n_status_normal
@@ -536,6 +659,8 @@
   margin-bottom: 0.8rem;
   position: relative;
   height: 1.05rem;
+  font-size: 0.4rem;
+  line-height: 1rem;
   cursor: pointer;
   padding-left: 1.125rem;
   border: 1px solid $--color-sub;
@@ -555,6 +680,10 @@
     position: absolute;
     background-position: center;
     background-repeat: no-repeat;
+    &.icon-shebei{
+      background: url('/static/img/shebei-icon.png');
+      background-size: 90%;
+    }
     &.icon-gufengji{
       background-image: url('/static/img/paifengshan-icon.png');
       background-size: 70%;
@@ -587,6 +716,24 @@
       background-image: url('/static/img/yckz-icon.png');
       background-size: 80%;
     }
+    // &.icon-status1{
+    //   background-image: url('/static/img/dataicons-2.png');
+    //   &.guangzhao{
+    //     background-position: 0 24.4%;
+    //   }
+    //   &.tuwen{
+    //     background-position: center 24.5%;
+    //   }
+    // }
+    // &.icon-status2{
+    //   background-image: url('/static/img/dataicons-2.png');
+    //   &.guangzhao{
+    //     background-position: 0 24.4%;
+    //   }
+    //   &.tuwen{
+    //     background-position: center 24.5%;
+    //   }
+    // }
   }
   p {
     max-width: 2.675rem;

@@ -3,7 +3,7 @@
     <div class="n_group_content">
       <div class="n_dapengL" style="width:3.2rem">
         <drop-down :options="{list: videoList, cur: showName}" :width="'96px'" @chooseFun="chooseQyCck"></drop-down>
-        <div class="n_plan n_right_plan">
+        <div class="n_plan n_left_plan">
           <div class="n_planbox">
             <h3>编组信息</h3>
             <div class="n_jiaoshui no-groupright">
@@ -50,22 +50,21 @@
           </div>
         </div>
       </div>
-      <!-- <div class="n_plan">
+      <div class="n_plan n_right_plan">
+        <div class="n_mouse_move"></div>
         <div class="n_planbox">
-          <h3>编组信息</h3>
-          <div class="n_jiaoshui no-groupright">
-            <div class="n_jiaoshuibox">
-
-            </div>
-          </div>
+          <h3 class="n_planbox_btn" @click="ExecutionScheme()"></h3>
+          <div class="addpan" @click="addPlan()"></div>
         </div>
-      </div> -->
+      </div>
     </div>
+    <add-ways ref="addRunWaysDialog"></add-ways>
   </div>
 </template>
 
 <script>
 import dropDown from '@/components/DropDown'
+import addWays from './addWays'
 export default {
   data() {
     return {
@@ -119,7 +118,8 @@ export default {
     };
   },
   components: {
-    dropDown
+    dropDown,
+    addWays
   },
   created() {
     this.queryInfoList()
@@ -141,6 +141,12 @@ export default {
     },
     chooseQyCck(val) {
       console.log(val)
+    },
+    ExecutionScheme() {
+
+    },
+    addPlan() {
+      this.$refs.addRunWaysDialog.openDiag()
     }
   }
 };
