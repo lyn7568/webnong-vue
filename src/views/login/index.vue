@@ -15,7 +15,7 @@
         </div>
         <div class="ntt-avtar2">
           <div class="code"></div>
-          <p>更多信息扫描关注<br>农抬头微信公众平台</p>
+          <p>更多信息扫描关注<br>农行微信公众平台</p>
         </div>
       </div>
       <div class="ntt_loginForm float-l">
@@ -40,7 +40,7 @@
         </el-form>
       </div>
     </div>
-    
+
   </div>
 </template>
 

@@ -7,7 +7,7 @@
         <div class="n-i"><svg-icon icon-class="reset_password" /></div>
         <div class="n-i" @click="logOut"><svg-icon icon-class="close" /></div>
       </div>
-      <p>版权所有：上海田韵物联网科技有限公司</p>
+      <p>版权所有：河南科美乐农业科技有限公司</p>
     </div>
   </div>
 </template>
@@ -63,7 +63,7 @@ export default {
       left: 0.5rem;
       overflow: hidden;
       border: 1px solid $--color-primary;
-      border-left-color: transparent; 
+      border-left-color: transparent;
       border-radius: 0 0.25rem 0.25rem 0;
       background: rgba(0,0,0,0.3);
       line-height: 0.5rem;
