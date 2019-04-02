@@ -20,9 +20,9 @@
               <h3>{{areaItem.name}}</h3>
             </div>
             <el-row class="datalist">
-              <el-col :span="12" v-for="(esnItem,index) in esnList" :key="esnItem.index" >
-                <span v-show="areaItem.id==esnItem.userArea.id">{{esnItem.name}}</span>
-                <em v-show="areaItem.id==esnItem.userArea.id"><i>{{esnItem.nowData}}</i>{{esnItem.unit}}</em>
+              <el-col :span="12" v-for="(esnItem,index) in esnList" :key="esnItem.index" v-show="areaItem.id==esnItem.userArea.id">
+                <span>{{esnItem.name}}</span>
+                <em><i>{{esnItem.nowData}}</i>{{esnItem.unit}}</em>
               </el-col>
             </el-row>
           </el-col>
@@ -33,9 +33,9 @@
               <h3>{{typeItem.name}}</h3>
             </div>
             <el-row class="datalist">
-              <el-col :span="12" v-for="(esnItem,index) in esnList" :key="esnItem.index" >
-                <span v-show="typeItem.id==esnItem.cgData">{{esnItem.userArea.name}}>{{esnItem.name}}</span>
-                <em v-show="typeItem.id==esnItem.cgData"><i>{{esnItem.nowData}}</i>{{esnItem.unit}}</em>
+              <el-col :span="12" v-for="(esnItem,index) in esnList" :key="esnItem.index"  v-show="typeItem.id==esnItem.cgData">
+                <span>{{esnItem.userArea.name}}>{{esnItem.name}}</span>
+                <em><i>{{esnItem.nowData}}</i>{{esnItem.unit}}</em>
               </el-col>
             </el-row>
           </el-col>
