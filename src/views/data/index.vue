@@ -14,30 +14,34 @@
         <div class="data-btn" :class="{'current-data':flagTypeArr[index]}" v-for="(item,index) in videoTypeList"  @click="showEsnTypeClk(index)" :key="item.index">{{item.name}}</div>
       </div>
       <div class="n-dataCount" ref="conBody" :style="'height:' + bodyH + 'rem'">
-        <el-row v-show="showTab">
-          <el-col :span="8" class="colLi" v-for="(areaItem,index) in videoList" v-show="flagArr[index]" :key="areaItem.index">
-            <div class="dataArea">
-              <h3>{{areaItem.name}}</h3>
+        <el-row :gutter="10" v-show="showTab">
+          <el-col :span="8" v-for="(areaItem,index) in videoList" v-show="flagArr[index]" :key="areaItem.index">
+            <div class="colLi">
+              <div class="dataArea">
+                <h3>{{areaItem.name}}</h3>
+              </div>
+              <el-row class="datalist">
+                <el-col :span="12" v-for="esnItem in esnList" :key="esnItem.index" v-show="areaItem.id==esnItem.userArea.id">
+                  <span>{{esnItem.name}}</span>
+                  <em><i>{{esnItem.nowData}}</i>{{esnItem.unit}}</em>
+                </el-col>
+              </el-row>
             </div>
-            <el-row class="datalist">
-              <el-col :span="12" v-for="(esnItem,index) in esnList" :key="esnItem.index" v-show="areaItem.id==esnItem.userArea.id">
-                <span>{{esnItem.name}}</span>
-                <em><i>{{esnItem.nowData}}</i>{{esnItem.unit}}</em>
-              </el-col>
-            </el-row>
           </el-col>
         </el-row>
-        <el-row v-show="!showTab">
-          <el-col :span="8" class="colLi" v-for="(typeItem,index) in videoTypeList" v-show="flagTypeArr[index]" :key="typeItem.index">
-            <div class="dataArea">
-              <h3>{{typeItem.name}}</h3>
+        <el-row :gutter="10" v-show="!showTab">
+          <el-col :span="8" v-for="(typeItem,index) in videoTypeList" v-show="flagTypeArr[index]" :key="typeItem.index">
+            <div class="colLi">
+              <div class="dataArea">
+                <h3>{{typeItem.name}}</h3>
+              </div>
+              <el-row class="datalist">
+                <el-col :span="12" v-for="esnItem in esnList" :key="esnItem.index" v-show="typeItem.id==esnItem.cgData">
+                  <span>{{esnItem.userArea.name}}>{{esnItem.name}}</span>
+                  <em><i>{{esnItem.nowData}}</i>{{esnItem.unit}}</em>
+                </el-col>
+              </el-row>
             </div>
-            <el-row class="datalist">
-              <el-col :span="12" v-for="(esnItem,index) in esnList" :key="esnItem.index"  v-show="typeItem.id==esnItem.cgData">
-                <span>{{esnItem.userArea.name}}>{{esnItem.name}}</span>
-                <em><i>{{esnItem.nowData}}</i>{{esnItem.unit}}</em>
-              </el-col>
-            </el-row>
           </el-col>
         </el-row>
       </div>
@@ -101,12 +105,16 @@ export default {
   },
   mounted() {
     var that = this;
+    this.__resizeHanlder = function() {
+      that.bodyH = (window.innerHeight - that.$refs.conBody.offsetTop - 80) * 0.025;
+    }
     setTimeout(() => {
-      that.tableHeight = (window.innerHeight - that.$refs.conBody.offsetTop - 150) * 0.025;
+      that.__resizeHanlder()
     }, 100);
-    window.addEventListener('resize', () => {
-      that.tableHeight = (window.innerHeight - that.$refs.conBody.offsetTop - 150) * 0.025;
-    })
+    window.addEventListener('resize', this.__resizeHanlder)
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.__resizeHanlder)
   },
   methods: {
     queryAreaInfoList() {

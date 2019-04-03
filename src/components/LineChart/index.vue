@@ -15,10 +15,6 @@ export default {
       type: String,
       default: '100%'
     },
-    height: {
-      type: String,
-      default: '10rem'
-    },
     chartData: {
       type: Object
     },
@@ -29,14 +25,20 @@ export default {
   data() {
     return {
       chart: null,
-      mainColor: '#ff8019'
+      mainColor: '#ff8019',
+      height: '10rem'
     }
   },
   mounted() {
-    this.initChart()
+    var that = this
+    this.height = (window.innerHeight - this.$refs.chartContent.offsetTop - 150) * 0.025 + 'rem'
+    setTimeout(() => {
+      that.initChart()
+    }, 0)
     this.__resizeHanlder = debounce(() => {
       if (this.chart) {
         this.chart.resize()
+        this.height = (window.innerHeight - this.$refs.chartContent.offsetTop - 150) * 0.025 + 'rem';
       }
     }, 100)
     window.addEventListener('resize', this.__resizeHanlder)
@@ -140,21 +142,10 @@ export default {
           }
         },
         grid: {
-          left: 50,
-          bottom: 80,
-          y2: 140
+          left: '3%',
+          bottom: '18%',
+          y2: '20%'
         }
-        // dataZoom: [
-        //   {
-        //     type: 'slider',
-        //     start: 86,
-        //     end: 100,
-        //     borderColor: mainColor
-        //   },
-        //   {
-        //     type: 'inside'
-        //   }
-        // ],
       })
     },
     initChart() {

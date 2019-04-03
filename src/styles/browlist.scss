@@ -342,16 +342,13 @@
     padding-top: 0.05rem;
     background-color: rgba(255,255,255,.8);
     overflow-y: scroll;
-    padding: .5rem 1rem;
+    padding: .5rem;
     padding-bottom: 0;
-    box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    -ms-box-sizing: border-box;
+    box-sizing: content-box;
     margin-top: .05rem;
     .colLi{
       height: 7.3rem;
       background-color: rgba(255,255,255,.9);
-      margin-right: 1.5%;
       margin-bottom: .45rem;
       border: 1px solid $--color-sub;
       .dataArea {
@@ -378,9 +375,7 @@
           padding: 0 .125rem;
           box-sizing: border-box;
           border-bottom: 1px solid $--color-sub;
-          &:nth-child(2n+1) {
-            border-right: 1px solid $--color-sub;
-          }
+          border-right: 1px solid $--color-sub;
           span{
             float: left;
           }
