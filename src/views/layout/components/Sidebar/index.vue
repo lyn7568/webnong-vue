@@ -29,15 +29,15 @@ export default {
 <style lang="scss">
   .ntt_navbox {
     width: 26rem;
-    height: 1.35rem;
+    height: 1.4rem;
     position: absolute;
     left: 3.1rem;
-    top: 50%;
+    top: 54%;
     transform: translateY(-50%);
     background:rgba(0,0,0,.3);
     .ntt_nav {
       position: absolute;
-      padding-left: 1.2rem;
+      padding-left: 1.5rem;
       left: 0;
       top: 0;
       height: 1.35rem;

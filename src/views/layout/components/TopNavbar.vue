@@ -1,8 +1,8 @@
 <template>
   <div class="ntt_logo">
     <div class="logo" @click="logoClk">
-      <img src="/static/img/logo_bg.png" width="80%">
       <div class="ntt_arrow" :class="{animate:isPopup0}"></div>
+      <img src="/static/img/logo_bg2.png">
     </div>
     <sidebar class="sidebar-container" :class="isPopup0 ? 'animateSlideTo' : 'animateSlide'"></sidebar>
   </div>
@@ -33,20 +33,28 @@ export default {
     position: relative;
     overflow: hidden;
     .logo {
-      margin-left: .8rem;
-      width: 3.5rem;
-      height: 3.6rem;
+      margin-left: .4rem;
+      width: 4rem;
+      height: 1.8rem;
       z-index: 3;
       position: relative;
       cursor: pointer;
+      background: #ffffff;
+      border-radius: 0 0 50% 50%;
+      img{
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        border-radius: 0 0 50% 50%;
+        overflow: hidden;
+      }
     }
     .ntt_arrow {
       width: 2rem;
       height: 1.375rem;
       position: absolute;
-      left: 2.625rem;
-      top: 50%;
-      transform: translateY(-50%);
+      left: 0;
+      bottom: 0.1rem;
       background: url('/static/img/ntt-arrorw.png');
       background-size: 100% 100%;
       z-index: -1;
@@ -69,12 +77,12 @@ export default {
     }
   }
   @keyframes arrow{
-    0%{ left:2.625rem }
-    100%{ left:.625rem }
+    0%{ left:3rem }
+    100%{ left:1.5rem }
   }
   @keyframes arrow2{
-    0%{ left:.625rem }
-    100%{ left:2.625rem }
+    0%{ left:1.5rem }
+    100%{ left:3rem }
   }
   @keyframes menunav{
     0%{ left: 3.1rem; opacity: 1; }
