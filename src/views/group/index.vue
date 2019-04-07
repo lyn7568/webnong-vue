@@ -12,7 +12,7 @@
                   :key="item.value"
                   :label="item.label"
                   :value="item.value"
-                  @click.native="chooseTypeClk">
+                  @click.native="chooseTypeClk(item.value)">
                 </el-option>
               </el-select>
               <el-input v-if="!item.select &&!item.list" v-model="formObject.model[item.prop]"
@@ -218,9 +218,10 @@
         this.queryInfoList()
         this.queryUserEsnListByUserAreaId(val.id)
       },
-      chooseTypeClk() {
+      chooseTypeClk(value) {
         this.esnList = []
         this.addClear()
+        this.showType=value;
         this.queryUserEsnListByUserAreaId(this.showNameId)
       },
       chooseGroupEsnClk(id, name) {
