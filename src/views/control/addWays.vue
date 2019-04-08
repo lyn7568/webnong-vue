@@ -3,27 +3,27 @@
     <el-dialog class="dialogClass" title="添加执行方案" :visible.sync="dialogFormVisible" :close-on-click-modal="false" width="90%">
       <el-form :model="formObject.model" :ref="formObject.ref" :rules="formObject.rules" label-width="3.8rem">
         <el-row>
-          <div class="planInfor">
-            <i class="icon_planInfor"></i>
-            <div class="planInforItem">
-                <span>方案创建人</span>: <i>超级管理员</i>
-            </div>
-            <div class="planInforItem">
-                <span>方案创建时间</span>: <i>2019-04-02 14:53</i>
-            </div>
-            <div class="planInforItem">
-                <span>最后编辑人 </span>: <i>超级管理员</i>
-            </div>
-            <div class="planInforItem">
-                <span>最后编辑时间</span>: <i>2019-04-02 14:53</i>
-            </div>
-            <div class="planInforItem">
-                <span>最后运行时间</span>: <i>2019-04-02 14:53</i>
-            </div>
-            <div class="planInforItem">
-                <span>最后关闭时间</span>: <i>2019-04-02 14:53</i>
-            </div>
-          </div>
+          <!--<div class="planInfor">-->
+            <!--<i class="icon_planInfor"></i>-->
+            <!--<div class="planInforItem">-->
+                <!--<span>方案创建人</span>: <i>超级管理员</i>-->
+            <!--</div>-->
+            <!--<div class="planInforItem">-->
+                <!--<span>方案创建时间</span>: <i>2019-04-02 14:53</i>-->
+            <!--</div>-->
+            <!--<div class="planInforItem">-->
+                <!--<span>最后编辑人 </span>: <i>超级管理员</i>-->
+            <!--</div>-->
+            <!--<div class="planInforItem">-->
+                <!--<span>最后编辑时间</span>: <i>2019-04-02 14:53</i>-->
+            <!--</div>-->
+            <!--<div class="planInforItem">-->
+                <!--<span>最后运行时间</span>: <i>2019-04-02 14:53</i>-->
+            <!--</div>-->
+            <!--<div class="planInforItem">-->
+                <!--<span>最后关闭时间</span>: <i>2019-04-02 14:53</i>-->
+            <!--</div>-->
+          <!--</div>-->
           <el-col :span="16">
             <el-form-item class="split-con">
               <div class="split-tit"><span>方案基本信息</span></div>
@@ -42,10 +42,11 @@
             </el-form-item>
             <el-form-item prop="checked">
               <el-checkbox v-model="formObject.model.checked">仅有限期内执行</el-checkbox>
+              <el-date-picker v-show="formObject.model.checked" v-model="formObject.model.validTime" type="date" placeholder="选择日期"> </el-date-picker>
             </el-form-item>
-            <el-form-item label="执行确认时间：" prop="time">
-              <el-input-number v-model="formObject.model.time" :min="0" @change="handleTimeChange"></el-input-number> 分钟
-            </el-form-item>
+            <!--<el-form-item label="执行确认时间：" prop="time">-->
+              <!--<el-input-number v-model="formObject.model.time" :min="0" @change="handleTimeChange"></el-input-number> 分钟-->
+            <!--</el-form-item>-->
           </el-col>
           <el-col :span="24">
             <el-form-item class="split-con">
@@ -79,7 +80,7 @@
                       <div class="n_status_icon n_status_normal float-l"><i class="icon-shebei"></i><p>请选择设备</p></div>
                       <el-select class="float-l margin-right-10" style="width: 120px" v-model="showType">
                         <el-option
-                          v-for="op in [{value: '0',label: '正常开启'},{value: '1',label: '间歇开启'}]"
+                          v-for="op in [{value: '>=',label: '>='},{value: '<=',label: '<='}]"
                           :key="op.value" :label="op.label" :value="op.value" @click.native="chooseTypeClk">
                         </el-option>
                       </el-select>
@@ -200,7 +201,8 @@ export default {
           state: '',
           switch: false,
           checked: false,
-          time: ''
+          time: '',
+          validTime:'2099-12-31 00:00:00'
         },
         rules: {
 

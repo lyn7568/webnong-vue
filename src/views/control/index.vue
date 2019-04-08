@@ -6,10 +6,10 @@
         <div class="n_plan n_left_plan">
           <div class="n_planbox">
             <h3>编组信息</h3>
-            <div class="n_jiaoshui no-groupright">
-              <div class="n_jiaoshuibox">
-
-              </div>
+            <div v-show="groupList.length==0" class="n_jiaoshui no-groupright"><!--  <div class="n_jiaoshuibox"></div>--></div>
+            <div v-show="groupList.length!=0" class="n_jiaoshui">
+              <el-button v-for="(groupItem,index) in groupList" :key="groupItem.id" type="primary" @click="showGroupInfo(index)">{{groupItem.name}}</el-button>
+              <!--<el-button type="primary" @click="save">保存</el-button>-->
             </div>
           </div>
         </div>
@@ -30,22 +30,33 @@
         <div class="n_dapeng_statusbox">
           <div class="n_left">
             <el-row>
-              <el-col class="n_status_icon n_status_normal">
-                <i class="icon-gufengji"></i><p>1#风机</p>
+              <el-col class="n_status_icon n_status_normal" v-for="cgqEsnItem in userCgqEsnList" :key="cgqEsnItem.id">
+                <i class="icon-gufengji"></i><p>{{cgqEsnItem.name}}</p>
               </el-col>
-              <el-col class="n_status_icon n_status_run">
+          <!--    <el-col class="n_status_icon n_status_run">
                 <i class="icon-ylql"></i><p>1号点</p>
-              </el-col>
+              </el-col>-->
             </el-row>
           </div>
           <div class="n_right">
             <el-row>
-              <el-col class="n_status_icon n_status_normal">
-                <i class="icon-gufengji"></i><p>1#风机</p>
+              <el-col v-for="items in userColEsnList" :key="items.id" @click.native="chooseGroupEsnClk(items.id,items.name)"
+                      class="n_status_icon n_status_normal">
+                <i v-show="items.cgData=='鼓风机'" class="icon-gufengji"></i>
+                <i v-show="items.cgData=='水泵'" class="icon-shuibeng"></i>
+                <i v-show="items.cgData=='内遮阳'" class="icon-neizheyang"></i>
+                <i v-show="items.cgData=='天窗'" class="icon-tianchuang"></i>
+                <i v-show="items.cgData=='外遮阳'" class="icon-waizheyang"></i>
+                <i v-show="items.cgData=='雨量清零'" class="icon-ylql"></i>
+                <i v-show="items.cgData=='远程控制开关'" class="icon-yckz"></i>
+                <p>{{items.name}}</p>
               </el-col>
-              <el-col class="n_status_icon n_status_run">
-                <i class="icon-ylql"></i><p>1号点</p>
-              </el-col>
+              <!--<el-col class="n_status_icon n_status_normal">-->
+                <!--<i class="icon-gufengji"></i><p>1#风机</p>-->
+              <!--</el-col>-->
+              <!--<el-col class="n_status_icon n_status_run">-->
+                <!--<i class="icon-ylql"></i><p>1号点</p>-->
+              <!--</el-col>-->
             </el-row>
           </div>
         </div>
@@ -70,24 +81,12 @@ export default {
     return {
       lightSwitch: true,
       showName: '1区',
-      videoList: [
-        {
-          id: '1',
-          name: '1区'
-        },
-        {
-          id: '2',
-          name: '2区'
-        },
-        {
-          id: '3',
-          name: '3区'
-        },
-        {
-          id: '4',
-          name: '4区'
-        }
-      ],
+      userAreaId:'',
+      groupList:[],//编组列表
+      userCgqEsnList:[],//传感器设备列表
+      userColEsnList:[],//控制设备列表
+      userPlanList:[],//执行方案列表
+      videoList: [],
       formObject: {
         model: {
           Logs_Date: '',
@@ -121,26 +120,87 @@ export default {
     dropDown,
     addWays
   },
+  computed: {
+    UID() {
+      return this.$store.getters.userid
+    }
+  },
   created() {
-    this.queryInfoList()
+    this.queryUserAreaList()
   },
   methods: {
-    queryInfoList() {
+    queryUserAreaList(){//用户区域列表
       var that = this;
-      // this.$http.get(
-      //   "/static/json/video.txt?t=" + new Date().getTime(),
-      //   {},
-      //   function(res) {
-      //     var $data = res.rows;
-      //     that.videoList = $data;
-      //   }
-      // );
+      this.$http.post('/esnController/getUserAreaByUserId', {
+        userId: that.UID,
+      }, function (res) {
+        const obj = res.data
+        if (obj.length != 0) {
+          that.videoList = obj
+          that.chooseQyCck(obj[0])
+        }
+      })
+    },
+    queryUserGroupList(){//用户编组列表
+      var that = this;
+      this.$http.post('/esnController/getGroupList', {
+        userAreaId: that.userAreaId,
+      }, function (res) {
+        const obj = res.data
+        that.groupList=[]
+        if (obj.length != 0) {
+          that.groupList = obj
+        }
+      })
+    },
+    queryUserCgqEsnList(){//获取用户传感器设备
+      var that = this;
+      this.$http.post('/esnController/getUserEsnByUserAreaId', {
+        userAreaId: that.userAreaId,
+        type:'NTT无线传感器',
+      }, function (res) {
+        const obj = res.data
+        that.userCgqEsnList=[]
+        if (obj.length != 0) {
+          that.userCgqEsnList = obj
+        }
+      })
+    },
+    queryUserColEsnList(){//获取用户控制设备
+      var that = this;
+      this.$http.post('/esnController/getUserEsnByUserAreaId', {
+        userAreaId: that.userAreaId,
+        type:'PLC行程手动控制器;PLC单点控制器',
+      }, function (res) {
+        const obj = res.data
+        that.userColEsnList =[]
+        if (obj.length != 0) {
+          that.userColEsnList = obj
+        }
+      })
+    },
+    queryUserPlanList(){//获取区域执行方案
+      var that = this;
+      this.$http.post('/esnController/getUserPlanListByUserAreaId', {
+        userAreaId: that.userAreaId
+      }, function (res) {
+        const obj = res.data
+        if (obj.length != 0) {
+          that.userPlanList = obj
+        }
+      })
+    },
+    chooseQyCck(val) {
+      this.showName = val.name
+      this.userAreaId = val.id
+      this.queryUserGroupList()
+      this.queryUserCgqEsnList()
+      this.queryUserColEsnList()
+      this.queryUserPlanList()
+      // this.queryUserEsnListByUserAreaId(val.id)
     },
     handelTapBtn(val) {
       this.btnActive = val
-    },
-    chooseQyCck(val) {
-      console.log(val)
     },
     ExecutionScheme() {
 
