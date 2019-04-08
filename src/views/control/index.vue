@@ -94,7 +94,7 @@
                     <i class="icon-gufengji"></i><p>1#风机</p>
                   </el-col>
                 </el-row>
-                <div class="planlist_li" slot="reference" v-for="ap in AutoPlanDataList" :key="ap.index">
+                <div class="planlist_li" slot="reference">
                   <div class="n_planIcon">
                     <span class="activePlan"></span>
                     <span class="character360"></span>
@@ -164,8 +164,7 @@ export default {
             event: 'edit'
           }
         ]
-      },
-      AutoPlanDataList: []
+      }
     };
   },
   components: {
