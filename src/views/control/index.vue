@@ -30,12 +30,23 @@
         <div class="n_dapeng_statusbox">
           <div class="n_left">
             <el-row>
-              <el-col class="n_status_icon n_status_normal" v-for="cgqEsnItem in userCgqEsnList" :key="cgqEsnItem.id">
+              <!-- <el-col class="n_status_icon n_status_normal" v-for="cgqEsnItem in userCgqEsnList" :key="cgqEsnItem.id">
                 <i class="icon-gufengji"></i><p>{{cgqEsnItem.name}}</p>
+              </el-col> -->
+              <el-col class="eq-status-discon">
+                <i class="icon-status1 guangzhao"></i>
+                <div class="status-txt">
+                  <p>光照</p>
+                  <p>4Lux</p>
+                </div>
               </el-col>
-          <!--    <el-col class="n_status_icon n_status_run">
-                <i class="icon-ylql"></i><p>1号点</p>
-              </el-col>-->
+              <el-col class="eq-status-discon">
+                <i class="icon-status2 tuwen"></i>
+                <div class="status-txt">
+                  <p>土温</p>
+                  <p>17.1 ℃</p>
+                </div>
+              </el-col>
             </el-row>
           </div>
           <div class="n_right">
@@ -66,6 +77,46 @@
         <div class="n_planbox">
           <h3 class="n_planbox_btn" @click="ExecutionScheme()"></h3>
           <div class="addpan" @click="addPlan()"></div>
+          <div class="n_playShow">
+            <div class="planlist">
+              <el-popover placement="left" width="300" trigger="hover">
+                <el-row class="runninglist_li">
+                  <el-col class="n_status_icon n_status_normal">
+                    <i class="icon-gufengji"></i><p>1#风机</p>
+                  </el-col>
+                  <el-col class="n_status_icon n_status_normal">
+                    <i class="icon-gufengji"></i><p>1#风机</p>
+                  </el-col>
+                  <el-col class="n_status_icon n_status_normal">
+                    <i class="icon-gufengji"></i><p>1#风机</p>
+                  </el-col>
+                  <el-col class="n_status_icon n_status_normal">
+                    <i class="icon-gufengji"></i><p>1#风机</p>
+                  </el-col>
+                </el-row>
+                <div class="planlist_li" slot="reference" v-for="ap in AutoPlanDataList" :key="ap.index">
+                  <div class="n_planIcon">
+                    <span class="activePlan"></span>
+                    <span class="character360"></span>
+                    <span></span>   <!--:click="Copy(ap)" -->
+                    <span></span>  <!--:click="Show(ap)"  -->
+                  </div>
+                  <div class="n_planTitle">test</div>
+                  <div class="n_planTerm"><span>条件</span><i>1</i></div>
+                  <div class="n_planlight">
+                      <span class="zhi">智</span>
+                      <i>1</i>
+                      <span class="bao">保</span>
+                      <i>0</i>
+                      <span class="jing">警</span>
+                      <i>0</i>
+                  </div>
+                  <p class="eq-status-normal"><i>有 效 期：永久有效</i></p>
+                  <p>上次执行：04-08 11:01</p>
+                </div>
+              </el-popover>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -113,7 +164,8 @@ export default {
             event: 'edit'
           }
         ]
-      }
+      },
+      AutoPlanDataList: []
     };
   },
   components: {
