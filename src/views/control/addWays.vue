@@ -57,12 +57,12 @@
                   <el-button @click.native="batchAddShebei">批量添加</el-button>
                 </div>
               </div>
-              <div class="split-con-show">
+              <div class="split-con-show" v-for="(item,index) in formObject.model.type">
                 <div class="con-list-li clearfix">
                   <span class="svg-container margin-right-10 float-l" @click="OperDelete">
                     <svg-icon icon-class="delete"/>
                   </span>
-                  <el-radio-group class="float-l margin-right-10" v-model="tabOneSelect">
+                  <el-radio-group class="float-l margin-right-10" v-model="formObject.model.type[index]">
                     <el-radio-button label="1">按时间</el-radio-button>
                     <el-radio-button label="2">按条件</el-radio-button>
                   </el-radio-group>
@@ -89,7 +89,7 @@
                     </template>
                   </div>
                 </div>
-                <div class="def-tip">暂无执行条件，请添加</div>
+                <div class="def-tip" v-show="formObject.model.type.length==0">暂无执行条件，请添加</div>
               </div>
             </el-form-item>
           </el-col>
@@ -199,6 +199,7 @@ export default {
         model: {
           name: '',
           state: '',
+          type:[],
           switch: false,
           checked: false,
           time: '',
