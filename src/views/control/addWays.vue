@@ -53,44 +53,44 @@
               <div class="split-tit clearfix">
                 <span class="float-l">方案执行条件</span>
                 <div class="float-r right-btn">
-                  <el-button>添加</el-button>
-                  <el-button @click.native="batchAddShebei">批量添加</el-button>
+                  <el-button @click.native="addClk">添加</el-button>
+                  <!--<el-button @click.native="batchAddShebei">批量添加</el-button>-->
                 </div>
               </div>
-              <div class="split-con-show" v-for="(item,index) in formObject.model.type">
+              <div class="split-con-show" v-show="formObject.model.show[index]" v-for="(item,index) in formObject.model.type">
                 <div class="con-list-li clearfix">
-                  <span class="svg-container margin-right-10 float-l" @click="OperDelete">
+                  <span class="svg-container margin-right-10 float-l" @click.native="OperDelete(index)">
                     <svg-icon icon-class="delete"/>
                   </span>
                   <el-radio-group class="float-l margin-right-10" v-model="formObject.model.type[index]">
-                    <el-radio-button label="1">按时间</el-radio-button>
-                    <el-radio-button label="2">按条件</el-radio-button>
+                    <el-radio-button label="0">按时间</el-radio-button>
+                    <el-radio-button label="1">按条件</el-radio-button>
                   </el-radio-group>
                   <div class="plan_condition margin-right-10 float-l">
                     <template v-if="tabOneSelect==='1'">
-                      <el-checkbox class="float-l margin-right-10" :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
-                      <el-checkbox-group class="float-l margin-right-10" v-model="checkedWeeks" @change="handleCheckedWeeksChange">
+                      <el-checkbox class="float-l margin-right-10" :indeterminate="isIndeterminate" v-model="formObject.model.checkAll[index]" @change="handleCheckAllChange">全选</el-checkbox>
+                      <el-checkbox-group class="float-l margin-right-10" v-model="formObject.model.checkedWeeks[index]" @change="handleCheckedWeeksChange">
                         <el-checkbox v-for="item in weekdays" :label="item" :key="item">{{item}}</el-checkbox>
                       </el-checkbox-group>
-                      <el-time-picker class="float-l" is-range v-model="timeRanger" range-separator="至" start-placeholder="启动时间"
+                      <el-time-picker class="float-l" is-range v-model="formObject.model.planTime[index]" range-separator="至" start-placeholder="启动时间"
                         end-placeholder="停止时间" placeholder="选择时间范围">
                       </el-time-picker>
                     </template>
                     <template v-if="tabOneSelect==='2'">
                       <div class="n_status_icon n_status_normal float-l"><i class="icon-shebei"></i><p>请选择设备</p></div>
-                      <el-select class="float-l margin-right-10" style="width: 120px" v-model="showType">
+                      <el-select class="float-l margin-right-10" style="width: 120px" v-model="formObject.model.planEsnLogic[index]">
                         <el-option
                           v-for="op in [{value: '>=',label: '>='},{value: '<=',label: '<='}]"
                           :key="op.value" :label="op.label" :value="op.value" @click.native="chooseTypeClk">
                         </el-option>
                       </el-select>
-                      <el-input class="float-l margin-right-10" style="width: 120px"></el-input>
-                      <div class="float-l margin-right-10"><span class="fontSiz">滞回值：</span><el-input style="width: 120px"></el-input></div>
+                      <el-input v-model="formObject.model.planEsnValue[index]" class="float-l margin-right-10" style="width: 120px"></el-input>
+                      <div class="float-l margin-right-10"><span class="fontSiz">滞回值：</span><el-input v-model="formObject.model.planEsnHysValue[index]"  style="width: 120px"></el-input></div>
                     </template>
                   </div>
                 </div>
-                <div class="def-tip" v-show="formObject.model.type.length==0">暂无执行条件，请添加</div>
               </div>
+              <div class="def-tip" v-show="formObject.model.type.length==0">暂无执行条件，请添加</div>
             </el-form-item>
           </el-col>
           <el-col :span="24">
@@ -99,7 +99,7 @@
                 <span class="float-l">方案执行内容</span>
                 <div class="float-r right-btn">
                   <el-button>添加</el-button>
-                  <el-button>批量添加</el-button>
+                  <!--<el-button>批量添加</el-button>-->
                 </div>
               </div>
               <div class="split-con-show">
@@ -200,6 +200,13 @@ export default {
           name: '',
           state: '',
           type:[],
+          show:[],
+          checkAll:[],//周全选
+          checkedWeeks:[],//选择周
+          planTime:[],//开始结束时间
+          planEsnLogic:[],
+          planEsnValue:[],
+          planEsnHysValue:[],
           switch: false,
           checked: false,
           time: '',
@@ -259,8 +266,9 @@ export default {
     saveToDraft() {
 
     },
-    OperDelete() {
-
+    OperDelete(index) {
+      alert("删除")
+      this.formObject.model.show[index]=false;
     },
     OperDelay() {
       this.delayshow = !this.delayshow
@@ -286,6 +294,10 @@ export default {
     },
     batchAddShebei() {
       this.$refs.batchAddDialog.openShebeiDiag()
+    },
+    addClk(){
+      this.formObject.model.type.push(0)
+      this.formObject.model.show.push(true)
     }
   }
 };

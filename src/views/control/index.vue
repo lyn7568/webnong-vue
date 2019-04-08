@@ -30,23 +30,23 @@
         <div class="n_dapeng_statusbox">
           <div class="n_left">
             <el-row>
-              <!-- <el-col class="n_status_icon n_status_normal" v-for="cgqEsnItem in userCgqEsnList" :key="cgqEsnItem.id">
+              <el-col class="n_status_icon n_status_normal" v-for="cgqEsnItem in userCgqEsnList" :key="cgqEsnItem.id">
                 <i class="icon-gufengji"></i><p>{{cgqEsnItem.name}}</p>
-              </el-col> -->
-              <el-col class="eq-status-discon">
-                <i class="icon-status1 guangzhao"></i>
-                <div class="status-txt">
-                  <p>光照</p>
-                  <p>4Lux</p>
-                </div>
               </el-col>
-              <el-col class="eq-status-discon">
-                <i class="icon-status2 tuwen"></i>
-                <div class="status-txt">
-                  <p>土温</p>
-                  <p>17.1 ℃</p>
-                </div>
-              </el-col>
+              <!--<el-col class="eq-status-discon">-->
+                <!--<i class="icon-status1 guangzhao"></i>-->
+                <!--<div class="status-txt">-->
+                  <!--<p>光照</p>-->
+                  <!--<p>4Lux</p>-->
+                <!--</div>-->
+              <!--</el-col>-->
+              <!--<el-col class="eq-status-discon">-->
+                <!--<i class="icon-status2 tuwen"></i>-->
+                <!--<div class="status-txt">-->
+                  <!--<p>土温</p>-->
+                  <!--<p>17.1 ℃</p>-->
+                <!--</div>-->
+              <!--</el-col>-->
             </el-row>
           </div>
           <div class="n_right">
