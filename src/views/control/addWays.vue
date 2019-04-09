@@ -68,9 +68,9 @@
                   </el-radio-group>
                   <div class="plan_condition margin-right-10 float-l">
                     <template v-if="formObject.model.tabOneSelect[index]=='0'">
-                      <el-checkbox class="float-l margin-right-10" :indeterminate="isIndeterminate" v-model="formObject.model.checkAll[index]" @change="handleCheckAllChange">全选</el-checkbox>
-                      <el-checkbox-group class="float-l margin-right-10" v-model="formObject.model.checkedWeeks[index]" @change="handleCheckedWeeksChange">
-                        <el-checkbox v-for="item in weekdays" :label="item" :key="item">{{item}}</el-checkbox>
+                      <el-checkbox class="float-l margin-right-10" :indeterminate="formObject.model.isIndeterminate[index]" v-model="formObject.model.checkAll[index]" @change="handleCheckAllChange(index)">全选</el-checkbox>
+                      <el-checkbox-group class="float-l margin-right-10" v-model="formObject.model.checkedWeeks[index]" @change="handleCheckedWeeksChange(index)">
+                        <el-checkbox v-for="item in weekdays" :label="item" :key="item">{{item.name}}</el-checkbox>
                       </el-checkbox-group>
                       <el-time-picker class="float-l" is-range v-model="formObject.model.planTime[index]" range-separator="至" start-placeholder="启动时间"
                         end-placeholder="停止时间" placeholder="选择时间范围">
@@ -186,7 +186,16 @@ export default {
       timeRanger: '',
       checkAll: false,
       checkedWeeks: [],
-      weekdays: ['日', '一', '二', '三', '四', '五', '六'],
+      // weekdays: ['日', '一', '二', '三', '四', '五', '六'],
+      weekdays: [
+        {id:1,name:'日'},
+        {id:64,name:'一'},
+        {id:32,name:'二'},
+        {id:16,name:'三'},
+        {id:8,name:'四'},
+        {id:4,name:'五'},
+        {id:2,name:'六'},
+        ],
       isIndeterminate: true,
       tabOneSelect: '1',
       tabTwoSelect: '1',
@@ -202,6 +211,7 @@ export default {
           type:[],
           show:[],
           showFlag:true,
+          isIndeterminate:[],
           checkAll:[],//周全选
           checkedWeeks:[],//选择周
           planTime:[],//开始结束时间
@@ -209,6 +219,7 @@ export default {
           planEsnValue:[],
           planEsnHysValue:[],
           tabOneSelect:[],
+
           switch: false,
           checked: false,
           time: '',
@@ -293,14 +304,20 @@ export default {
     handleTimeChange(val) {
       console.log(val)
     },
-    handleCheckAllChange(val) {
-      this.checkedWeeks = val ? this.weekdays : [];
-      this.isIndeterminate = false;
+    handleCheckAllChange(index) {
+      // this.checkedWeeks = val ? this.weekdays : [];
+      // this.isIndeterminate = false;
     },
-    handleCheckedWeeksChange(value) {
-      let checkedCount = value.length;
-      this.checkAll = checkedCount === this.weekdays.length;
-      this.isIndeterminate = checkedCount > 0 && checkedCount < this.weekdays.length;
+    handleCheckedWeeksChange(index) {
+      let value=this.formObject.model.checkedWeeks[index]
+      // alert(value.length)
+      if(value.length==7){
+        this.$set(this.formObject.model.checkAll,index,true)
+        this.$set(this.formObject.model.isIndeterminate,index,false)
+      }else{
+        this.$set(this.formObject.model.checkAll,index,false)
+        this.$set(this.formObject.model.isIndeterminate,index,true)
+      }
     },
     chooseTypeClk(val) {
       console.log(val)
@@ -311,6 +328,11 @@ export default {
     addClk(){
       this.formObject.model.type.push(0)
       this.formObject.model.tabOneSelect.push(0)
+      this.formObject.model.planEsnLogic.push(">=")
+      this.formObject.model.checkAll.push(false)
+      this.formObject.model.isIndeterminate.push(false)
+      this.formObject.model.checkedWeeks.push([])
+
       this.formObject.model.show.push(true)
     },
     changeTjClk(index){
