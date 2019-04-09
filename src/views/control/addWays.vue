@@ -77,7 +77,7 @@
                       </el-time-picker>
                     </template>
                     <template v-if="formObject.model.tabOneSelect[index]=='1'">
-                      <div class="n_status_icon n_status_normal float-l"><i class="icon-shebei"></i><p>请选择设备</p></div>
+                      <div class="n_status_icon n_status_normal float-l" @click="batchAddShebei"><i class="icon-shebei"></i><p>请选择设备</p></div>
                       <el-select class="float-l margin-right-10" style="width: 120px" v-model="formObject.model.planEsnLogic[index]">
                         <el-option
                           v-for="op in [{value: '>=',label: '>='},{value: '<=',label: '<='}]"
@@ -114,7 +114,7 @@
                   </el-radio-group>
                   <div class="plan_condition margin-right-10 float-l">
                     <template v-if="tabTwoSelect==='1'">
-                      <div class="n_status_icon n_status_normal float-l"><i class="icon-shebei"></i><p>请选择设备</p></div>
+                      <div class="n_status_icon n_status_normal float-l" @click="batchAddShebei"><i class="icon-shebei"></i><p>请选择设备</p></div>
                       <el-select class="float-l margin-right-10" style="width: 120px" v-model="showType">
                         <el-option
                           v-for="op in [{value: '0',label: '正常开启'},{value: '1',label: '间歇开启'}]"
@@ -129,7 +129,7 @@
                       </div>
                     </template>
                     <template v-if="tabTwoSelect==='2'">
-                      <div class="n_status_icon n_status_normal float-l"><i class="icon-shebei"></i><p>请选择设备</p></div>
+                      <div class="n_status_icon n_status_normal float-l" @click="batchAddShebei"><i class="icon-shebei"></i><p>请选择设备</p></div>
                       <el-select class="float-l margin-right-10" style="width: 120px" v-model="showType">
                         <el-option
                           v-for="op in [{value: '0',label: '正常开启'},{value: '1',label: '间歇开启'}]"
