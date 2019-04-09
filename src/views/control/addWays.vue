@@ -62,12 +62,12 @@
                   <span class="svg-container margin-right-10 float-l" @click="OperDelete(index)">
                     <svg-icon icon-class="delete"/>
                   </span>
-                  <el-radio-group class="float-l margin-right-10" v-model="formObject.model.type[index]">
+                  <el-radio-group class="float-l margin-right-10" v-model="formObject.model.type[index]" @change="changeTjClk(index)">
                     <el-radio-button label="0">按时间</el-radio-button>
                     <el-radio-button label="1">按条件</el-radio-button>
                   </el-radio-group>
                   <div class="plan_condition margin-right-10 float-l">
-                    <template v-if="formObject.model.tabOneSelect[index]==='0'">
+                    <template v-if="formObject.model.tabOneSelect[index]=='0'">
                       <el-checkbox class="float-l margin-right-10" :indeterminate="isIndeterminate" v-model="formObject.model.checkAll[index]" @change="handleCheckAllChange">全选</el-checkbox>
                       <el-checkbox-group class="float-l margin-right-10" v-model="formObject.model.checkedWeeks[index]" @change="handleCheckedWeeksChange">
                         <el-checkbox v-for="item in weekdays" :label="item" :key="item">{{item}}</el-checkbox>
@@ -76,7 +76,7 @@
                         end-placeholder="停止时间" placeholder="选择时间范围">
                       </el-time-picker>
                     </template>
-                    <template v-if="formObject.model.tabOneSelect[index]==='1'">
+                    <template v-if="formObject.model.tabOneSelect[index]=='1'">
                       <div class="n_status_icon n_status_normal float-l"><i class="icon-shebei"></i><p>请选择设备</p></div>
                       <el-select class="float-l margin-right-10" style="width: 120px" v-model="formObject.model.planEsnLogic[index]">
                         <el-option
@@ -90,7 +90,7 @@
                   </div>
                 </div>
               </div>
-              <div class="def-tip" v-show="formObject.model.type.length==0">暂无执行条件，请添加</div>
+              <div class="def-tip" v-show="formObject.model.showFlag">暂无执行条件，请添加</div>
             </el-form-item>
           </el-col>
           <el-col :span="24">
@@ -201,6 +201,7 @@ export default {
           state: '',
           type:[],
           show:[],
+          showFlag:true,
           checkAll:[],//周全选
           checkedWeeks:[],//选择周
           planTime:[],//开始结束时间
@@ -270,6 +271,17 @@ export default {
     OperDelete(index) {
       // this.formObject.model.show[index]=false;
       this.$set(this.formObject.model.show,index,false)
+      let vflag=true
+      for(let i=0;i<this.formObject.model.show.length;i++){
+          if(this.formObject.model.show[i]==true){
+           vflag=false
+          }
+      }
+      if(vflag){
+        this.formObject.model.showFlag==true
+      }else {
+        this.formObject.model.showFlag==false
+      }
     },
     OperDelay() {
       this.delayshow = !this.delayshow
@@ -300,6 +312,10 @@ export default {
       this.formObject.model.type.push(0)
       this.formObject.model.tabOneSelect.push(0)
       this.formObject.model.show.push(true)
+    },
+    changeTjClk(index){
+      let val=this.formObject.model.type[index]
+      this.$set(this.formObject.model.tabOneSelect,index,val)
     }
   }
 };
