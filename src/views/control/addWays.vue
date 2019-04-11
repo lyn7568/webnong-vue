@@ -185,6 +185,10 @@ export default {
     return {
       timeRanger: '',
       checkAll: false,
+      userAreaId:'',
+      showName:'',
+      userColEsnList:[],
+      userCgqEsnList:[],
       checkedWeeks: [],
       // weekdays: ['日', '一', '二', '三', '四', '五', '六'],
       weekdays: [
@@ -242,7 +246,11 @@ export default {
   created() {
   },
   methods: {
-    openDiag() {
+    openDiag(userAreaId,userAreaName,userColEsnList,userCgqEsnList) {
+      this.userAreaId=userAreaId
+      this.showName=userAreaName
+      this.userColEsnList=userColEsnList
+      this.userCgqEsnList=userCgqEsnList
       var that = this
       setTimeout(() => {
         that.dialogFormVisible = true
@@ -323,7 +331,7 @@ export default {
       console.log(val)
     },
     batchAddShebei() {
-      this.$refs.batchAddDialog.openShebeiDiag()
+      this.$refs.batchAddDialog.openShebeiDiag(this.userAreaId,this.showName,this.userColEsnList,this.userCgqEsnList)
     },
     addClk(){
       this.formObject.model.type.push(0)

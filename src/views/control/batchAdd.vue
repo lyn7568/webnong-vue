@@ -4,15 +4,15 @@
       <el-tabs v-model="activeName" type="card" @tab-click="esnTabClk()">
         <el-tab-pane :lazy="true" v-for="item in tabList" :label="item.name" :name="item.ip" :key="item.ip">
           <div class="n_kuang">
-            <div class="n_status_icon n_status_normal">
-              <i class="icon-gufengji"></i><p>1234</p>
+            <div class="n_status_icon n_status_normal" v-for="cgqEsnItem in userCgqEsnList" :key="cgqEsnItem.id">
+              <i class="icon-gufengji"></i><p>{{cgqEsnItem.name}}</p>
             </div>
-            <div class="n_status_icon n_status_normal">
-              <i class="icon-gufengji"></i><p>1234</p>
-            </div>
-            <div class="n_status_icon n_status_normal">
-              <i class="icon-gufengji"></i><p>1234</p>
-            </div>
+            <!--<div class="n_status_icon n_status_normal">-->
+              <!--<i class="icon-gufengji"></i><p>1234</p>-->
+            <!--</div>-->
+            <!--<div class="n_status_icon n_status_normal">-->
+              <!--<i class="icon-gufengji"></i><p>1234</p>-->
+            <!--</div>-->
           </div>
         </el-tab-pane>
       </el-tabs>
@@ -42,6 +42,10 @@ export default {
     return {
       dialogShebeiVisible: false,
       activeName: '1',
+      userAreaId:'',
+      showName:'',
+      userColEsnList:[],
+      userCgqEsnList:[],
       tabList: [
         {
           ip: '1',
@@ -58,8 +62,13 @@ export default {
   created() {
   },
   methods: {
-    openShebeiDiag() {
+    openShebeiDiag(userAreaId,showName,userColEsnList,userCgqEsnList) {
       var that = this
+      that.userAreaId=userAreaId
+      that.showName=showName
+      that.$set(that.tabList,0,{ip:1,name:that.showName})
+      that.userColEsnList=userColEsnList
+      that.userCgqEsnList=userCgqEsnList
       setTimeout(() => {
         that.dialogShebeiVisible = true
       }, 1)

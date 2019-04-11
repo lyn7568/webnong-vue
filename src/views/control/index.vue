@@ -257,7 +257,7 @@ export default {
 
     },
     addPlan() {
-      this.$refs.addRunWaysDialog.openDiag()
+      this.$refs.addRunWaysDialog.openDiag(this.userAreaId,this.showName,this.userColEsnList,this.userCgqEsnList)
     }
   }
 };
