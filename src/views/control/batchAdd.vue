@@ -4,7 +4,7 @@
       <el-tabs v-model="activeName" type="card" @tab-click="esnTabClk()">
         <el-tab-pane :lazy="true" v-for="item in tabList" :label="item.name" :name="item.ip" :key="item.ip">
           <div class="n_kuang">
-            <div class="n_status_icon n_status_normal" v-for="cgqEsnItem in userCgqEsnList" :key="cgqEsnItem.id">
+            <div class="n_status_icon n_status_normal" v-for="cgqEsnItem in userCgqEsnList" :key="cgqEsnItem.id" @click="chooseCgqClk(cgqEsnItem)">
               <i class="icon-gufengji"></i><p>{{cgqEsnItem.name}}</p>
             </div>
             <!--<div class="n_status_icon n_status_normal">-->
@@ -18,15 +18,15 @@
       </el-tabs>
       <div class="n_xuan_tit">选中项目</div>
       <div class="n_xuan">
-        <div class="n_status_icon n_status_normal">
-          <i class="icon-gufengji"></i><p>1234</p>
+        <div class="n_status_icon n_status_normal" v-for="checkItem in checkCgqList" :key="checkItem.id">
+          <i class="icon-gufengji"></i><p>{{checkItem.name}}</p>
         </div>
-        <div class="n_status_icon n_status_normal">
-          <i class="icon-gufengji"></i><p>1234</p>
-        </div>
-        <div class="n_status_icon n_status_normal">
-          <i class="icon-gufengji"></i><p>1234</p>
-        </div>
+        <!--<div class="n_status_icon n_status_normal">-->
+          <!--<i class="icon-gufengji"></i><p>1234</p>-->
+        <!--</div>-->
+        <!--<div class="n_status_icon n_status_normal">-->
+          <!--<i class="icon-gufengji"></i><p>1234</p>-->
+        <!--</div>-->
       </div>
     </div>
     <div slot="footer" class="dialog-footer">
@@ -37,15 +37,18 @@
 </template>
 
 <script>
+import { Message } from 'element-ui'
 export default {
   data() {
     return {
       dialogShebeiVisible: false,
       activeName: '1',
+      index:0,//选择设备的序号
       userAreaId:'',
       showName:'',
       userColEsnList:[],
       userCgqEsnList:[],
+      checkCgqList:[],
       tabList: [
         {
           ip: '1',
@@ -62,23 +65,31 @@ export default {
   created() {
   },
   methods: {
-    openShebeiDiag(userAreaId,showName,userColEsnList,userCgqEsnList) {
+    openShebeiDiag(userAreaId,showName,userColEsnList,userCgqEsnList,index) {
       var that = this
       that.userAreaId=userAreaId
       that.showName=showName
       that.$set(that.tabList,0,{ip:1,name:that.showName})
       that.userColEsnList=userColEsnList
       that.userCgqEsnList=userCgqEsnList
+      that.index=index
+      that.checkCgqList=[]
       setTimeout(() => {
         that.dialogShebeiVisible = true
       }, 1)
     },
     saveShebeiSubmitInfo() {
       var that = this
-      this.$refs[that.formObject.ref].validate(valid => {
-        if (valid) {
-        }
-      })
+      if(that.checkCgqList.length!=1){
+        Message.error("请选择设备")
+      }else{
+        that.dialogShebeiVisible = false
+        that.$emit("checkCgqEvent",that.checkCgqList,that.index)
+      }
+    },
+    chooseCgqClk(item){
+      this.$set(this.checkCgqList,0,{})
+      this.$set(this.checkCgqList,0,item)
     }
   }
 };

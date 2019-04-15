@@ -77,7 +77,7 @@
                       </el-time-picker>
                     </template>
                     <template v-if="formObject.model.tabOneSelect[index]=='1'">
-                      <div class="n_status_icon n_status_normal float-l" @click="batchAddShebei"><i class="icon-shebei"></i><p>请选择设备</p></div>
+                      <div class="n_status_icon n_status_normal float-l" @click="batchAddShebei(index)"><i class="icon-shebei"></i><p>{{formObject.model.checkCgqList[index].name}}</p></div>
                       <el-select class="float-l margin-right-10" style="width: 120px" v-model="formObject.model.planEsnLogic[index]">
                         <el-option
                           v-for="op in [{value: '>=',label: '>='},{value: '<=',label: '<='}]"
@@ -174,7 +174,7 @@
         <el-button type="primary" @click="saveSubmitInfo">保存并应用</el-button>
       </div>
     </el-dialog>
-    <batch-add ref="batchAddDialog"></batch-add>
+    <batch-add ref="batchAddDialog" v-on:checkCgqEvent="checkCgqEvent"></batch-add>
   </div>
 </template>
 
@@ -223,6 +223,7 @@ export default {
           planEsnValue:[],
           planEsnHysValue:[],
           tabOneSelect:[],
+          checkCgqList:[],
 
           switch: false,
           checked: false,
@@ -330,8 +331,8 @@ export default {
     chooseTypeClk(val) {
       console.log(val)
     },
-    batchAddShebei() {
-      this.$refs.batchAddDialog.openShebeiDiag(this.userAreaId,this.showName,this.userColEsnList,this.userCgqEsnList)
+    batchAddShebei(index) {
+      this.$refs.batchAddDialog.openShebeiDiag(this.userAreaId,this.showName,this.userColEsnList,this.userCgqEsnList,index)
     },
     addClk(){
       this.formObject.model.type.push(0)
@@ -340,12 +341,15 @@ export default {
       this.formObject.model.checkAll.push(false)
       this.formObject.model.isIndeterminate.push(false)
       this.formObject.model.checkedWeeks.push([])
-
+      this.formObject.model.checkCgqList.push({id:'1',name:"请选择设备"}),
       this.formObject.model.show.push(true)
     },
     changeTjClk(index){
       let val=this.formObject.model.type[index]
       this.$set(this.formObject.model.tabOneSelect,index,val)
+    },
+    checkCgqEvent(checkCgqList,index){
+      this.$set(this. formObject.model.checkCgqList,index,checkCgqList[0])
     }
   }
 };
