@@ -49,6 +49,7 @@ export default {
         model: {
           name: '',
           ip: '',
+          cip:'',
           type: '',
           address: '',
           owner: '',
@@ -58,6 +59,7 @@ export default {
         rules: {
           name: [{ required: true, message: '请输入设备名称', trigger: 'blur' }],
           ip: [{ required: true, message: '请输入设备地址', trigger: 'blur' }],
+          cip: [{ required: true, message: '请输入模块地址', trigger: 'blur' }],
           type: [{ required: true, message: '请输入设备类型', trigger: 'blur' }],
           address: [{ required: true, message: '请选择使用地点', trigger: 'blur' }],
           owner: [{ required: true, message: '请选择设备属于者', trigger: 'blur' }],
@@ -70,6 +72,10 @@ export default {
           {
             prop: 'ip',
             tit: '设备地址'
+          },
+          {
+            prop: 'cip',
+            tit: '模块地址'
           },
           {
             prop: 'type',
@@ -137,6 +143,7 @@ export default {
             userId: that.UID,
             name: that.formObject.model.name,
             ip: that.formObject.model.ip,
+            cip: that.formObject.model.cip,
             type: that.formObject.model.type,
             address: that.formObject.model.address,
             company: that.formObject.model.company,

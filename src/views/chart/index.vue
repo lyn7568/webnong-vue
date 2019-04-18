@@ -35,6 +35,7 @@
         activeName: '',
         userAreaId: '',
         showAreaName: '选择',
+        cip:'',
         pickerOptions: {
           shortcuts: [{
             text: '今天',
@@ -98,10 +99,12 @@
         var that = this
         that.chartLoading = true
         that.chartData = {}
-        var whereObj={'ip': that.activeName}
+        var whereObj={'ip': that.activeName,cip:that.cip}
         this.$http.post('/chart/getEsnCgqDataList', {
           where: whereObj,
           curpage: 1,
+          sortField:'createTime',
+          orderBy:'desc',
           pagesize: 20
         }, function(res) {
           var $data = res.data.rows
@@ -160,6 +163,7 @@
         })
         this.chartOption.tit = activeIndex.cgData
         this.chartOption.unit = activeIndex.unit
+        this.cip=activeIndex.cip
         this.queryInfoList()
       }
     }
