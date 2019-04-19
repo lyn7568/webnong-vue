@@ -2,6 +2,9 @@
   <el-dialog class="dialogClass" :title="dialogTit" :visible.sync="dialogFormVisible" :close-on-click-modal="false">
     <el-form :model="formObject.model" :ref="formObject.ref" :rules="formObject.rules">
       <el-form-item v-for="item in formObject.arr" :key="item.index" :label="item.tit + ' :'" :prop="item.prop">
+        <el-select v-if="item.select&&item.prop=='type'" v-model="formObject.model[item.prop]">
+          <el-option v-for="sel in selectOptionsType" :key="sel.index" :label="sel.name" :value="sel.id"></el-option>
+        </el-select>
         <el-select v-if="item.select&&item.prop=='address'" v-model="formObject.model[item.prop]">
           <el-option v-for="sel in selectOptionsAddress" :key="sel.index" :label="sel.name" :value="sel.id"></el-option>
         </el-select>
@@ -44,6 +47,20 @@ export default {
           name:'隐藏'
         },
       ],
+      selectOptionsType: [
+        {
+          id:'NTT无线传感器',
+          name:'NTT无线传感器'
+        },
+        {
+          id:'PLC行程手动控制器',
+          name:'PLC行程手动控制器'
+        },
+        {
+          id:'PLC单点控制器',
+          name:'PLC单点控制器'
+        }
+      ],
       formObject: {
         ref: 'formName',
         model: {
@@ -79,7 +96,8 @@ export default {
           },
           {
             prop: 'type',
-            tit: '设备类型'
+            tit: '设备类型',
+            select:true
           },
           {
             prop: 'address',

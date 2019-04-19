@@ -113,7 +113,7 @@
               xData: [],
               zData: []
             }
-            for (let i = 0; i < $data.length; ++i) {
+            for (let i = $data.length-1; i >=0; i--) {
               allData.xData.push($data[i].createTime)
               allData.zData.push($data[i].value)
             }
