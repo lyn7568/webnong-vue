@@ -1,13 +1,13 @@
 <template>
-  <div v-if="!item.hidden&&item.children" class="menu-wrapper">
+  <div class="menu-wrapper">
 
-      <router-link v-if="hasOneShowingChild(item.children) && !onlyOneChild.children&&!item.alwaysShow" :to="resolvePath(onlyOneChild.path)" replace>
-        <el-menu-item :index="resolvePath(onlyOneChild.path)" :class="{'submenu-title-noDropdown':!isNest}">
-          <svg-icon v-if="onlyOneChild.meta&&onlyOneChild.meta.icon" :icon-class="onlyOneChild.meta.icon"></svg-icon>
-          <span v-if="onlyOneChild.meta&&onlyOneChild.meta.title" slot="title">{{onlyOneChild.meta.title}}</span>
+      <router-link :to="resolvePath('/'+item.path)" replace>
+        <el-menu-item :index="resolvePath('/'+item.path)">
+          <!-- <svg-icon v-if="onlyOneChild.meta&&onlyOneChild.meta.icon" :icon-class="onlyOneChild.meta.icon"></svg-icon> -->
+          <span slot="title">{{item.name}}</span>
         </el-menu-item>
       </router-link>
-
+<!-- 
       <el-submenu v-else :index="item.name||item.path">
         <template slot="title">
           <svg-icon v-if="item.meta&&item.meta.icon" :icon-class="item.meta.icon"></svg-icon>
@@ -24,7 +24,7 @@
             </el-menu-item>
           </router-link>
         </template>
-      </el-submenu>
+      </el-submenu> -->
 
   </div>
 </template>

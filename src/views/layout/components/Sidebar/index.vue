@@ -7,7 +7,7 @@
       text-color="#fff"
       class="ntt_nav"
     >
-      <sidebar-item v-for="route in routes" :key="route.name" :item="route" :base-path="route.path"></sidebar-item>
+      <sidebar-item v-for="route in routes" :key="route.name" :item="route" :base-path="'/'+route.path"></sidebar-item>
     </el-menu>
     <div class="addArrow"></div>
   </div>
@@ -20,7 +20,7 @@ export default {
   components: { SidebarItem },
   computed: {
     routes() {
-      return this.$router.options.routes
+      return this.$store.getters.menuList
     }
   }
 }

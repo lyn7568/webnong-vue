@@ -4,6 +4,7 @@ const user = {
   state: {
     userid: sessionStorage.getItem('UID') || '',
     token: sessionStorage.getItem('TOKEN') || '',
+    menuList: JSON.parse(sessionStorage.getItem('MENU')) || [],
   },
   mutations: {
     SET_USERID: (state, userid) => {
@@ -13,6 +14,10 @@ const user = {
     SET_TOKEN: (state, token) => {
       state.token = token
       sessionStorage.setItem('TOKEN', token)
+    },
+    SET_MENU: (state, menuList) => {
+      state.menuList = JSON.stringify(menuList)
+      sessionStorage.setItem('MENU', JSON.stringify(menuList))
     }
   },
   actions: {
@@ -26,6 +31,7 @@ const user = {
             const dataS = response.data
             commit('SET_USERID', dataS.userId)
             commit('SET_TOKEN', dataS.jwtToken)
+            commit('SET_MENU', dataS.meauList)
           }
           resolve(response)
         }, function(error){
@@ -40,6 +46,7 @@ const user = {
         request.post('/loginout', { }, function(response) {
           commit('SET_USERID', '')
           commit('SET_TOKEN', '')
+          commit('SET_MENU', [])
           resolve(response)
         }, function(error){
           reject(error)
@@ -52,6 +59,7 @@ const user = {
       return new Promise(resolve => {
         commit('SET_USERID', '')
         commit('SET_TOKEN', '')
+        commit('SET_MENU', [])
         resolve()
       })
     }
