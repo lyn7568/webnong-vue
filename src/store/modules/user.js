@@ -4,7 +4,7 @@ const user = {
   state: {
     userid: sessionStorage.getItem('UID') || '',
     token: sessionStorage.getItem('TOKEN') || '',
-    menuList: JSON.parse(sessionStorage.getItem('MENU')) || [],
+    menuList: sessionStorage.getItem('MENU') || [],
   },
   mutations: {
     SET_USERID: (state, userid) => {
