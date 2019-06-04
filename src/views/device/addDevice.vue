@@ -49,16 +49,28 @@ export default {
       ],
       selectOptionsType: [
         {
-          id:'NTT无线传感器',
-          name:'NTT无线传感器'
+          id:'485类型传感器',
+          name:'485类型传感器'
         },
         {
-          id:'PLC行程手动控制器',
-          name:'PLC行程手动控制器'
+          id:'CAN类型传感器',
+          name:'CAN类型传感器'
         },
         {
-          id:'PLC单点控制器',
-          name:'PLC单点控制器'
+          id:'232类型传感器',
+          name:'232类型传感器'
+        },
+        {
+          id:'开关量传感器',
+          name:'开关量传感器'
+        },
+        {
+          id:'模拟量传感器',
+          name:'模拟量传感器'
+        },
+        {
+          id:'单点控制器',
+          name:'单点控制器'
         }
       ],
       formObject: {
