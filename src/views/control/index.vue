@@ -208,7 +208,9 @@ export default {
       var that = this;
       this.$http.post('/esnController/getUserEsnByUserAreaId', {
         userAreaId: that.userAreaId,
-        type:'NTT无线传感器',
+        userId: that.UID,
+        type:'485类型传感器;CAN类型传感器;232类型传感器;开关量传感器;模拟量传感器',
+        // type:'NTT无线传感器',
       }, function (res) {
         const obj = res.data
         that.userCgqEsnList=[]
@@ -221,7 +223,9 @@ export default {
       var that = this;
       this.$http.post('/esnController/getUserEsnByUserAreaId', {
         userAreaId: that.userAreaId,
-        type:'PLC行程手动控制器;PLC单点控制器',
+        userId: that.UID,
+        type:'单点控制器',
+        // type:'PLC行程手动控制器;PLC单点控制器',
       }, function (res) {
         const obj = res.data
         that.userColEsnList =[]
