@@ -135,7 +135,8 @@ export default {
       var that = this;
       this.$http.post('/data/getUserEsnByUserIdAndType', {
         userId: that.UID,
-        type:'NTT无线传感器'
+        type:'485类型传感器;CAN类型传感器;232类型传感器;开关量传感器;模拟量传感器',
+        // type:'NTT无线传感器'
       }, function (res) {
         const obj = res.data
         if (obj.length != 0) {
