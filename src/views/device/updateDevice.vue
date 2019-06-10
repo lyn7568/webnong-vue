@@ -58,6 +58,7 @@ export default {
         rules: {
           name: [{ required: true, message: '请输入设备名称', trigger: 'blur' }],
           ip: [{ required: true, message: '请输入设备地址', trigger: 'blur' }],
+          cip: [{ required: true, message: '请输入设备模块地址', trigger: 'blur' }],
           type: [{ required: true, message: '请输入设备类型', trigger: 'blur' }],
           address: [{ required: true, message: '请选择使用地点', trigger: 'blur' }],
           owner: [{ required: true, message: '请选择设备属于者', trigger: 'blur' }],
@@ -67,10 +68,14 @@ export default {
             prop: 'name',
             tit: '设备名称'
           },
-          // {
-          //   prop: 'ip',
-          //   tit: '设备地址'
-          // },
+          {
+            prop: 'ip',
+            tit: '设备地址'
+          },
+          {
+            prop: 'cip',
+            tit: '模块地址'
+          },
           {
             prop: 'type',
             tit: '设备类型'
@@ -103,7 +108,7 @@ export default {
   },
   computed: {
     dialogTit() {
-      return  '新建设备'
+      return  '更新设备'
     },
     UID() {
       return this.$store.getters.userid
@@ -123,6 +128,8 @@ export default {
         this.formObject.model = {
           name: val.name,
           type: val.type,
+          ip: val.ip,
+          cip: val.cip,
           address: val.addressId,
           company: val.company,
           cgData: val.cgData,
@@ -147,6 +154,7 @@ export default {
             userId: that.UID,
             name: that.formObject.model.name,
             ip: that.formObject.model.ip,
+            cip: that.formObject.model.cip,
             type: that.formObject.model.type,
             address: that.formObject.model.address,
             company: that.formObject.model.company,
