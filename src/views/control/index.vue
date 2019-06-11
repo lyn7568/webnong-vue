@@ -30,13 +30,48 @@
         <div class="n_dapeng_statusbox">
           <div class="n_left">
             <el-row>
-              <el-col class="eq-status-discon n_status_normal" v-for="cgqEsnItem in userCgqEsnList" :key="cgqEsnItem.id">
-                <i class="icon-status1 guangzhao"></i>
-                <div class="status-txt">
-                  <p>{{cgqEsnItem.name}}</p>
-                  <p>{{cgqEsnItem.nowData}} {{cgqEsnItem.unit}}</p>
-                </div>
-              </el-col>
+              <el-popover placement="bottom-start" width="300" trigger="click" v-for="cgqEsnItem in userCgqEsnList" :key="cgqEsnItem.id">
+                <el-row class="emf-control">
+                  <el-col :span="12" class="emf-eq">
+                    <div class="eq-status-discon n_status_normal emf-eq-status">
+                      <i class="icon-status1 guangzhao"></i>
+                      <div class="status-txt">
+                        <p>{{cgqEsnItem.name}}</p>
+                      </div>
+                    </div>
+                    <div class="emf-run">设备连接正常</div>
+                    <div class="emf-btn">
+                      {{cgqEsnItem.nowData}} {{cgqEsnItem.unit}}
+                    </div>
+                  </el-col>
+                  <el-col :span="12" class="emf-tooltip">
+                    <div class="emf-toolbar">
+                      <a href="/#/logs">
+                        <svg-icon icon-class="logs" /><em>日志</em>
+                      </a>
+                      <a href="/#/chart">
+                        <svg-icon icon-class="chart-line" /><em>图表</em>
+                      </a>
+                      <a href="http://help.nongtt.com/help">
+                        <svg-icon icon-class="help" /><em>帮助</em>
+                      </a>
+                      <a href="/#/group">
+                        <svg-icon icon-class="setting" /><em>设置</em>
+                      </a>
+                    </div>
+                    <div class="emf-content">
+                      <div class="emf-databox"></div>
+                    </div>
+                  </el-col>
+                </el-row>
+                <el-col slot="reference" class="eq-status-discon n_status_normal">
+                  <i class="icon-status1 guangzhao"></i>
+                  <div class="status-txt">
+                    <p>{{cgqEsnItem.name}}</p>
+                    <p>{{cgqEsnItem.nowData}} {{cgqEsnItem.unit}}</p>
+                  </div>
+                </el-col>
+              </el-popover>
               <!--<el-col class="eq-status-discon">-->
                 <!--<i class="icon-status2 tuwen"></i>-->
                 <!--<div class="status-txt">-->
@@ -49,18 +84,26 @@
           <div class="n_right">
             <el-row>
               <el-popover placement="bottom-start" width="300" trigger="click" v-for="items in userColEsnList" :key="items.id">
-                <el-row class="clearfix emf-control">
+                <el-row class="emf-control">
                   <el-col :span="12" class="emf-eq">
-                    <div class="juanmo emf-eq-status ntt_normal eq-status-discon eq-gufengji">
-                      <i></i>
-                      <span>1#风机</span>
+                    <div class="n_status_icon n_status_normal emf-eq-status">
+                      <i class="icon-gufengji"></i>
+                      <p>{{items.name}}</p>
                     </div>
-                    <div class="emf-run">
-                      <p style="color: #19b957">设备连接正常</p>
-                    </div>
+                    <div class="emf-run">设备连接正常</div>
                     <div class="emf-btn">
-                      <span class="emf-data" v-if="items.status === '1'">关闭</span>
-                      <span class="eq-run" v-if="items.status === '0'">打开</span>
+                      <div class="eq-status-btn" v-if="items.status === '0'">
+                        <span>关闭</span>
+                        <div class="eq-play">
+                          <svg-icon icon-class="play" />
+                        </div>
+                      </div>
+                      <div class="eq-status-btn" v-if="items.status === '1'">
+                        <span>打开</span>
+                        <div class="eq-pause">
+                          <svg-icon icon-class="pause" />
+                        </div>
+                      </div>
                       <!-- <span class="eq-percent-control on" @click="SwitchPercentButton(IconControl.equ,'on',$event,IconControl.type)"></span>
                       <span class="eq-percent-control off" @click="SwitchPercentButton(IconControl.equ,'off',$event,IconControl.type)"></span>
                       <span class="eq-percent-control stop" @click="SwitchPercentButton(IconControl.equ,'stop',$event,IconControl.type)"></span> -->
