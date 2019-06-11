@@ -92,15 +92,15 @@
                     </div>
                     <div class="emf-run">设备连接正常</div>
                     <div class="emf-btn">
-                      <div class="eq-status-btn" v-if="items.status === '0'">
+                      <div class="eq-status-btn" v-if="items.nowData === '0'">
                         <span>关闭</span>
-                        <div class="eq-play">
+                        <div class="eq-play" @click="esnColClk(items.ip,items.cip,2)">
                           <svg-icon icon-class="play" />
                         </div>
                       </div>
-                      <div class="eq-status-btn" v-if="items.status === '1'">
+                      <div class="eq-status-btn" v-if="items.nowData === '1'">
                         <span>打开</span>
-                        <div class="eq-pause">
+                        <div class="eq-pause" @click="esnColClk(items.ip,items.cip,3)">
                           <svg-icon icon-class="pause" />
                         </div>
                       </div>
@@ -120,9 +120,9 @@
                       <a href="http://help.nongtt.com/help">
                         <svg-icon icon-class="help" /><em>帮助</em>
                       </a>
-                      <a href="/#/group">
+                <!--      <a href="/#/group">
                         <svg-icon icon-class="setting" /><em>设置</em>
-                      </a>
+                      </a>-->
                     </div>
                     <div class="emf-content">
                       <div class="emf-databox"></div>
@@ -322,6 +322,22 @@ export default {
         const obj = res.data
         if (obj.length != 0) {
           that.userPlanList = obj
+        }
+      })
+    },
+    esnColClk(ip,cip,value){//控制设备
+      var that = this;
+      this.$http.post('/esnController/send', {
+        ip: ip,
+        cip:cip,
+        value:value
+      }, function (res) {
+        if (res.success) {
+          that.$message({
+            message: "操作成功",
+            type: 'success'
+          })
+          that.queryUserAreaList()
         }
       })
     },

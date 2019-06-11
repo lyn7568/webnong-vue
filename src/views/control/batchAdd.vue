@@ -4,8 +4,11 @@
       <el-tabs v-model="activeName" type="card" @tab-click="esnTabClk()">
         <el-tab-pane :lazy="true" v-for="item in tabList" :label="item.name" :name="item.ip" :key="item.ip">
           <div class="n_kuang">
-            <div class="n_status_icon n_status_normal" v-for="cgqEsnItem in userCgqEsnList" :key="cgqEsnItem.id" @click="chooseCgqClk(cgqEsnItem)">
+            <div class="n_status_icon n_status_normal" v-show="index===0" v-for="cgqEsnItem in userCgqEsnList" :key="cgqEsnItem.id" @click="chooseCgqClk(cgqEsnItem)">
               <i class="icon-gufengji"></i><p>{{cgqEsnItem.name}}</p>
+            </div>
+            <div class="n_status_icon n_status_normal" v-show="index===1" v-for="colEsnItem in userColEsnList" :key="colEsnItem.id" @click="chooseCgqClk(colEsnItem)">
+              <i class="icon-gufengji"></i><p>{{colEsnItem.name}}</p>
             </div>
             <!--<div class="n_status_icon n_status_normal">-->
               <!--<i class="icon-gufengji"></i><p>1234</p>-->
