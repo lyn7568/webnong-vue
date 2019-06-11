@@ -16,9 +16,9 @@
       </div>
     </div>
     <div class="list-tabs-show chart-tabs-show">
-      <el-tabs v-model="activeName" type="card" @tab-click="esnTabClk()">
-        <el-tab-pane :lazy="true" v-for="item in tabList" :label="item.name" :name="item.ip" :key="item.ip">
-          <line-chart :chartOption="chartOption" :chartData="chartData" v-loading="chartLoading"></line-chart>
+      <el-tabs v-model="activeName" type="card" @tab-click="esnTabClk">
+        <el-tab-pane :lazy="true" v-for="item in tabList" :label="item.name" :name="item.id" :key="item.index">
+          <line-chart :chartOption="chartOption" :chartData="chartData[item.id]" v-loading="chartLoading"></line-chart>
         </el-tab-pane>
       </el-tabs>
     </div>
@@ -35,7 +35,8 @@
         activeName: '',
         userAreaId: '',
         showAreaName: '选择',
-        cip:'',
+        currentIp: '',
+        currentCIp:'',
         pickerOptions: {
           shortcuts: [{
             text: '今天',
@@ -98,8 +99,8 @@
       queryInfoList() {
         var that = this
         that.chartLoading = true
-        that.chartData = {}
-        var whereObj={'ip': that.activeName,cip:that.cip}
+        that.chartData[that.activeName] = {}
+        var whereObj={ip: that.currentIp,cip: that.currentCIp}
         this.$http.post('/chart/getEsnCgqDataList', {
           where: whereObj,
           curpage: 1,
@@ -117,9 +118,9 @@
               allData.xData.push($data[i].createTime)
               allData.zData.push($data[i].value)
             }
-            that.chartData = allData
+            that.chartData[that.activeName] = allData
           } else {
-            that.chartData = {}
+            that.chartData[that.activeName] = {}
           }
           setTimeout(res => {
             that.chartLoading = false
@@ -147,7 +148,8 @@
         }, function (res) {
           const obj = res.data
           that.tabList = obj
-          that.activeName = obj[0].ip
+          that.currentIp = obj[0].ip
+          that.activeName = obj[0].id
           that.findActiveInfo()
         })
       },
@@ -160,11 +162,12 @@
       },
       findActiveInfo() {
         var activeIndex = this.tabList.find(item => {
-          return item.ip === this.activeName
+          return item.id === this.activeName
         })
         this.chartOption.tit = activeIndex.cgData
         this.chartOption.unit = activeIndex.unit
-        this.cip=activeIndex.cip
+        this.currentIp = activeIndex.ip
+        this.currentCIp = activeIndex.cip
         this.queryInfoList()
       }
     }

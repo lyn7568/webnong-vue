@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="article-left">
+    <!-- <div class="article-left">
       <div class="n-datas">
         <div class="n-datamodel">
           <ul>
@@ -23,7 +23,7 @@
           </ul>
         </div>
       </div>
-    </div>
+    </div> -->
     <div class="swiper-carousel">
       <el-carousel indicator-position="outside">
         <el-carousel-item>
@@ -125,19 +125,20 @@ export default {
       this.flag = !this.flag
     },
     showCityInfo() {
-      //实例化城市查询类
-      var citysearch = new AMap.CitySearch()
-      //自动获取用户IP，返回当前城市
-      citysearch.getLocalCity(function(status, result) {
-        if (status === 'complete' && result.info === 'OK') {
-          if (result && result.city && result.bounds) {
-            var cityinfo = result.city
-            var citybounds = result.bounds
-            //地图显示当前城市
-            map.setBounds(citybounds)
-          }
-        }
-      })
+    //   //实例化城市查询类
+    //   var citysearch = new AMap.CitySearch()
+    //   //自动获取用户IP，返回当前城市
+    //   citysearch.getLocalCity(function(status, result) {
+    //     if (status === 'complete' && result.info === 'OK') {
+    //       if (result && result.city && result.bounds) {
+    //         var cityinfo = result.city
+    //         var citybounds = result.bounds
+    //         //地图显示当前城市
+    //         map.setBounds(citybounds)
+    //       }
+    //     }
+    //   })
+    // },
     // async getWeather() {
     //   let $self = this
     //   let countyInfo = await $self.getMap()

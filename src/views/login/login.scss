@@ -1,6 +1,6 @@
 /* 登录台 */
 .ntt_loginPage {
-    width: 21.25rem;
+    // width: 21.25rem;
     height: 10.5rem;
     position: fixed;
     left: 50%;
@@ -38,17 +38,17 @@
         background-color: #fff;
         position: relative;
         padding: 1rem 2.5rem;
-        &:before {
-            border: solid transparent;
-            content: ' ';
-            height: 0;
-            top: 20%;
-            position: absolute;
-            width: 0;
-            border-width: .25rem;
-            border-right-color: #fff;
-            left: -.5rem;
-        }
+        // &:before {
+        //     border: solid transparent;
+        //     content: ' ';
+        //     height: 0;
+        //     top: 20%;
+        //     position: absolute;
+        //     width: 0;
+        //     border-width: .25rem;
+        //     border-right-color: #fff;
+        //     left: -.5rem;
+        // }
         h3 {
             font-size: .6rem;
             color: #ff8019;

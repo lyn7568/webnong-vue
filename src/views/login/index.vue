@@ -8,7 +8,7 @@
       </div>
     </section> -->
     <div class="ntt_loginPage">
-      <div class="ntt-avtar float-l">
+      <!-- <div class="ntt-avtar float-l">
         <div class="ntt-avtar1">
           <div class="code"></div>
           <p>扫描下载APP <br>一键控制全局信息</p>
@@ -17,7 +17,7 @@
           <div class="code"></div>
           <p>更多信息扫描关注<br>农行微信公众平台</p>
         </div>
-      </div>
+      </div> -->
       <div class="ntt_loginForm float-l">
         <el-form class="login-form" auto-complete="on" :model="loginForm" :rules="loginRules" ref="loginForm" label-position="left">
           <h3>用户登录</h3>

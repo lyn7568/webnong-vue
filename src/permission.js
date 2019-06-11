@@ -13,7 +13,14 @@ router.beforeEach((to, from, next) => {
       next({ path: '/' })
       NProgress.done()
     } else {
-      next()
+      // if (store.getters.menuList) {
+      //   store.dispatch('GenerateRoutes', store.getters.menuList).then(() => {
+      //     router.addRoutes(store.getters.addRouters)
+      //     next({ ...to, replace: true })
+      //   })
+      // } else {
+        next()
+      // }
     }
   } else {
     if (whiteList.indexOf(to.path) !== -1) {

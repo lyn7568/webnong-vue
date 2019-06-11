@@ -30,16 +30,13 @@
         <div class="n_dapeng_statusbox">
           <div class="n_left">
             <el-row>
-              <el-col class="n_status_icon n_status_normal" v-for="cgqEsnItem in userCgqEsnList" :key="cgqEsnItem.id">
-                <i class="icon-gufengji"></i><p>{{cgqEsnItem.name}}</p>
+              <el-col class="eq-status-discon n_status_normal" v-for="cgqEsnItem in userCgqEsnList" :key="cgqEsnItem.id">
+                <i class="icon-status1 guangzhao"></i>
+                <div class="status-txt">
+                  <p>{{cgqEsnItem.name}}</p>
+                  <p>{{cgqEsnItem.nowData}} {{cgqEsnItem.unit}}</p>
+                </div>
               </el-col>
-              <!--<el-col class="eq-status-discon">-->
-                <!--<i class="icon-status1 guangzhao"></i>-->
-                <!--<div class="status-txt">-->
-                  <!--<p>光照</p>-->
-                  <!--<p>4Lux</p>-->
-                <!--</div>-->
-              <!--</el-col>-->
               <!--<el-col class="eq-status-discon">-->
                 <!--<i class="icon-status2 tuwen"></i>-->
                 <!--<div class="status-txt">-->
@@ -51,17 +48,57 @@
           </div>
           <div class="n_right">
             <el-row>
-              <el-col v-for="items in userColEsnList" :key="items.id" @click.native="chooseGroupEsnClk(items.id,items.name)"
-                      class="n_status_icon n_status_normal">
-                <i v-show="items.cgData=='鼓风机'" class="icon-gufengji"></i>
-                <i v-show="items.cgData=='水泵'" class="icon-shuibeng"></i>
-                <i v-show="items.cgData=='内遮阳'" class="icon-neizheyang"></i>
-                <i v-show="items.cgData=='天窗'" class="icon-tianchuang"></i>
-                <i v-show="items.cgData=='外遮阳'" class="icon-waizheyang"></i>
-                <i v-show="items.cgData=='雨量清零'" class="icon-ylql"></i>
-                <i v-show="items.cgData=='远程控制开关'" class="icon-yckz"></i>
-                <p>{{items.name}}</p>
-              </el-col>
+              <el-popover placement="bottom-start" width="300" trigger="click" v-for="items in userColEsnList" :key="items.id">
+                <el-row class="clearfix emf-control">
+                  <el-col :span="12" class="emf-eq">
+                    <div class="juanmo emf-eq-status ntt_normal eq-status-discon eq-gufengji">
+                      <i></i>
+                      <span>1#风机</span>
+                    </div>
+                    <div class="emf-run">
+                      <p style="color: #19b957">设备连接正常</p>
+                    </div>
+                    <div class="emf-btn">
+                      <span class="emf-data" v-if="items.status === '1'">关闭</span>
+                      <span class="eq-run" v-if="items.status === '0'">打开</span>
+                      <!-- <span class="eq-percent-control on" @click="SwitchPercentButton(IconControl.equ,'on',$event,IconControl.type)"></span>
+                      <span class="eq-percent-control off" @click="SwitchPercentButton(IconControl.equ,'off',$event,IconControl.type)"></span>
+                      <span class="eq-percent-control stop" @click="SwitchPercentButton(IconControl.equ,'stop',$event,IconControl.type)"></span> -->
+                    </div>
+                  </el-col>
+                  <el-col :span="12" class="emf-tooltip">
+                    <div class="emf-toolbar">
+                      <a href="/#/logs">
+                        <svg-icon icon-class="logs" /><em>日志</em>
+                      </a>
+                      <a href="/#/chart">
+                        <svg-icon icon-class="chart-line" /><em>图表</em>
+                      </a>
+                      <a href="http://help.nongtt.com/help">
+                        <svg-icon icon-class="help" /><em>帮助</em>
+                      </a>
+                      <a href="/#/group">
+                        <svg-icon icon-class="setting" /><em>设置</em>
+                      </a>
+                    </div>
+                    <div class="emf-content">
+                      <div class="emf-databox"></div>
+                      <span class="bianzu">该设备不属于任何编组</span>
+                    </div>
+                  </el-col>
+                </el-row>
+                <el-col slot="reference" class="n_status_icon n_status_normal">
+                  <i v-show="items.cgData=='鼓风机'" class="icon-gufengji"></i>
+                  <i v-show="items.cgData=='水泵'" class="icon-shuibeng"></i>
+                  <i v-show="items.cgData=='内遮阳'" class="icon-neizheyang"></i>
+                  <i v-show="items.cgData=='天窗'" class="icon-tianchuang"></i>
+                  <i v-show="items.cgData=='外遮阳'" class="icon-waizheyang"></i>
+                  <i v-show="items.cgData=='雨量清零'" class="icon-ylql"></i>
+                  <i v-show="items.cgData=='远程控制开关'" class="icon-yckz"></i>
+                  <i v-show="items.cgData=='继电器'" class="icon-yckz"></i>
+                  <p>{{items.name}}</p>
+                </el-col>
+              </el-popover>
               <!--<el-col class="n_status_icon n_status_normal">-->
                 <!--<i class="icon-gufengji"></i><p>1#风机</p>-->
               <!--</el-col>-->

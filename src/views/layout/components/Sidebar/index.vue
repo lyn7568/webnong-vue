@@ -7,7 +7,8 @@
       text-color="#fff"
       class="ntt_nav"
     >
-      <sidebar-item v-for="route in routes" :key="route.name" :item="route" :base-path="'/'+route.path"></sidebar-item>
+      <sidebar-item v-for="route in routes" :key="route.name" :item="route" :base-path="route.path"></sidebar-item>
+      <!-- <sidebar-item v-for="route in routes" :key="route.name" :item="route" :base-path="'/'+route.path"></sidebar-item> -->
     </el-menu>
     <div class="addArrow"></div>
   </div>
@@ -20,7 +21,30 @@ export default {
   components: { SidebarItem },
   computed: {
     routes() {
-      return this.$store.getters.menuList
+      var routerList = this.$router.options.routes
+      var rLlen = routerList.length
+      for (let i = 0; i < rLlen; i++){
+        if(routerList[i].children){
+          if(!this.hasMenu(routerList[i].children[0].name)) {
+            routerList[i].hidden = true
+          }
+        }
+      }
+      console.log(this.$router)
+      return this.$router.options.routes
+    }
+  },
+  methods: {
+    hasMenu(curName){
+      var menuArr = []
+      var menuList = this.$store.getters.menuList
+      menuList.filter(item => {
+        menuArr.push(item.path)
+      })
+      if (menuArr.indexOf(curName) > -1) {
+        return true
+      }
+      return false
     }
   }
 }
@@ -55,7 +79,7 @@ export default {
         font-size: 0.4rem;
         line-height: 0.9rem;
         border-radius: 0.15rem;
-        margin: 0.2rem;
+        margin: 0.2rem 0.05rem;
         padding: 0 0.25rem;
         &.is-active{
           background: $--color-primary;
