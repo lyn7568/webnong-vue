@@ -4,27 +4,6 @@
                width="90%">
       <el-form :model="formObject.model" :ref="formObject.ref" :rules="formObject.rules" label-width="3.8rem">
         <el-row>
-          <!--<div class="planInfor">-->
-          <!--<i class="icon_planInfor"></i>-->
-          <!--<div class="planInforItem">-->
-          <!--<span>方案创建人</span>: <i>超级管理员</i>-->
-          <!--</div>-->
-          <!--<div class="planInforItem">-->
-          <!--<span>方案创建时间</span>: <i>2019-04-02 14:53</i>-->
-          <!--</div>-->
-          <!--<div class="planInforItem">-->
-          <!--<span>最后编辑人 </span>: <i>超级管理员</i>-->
-          <!--</div>-->
-          <!--<div class="planInforItem">-->
-          <!--<span>最后编辑时间</span>: <i>2019-04-02 14:53</i>-->
-          <!--</div>-->
-          <!--<div class="planInforItem">-->
-          <!--<span>最后运行时间</span>: <i>2019-04-02 14:53</i>-->
-          <!--</div>-->
-          <!--<div class="planInforItem">-->
-          <!--<span>最后关闭时间</span>: <i>2019-04-02 14:53</i>-->
-          <!--</div>-->
-          <!--</div>-->
           <el-col :span="16">
             <el-form-item class="split-con">
               <div class="split-tit"><span>方案基本信息</span></div>
@@ -36,34 +15,21 @@
               <el-switch v-model="formObject.model.switch" active-color="#13ce66"
                          inactive-color="#ff4949" active-text="启用" inactive-text="停用"></el-switch>
             </el-form-item>
-            <!--<el-form-item label="运行状态：" prop="state">-->
-              <!--<el-tag type="success">运行中</el-tag>-->
-              <!--<el-tag type="info">未运行</el-tag>-->
-              <!--&lt;!&ndash;<el-tag type="danger">报警</el-tag>&ndash;&gt;-->
-            <!--</el-form-item>-->
             <el-form-item prop="checked">
               <el-checkbox v-model="formObject.model.checked">仅有限期内执行</el-checkbox>
               <el-date-picker v-show="formObject.model.checked" v-model="formObject.model.validTime" type="date"
                               placeholder="选择日期"></el-date-picker>
             </el-form-item>
-            <!--<el-form-item label="执行确认时间：" prop="time">-->
-            <!--<el-input-number v-model="formObject.model.time" :min="0" @change="handleTimeChange"></el-input-number> 分钟-->
-            <!--</el-form-item>-->
           </el-col>
           <el-col :span="24">
             <el-form-item class="split-con">
               <div class="split-tit clearfix">
                 <span class="float-l">方案执行条件</span>
                 <div class="float-r right-btn">
-                  <!--<el-button @click.native="addClk">添加</el-button>-->
-                  <!--<el-button @click.native="batchAddShebei">批量添加</el-button>-->
                 </div>
               </div>
               <div class="split-con-show">
                 <div class="con-list-li clearfix">
-                  <!--<span class="svg-container margin-right-10 float-l" @click="OperDelete(index)">-->
-                  <!--<svg-icon icon-class="delete"/>-->
-                  <!--</span>-->
                   <div class="plan_condition margin-right-10 float-l">
                     <template>
                       <div class="n_status_icon n_status_normal float-l" @click="batchAddShebei(0)"><i
@@ -82,41 +48,6 @@
                   </div>
                 </div>
               </div>
-              <!--<div class="split-con-show" v-show="formObject.model.show[index]" v-for="(item,index) in formObject.model.type" :key="index">-->
-              <!--<div class="con-list-li clearfix">-->
-              <!--<span class="svg-container margin-right-10 float-l" @click="OperDelete(index)">-->
-              <!--<svg-icon icon-class="delete"/>-->
-              <!--</span>-->
-              <!--<el-radio-group class="float-l margin-right-10" v-model="formObject.model.type[index]" @change="changeTjClk(index)">-->
-              <!--&lt;!&ndash;<el-radio-button label="0">按时间</el-radio-button>&ndash;&gt;-->
-              <!--&lt;!&ndash;<el-radio-button label="1">按条件</el-radio-button>&ndash;&gt;-->
-              <!--<el-radio-button label="2">自定义</el-radio-button>-->
-              <!--</el-radio-group>-->
-              <!--<div class="plan_condition margin-right-10 float-l">-->
-              <!--<template v-if="formObject.model.tabOneSelect[index]=='0'">-->
-              <!--<el-checkbox class="float-l margin-right-10" :indeterminate="formObject.model.isIndeterminate[index]" v-model="formObject.model.checkAll[index]" @change="handleCheckAllChange(index)">全选</el-checkbox>-->
-              <!--<el-checkbox-group class="float-l margin-right-10" v-model="formObject.model.checkedWeeks[index]" @change="handleCheckedWeeksChange(index)">-->
-              <!--<el-checkbox v-for="item in weekdays" :label="item" :key="item">{{item.name}}</el-checkbox>-->
-              <!--</el-checkbox-group>-->
-              <!--<el-time-picker class="float-l" is-range v-model="formObject.model.planTime[index]" range-separator="至" start-placeholder="启动时间"-->
-              <!--end-placeholder="停止时间" placeholder="选择时间范围">-->
-              <!--</el-time-picker>-->
-              <!--</template>-->
-              <!--<template v-if="formObject.model.tabOneSelect[index]=='1'">-->
-              <!--<div class="n_status_icon n_status_normal float-l" @click="batchAddShebei(index)"><i class="icon-shebei"></i><p>{{formObject.model.checkCgqList[index].name}}</p></div>-->
-              <!--<el-select class="float-l margin-right-10" style="width: 120px" v-model="formObject.model.planEsnLogic[index]">-->
-              <!--<el-option-->
-              <!--v-for="op in [{value: '>=',label: '>='},{value: '<=',label: '<='}]"-->
-              <!--:key="op.value" :label="op.label" :value="op.value" @click.native="chooseTypeClk">-->
-              <!--</el-option>-->
-              <!--</el-select>-->
-              <!--<el-input v-model="formObject.model.planEsnValue[index]" class="float-l margin-right-10" style="width: 120px"></el-input>-->
-              <!--<div class="float-l margin-right-10"><span class="fontSiz">滞回值：</span><el-input v-model="formObject.model.planEsnHysValue[index]"  style="width: 120px"></el-input></div>-->
-              <!--</template>-->
-              <!--</div>-->
-              <!--</div>-->
-              <!--</div>-->
-              <!--<div class="def-tip" v-show="formObject.model.showFlag">暂无执行条件，请添加</div>-->
             </el-form-item>
           </el-col>
           <el-col :span="24">
@@ -149,51 +80,7 @@
                                       value-format="HH:mm"
                                       placeholder="选择时间">
                       </el-time-picker>
-                      <!--<el-select class="float-l margin-right-10" style="width: 120px" v-model="showType">-->
-                      <!--<el-option-->
-                      <!--v-for="op in [{value: '0',label: '正常开启'},{value: '1',label: '间歇开启'}]"-->
-                      <!--:key="op.value" :label="op.label" :value="op.value" @click.native="chooseTypeClk">-->
-                      <!--</el-option>-->
-                      <!--</el-select>-->
-                      <!--<div class="eq_plan_statusIcon float-l margin-right-10" :class="delayshow?'active':''">-->
-                      <!--<i class="i-delay float-l" @click="OperDelay"></i>-->
-                      <!--<div v-show="delayshow" class="float-l eq_plan_statusIconTxt">延迟-->
-                      <!--<el-input-number v-model="delayTime" :min="0"></el-input-number> 分钟 后执行-->
-                      <!--</div>-->
-                      <!--</div>-->
                     </template>
-                    <!--<template v-if="tabTwoSelect==='2'">-->
-                    <!--<div class="n_status_icon n_status_normal float-l" @click="batchAddShebei"><i class="icon-shebei"></i><p>请选择设备</p></div>-->
-                    <!--<el-select class="float-l margin-right-10" style="width: 120px" v-model="showType">-->
-                    <!--<el-option-->
-                    <!--v-for="op in [{value: '0',label: '正常开启'},{value: '1',label: '间歇开启'}]"-->
-                    <!--:key="op.value" :label="op.label" :value="op.value" @click.native="chooseTypeClk">-->
-                    <!--</el-option>-->
-                    <!--</el-select>-->
-                    <!--<div class="eq_plan_statusIcon float-l margin-right-10" :class="delayshow?'active':''">-->
-                    <!--<i class="i-delay float-l" @click="OperDelay"></i>-->
-                    <!--<div v-show="delayshow" class="float-l eq_plan_statusIconTxt">延迟-->
-                    <!--<el-input-number v-model="delayTime" :min="0"></el-input-number> 分钟 后执行-->
-                    <!--</div>-->
-                    <!--</div>-->
-                    <!--</template>-->
-                    <!--<template v-if="tabTwoSelect==='3'">-->
-                    <!--<el-select class="float-l margin-right-10" style="width: 120px" v-model="showType">-->
-                    <!--<el-option-->
-                    <!--v-for="op in [{value: '0',label: '正常开启'},{value: '1',label: '间歇开启'}]"-->
-                    <!--:key="op.value" :label="op.label" :value="op.value" @click.native="chooseTypeClk">-->
-                    <!--</el-option>-->
-                    <!--</el-select>-->
-                    <!--<div class="float-l margin-right-10"><span class="fontSiz">预警文本：</span>-->
-                    <!--<el-input type="textarea" :rows="2" :maxlength="30" style="width: 160px"></el-input>-->
-                    <!--</div>-->
-                    <!--<div class="eq_plan_statusIcon float-l margin-right-10" :class="delayshow?'active':''">-->
-                    <!--<i class="i-delay float-l" @click="OperDelay"></i>-->
-                    <!--<div v-show="delayshow" class="float-l eq_plan_statusIconTxt">延迟-->
-                    <!--<el-input-number v-model="delayTime" :min="0"></el-input-number> 分钟 后执行-->
-                    <!--</div>-->
-                    <!--</div>-->
-                    <!--</template>-->
                   </div>
                 </div>
                 <!--<div class="def-tip">暂无执行条件，请添加</div>-->
@@ -204,7 +91,7 @@
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <!--<el-button @click="saveToDraft">存为草稿</el-button>-->
+        <el-button @click="deleteClk">删除</el-button>
         <el-button type="primary" @click="saveSubmitInfo">保存并应用</el-button>
       </div>
     </el-dialog>
@@ -221,6 +108,7 @@
         timeRanger: '',
         checkAll: false,
         userAreaId: '',
+        id:'',
         showName: '',
         executeTime: '',
         inputOne:'',
@@ -289,12 +177,46 @@
     created() {
     },
     methods: {
-      openDiag(userAreaId, userAreaName, userColEsnList, userCgqEsnList) {
+      openDiag(userAreaId, userAreaName, userColEsnList, userCgqEsnList,userPlan) {
+        var that = this
+        this.id=userPlan.id
         this.userAreaId = userAreaId
         this.showName = userAreaName
         this.userColEsnList = userColEsnList
         this.userCgqEsnList = userCgqEsnList
-        var that = this
+        this.formObject.model.name=userPlan.name
+        this.inputOne=userPlan.inputOne
+        this.inputThree=userPlan.inputThree
+        this.executeTime=userPlan.executeTime
+        this.formObject.model.validTime=userPlan.validTime
+        for (let i = 0; i <userCgqEsnList.length ; i++) {
+          if(userCgqEsnList[i].cip==userPlan.cgqCip){
+            this.$set(this.checkedCgqList,0,{})
+            this.$set(this.checkedCgqList,0,userCgqEsnList[i])
+            this.showCgqName=userCgqEsnList[i].name;
+          }
+          if(userCgqEsnList[i].cip==userPlan.inputTwo){
+            this.$set(this.checkedInputTwoList,0,{})
+            this.$set(this.checkedInputTwoList,0,userCgqEsnList[i])
+            this.showInputTwoName=userCgqEsnList[i].name;
+          }
+        }
+        for (let i = 0; i <userColEsnList.length ; i++) {
+          if(userColEsnList[i].cip==userPlan.jdqCip){
+            this.$set(this.checkedEsnList,0,{})
+            this.$set(this.checkedEsnList,0,userColEsnList[i])
+            this.showEsnName=userColEsnList[i].name;
+          }
+        }
+        if(userPlan.status==0){
+          this.formObject.model.switch=true
+        }else {
+          this.formObject.model.switch=false
+        }
+        if(userPlan.validTime!='2099-12-31'){
+          this.formObject.model.checked=true
+          this.formObject.model.validTime=userPlan.validTime
+        }
         setTimeout(() => {
           that.dialogFormVisible = true
         }, 1)
@@ -309,6 +231,7 @@
         //   if (valid) {
             const paramsData = {
               userId: that.UID,
+              id:that.id,
               name: that.formObject.model.name,
               cgqIp: that.checkedCgqList[0].ip,
               cgqCip: that.checkedCgqList[0].cip,
@@ -322,10 +245,10 @@
               validTime:that.formObject.model.validTime,
               userAreaId:that.userAreaId
             }
-            that.$http.post('/esnController/add', paramsData, function(res) {
+            that.$http.post('/esnController/update', paramsData, function(res) {
               if (res.success) {
                 that.$message({
-                  message: '保存成功',
+                  message: '修改成功',
                   type: 'success'
                 })
                 that.closeDialog()
@@ -334,6 +257,21 @@
             })
         //   }
         // })
+      },
+      deleteClk(){
+        var that=this
+        this.$http.post('/esnController/delete', {
+          id: that.id
+        }, function(res) {
+          if (res.success) {
+            that.$message({
+              message: "删除成功",
+              type: 'success'
+            })
+            that.closeDialog()
+            that.$parent.queryUserPlanList()
+          }
+        })
       },
       saveToDraft() {
 

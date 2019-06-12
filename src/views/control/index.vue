@@ -23,8 +23,8 @@
             <div class="n_light_color danger_color">预警</div>
           </div>
           <div class="n_right">
-            <span>远程控制</span>
-            <el-switch v-model="lightSwitch" active-text="开" inactive-text="关"></el-switch>
+            <!--<span>远程控制</span>-->
+            <!--<el-switch v-model="lightSwitch" active-text="开" inactive-text="关"></el-switch>-->
           </div>
         </div>
         <div class="n_dapeng_statusbox">
@@ -159,54 +159,59 @@
           <div class="addpan" @click="addPlan()"></div>
           <div class="n_playShow">
             <div class="planlist">
-              <el-popover placement="left" width="300" trigger="hover">
-                <el-row class="runninglist_li">
-                  <el-col class="n_status_icon n_status_normal">
-                    <i class="icon-gufengji"></i><p>1#风机</p>
-                  </el-col>
-                  <el-col class="n_status_icon n_status_normal">
-                    <i class="icon-gufengji"></i><p>1#风机</p>
-                  </el-col>
-                  <el-col class="n_status_icon n_status_normal">
-                    <i class="icon-gufengji"></i><p>1#风机</p>
-                  </el-col>
-                  <el-col class="n_status_icon n_status_normal">
-                    <i class="icon-gufengji"></i><p>1#风机</p>
-                  </el-col>
-                </el-row>
-                <div class="planlist_li" slot="reference">
-                  <div class="n_planIcon">
-                    <span class="activePlan"></span>
-                    <span class="character360"></span>
-                    <span></span>   <!--:click="Copy(ap)" -->
-                    <span></span>  <!--:click="Show(ap)"  -->
-                  </div>
-                  <div class="n_planTitle">test</div>
-                  <div class="n_planTerm"><span>条件</span><i>1</i></div>
-                  <div class="n_planlight">
-                      <span class="zhi">智</span>
-                      <i>1</i>
-                      <span class="bao">保</span>
-                      <i>0</i>
-                      <span class="jing">警</span>
-                      <i>0</i>
-                  </div>
-                  <p class="eq-status-normal"><i>有 效 期：永久有效</i></p>
-                  <p>上次执行：04-08 11:01</p>
-                </div>
-              </el-popover>
+              <div class="n_jiaoshui">
+              <el-button v-for="(planItem,index) in userPlanList" :key="planItem.id" type="primary" @click="updatePlan(index)">{{planItem.name}}</el-button>
+              </div>
+                <!--<el-popover placement="left" width="300" trigger="hover">-->
+                <!--<el-row class="runninglist_li">-->
+                  <!--<el-col class="n_status_icon n_status_normal">-->
+                    <!--<i class="icon-gufengji"></i><p>1#风机</p>-->
+                  <!--</el-col>-->
+                  <!--<el-col class="n_status_icon n_status_normal">-->
+                    <!--<i class="icon-gufengji"></i><p>1#风机</p>-->
+                  <!--</el-col>-->
+                  <!--<el-col class="n_status_icon n_status_normal">-->
+                    <!--<i class="icon-gufengji"></i><p>1#风机</p>-->
+                  <!--</el-col>-->
+                  <!--<el-col class="n_status_icon n_status_normal">-->
+                    <!--<i class="icon-gufengji"></i><p>1#风机</p>-->
+                  <!--</el-col>-->
+                <!--</el-row>-->
+                <!--<div class="planlist_li" slot="reference">-->
+                  <!--<div class="n_planIcon">-->
+                    <!--<span class="activePlan"></span>-->
+                    <!--<span class="character360"></span>-->
+                    <!--<span></span>   &lt;!&ndash;:click="Copy(ap)" &ndash;&gt;-->
+                    <!--<span></span>  &lt;!&ndash;:click="Show(ap)"  &ndash;&gt;-->
+                  <!--</div>-->
+                  <!--<div class="n_planTitle">test</div>-->
+                  <!--<div class="n_planTerm"><span>条件</span><i>1</i></div>-->
+                  <!--<div class="n_planlight">-->
+                      <!--<span class="zhi">智</span>-->
+                      <!--<i>1</i>-->
+                      <!--<span class="bao">保</span>-->
+                      <!--<i>0</i>-->
+                      <!--<span class="jing">警</span>-->
+                      <!--<i>0</i>-->
+                  <!--</div>-->
+                  <!--<p class="eq-status-normal"><i>有 效 期：永久有效</i></p>-->
+                  <!--<p>上次执行：04-08 11:01</p>-->
+                <!--</div>-->
+              <!--</el-popover>-->
             </div>
           </div>
         </div>
       </div>
     </div>
     <add-ways ref="addRunWaysDialog"></add-ways>
+    <update-ways ref="updateRunWaysDialog"></update-ways>
   </div>
 </template>
 
 <script>
 import dropDown from '@/components/DropDown'
 import addWays from './addWays'
+import updateWays from './updateWays'
 export default {
   data() {
     return {
@@ -249,7 +254,8 @@ export default {
   },
   components: {
     dropDown,
-    addWays
+    addWays,
+    updateWays
   },
   computed: {
     UID() {
@@ -316,8 +322,9 @@ export default {
     },
     queryUserPlanList(){//获取区域执行方案
       var that = this;
-      this.$http.post('/esnController/getUserPlanListByUserAreaId', {
-        userAreaId: that.userAreaId
+      this.$http.post('/esnController/getUserPlanListByUserAreaIdAndUserId', {
+        userAreaId: that.userAreaId,
+        userId:that.UID
       }, function (res) {
         const obj = res.data
         if (obj.length != 0) {
@@ -358,6 +365,9 @@ export default {
     },
     addPlan() {
       this.$refs.addRunWaysDialog.openDiag(this.userAreaId,this.showName,this.userColEsnList,this.userCgqEsnList)
+    },
+    updatePlan(index) {
+      this.$refs.updateRunWaysDialog.openDiag(this.userAreaId,this.showName,this.userColEsnList,this.userCgqEsnList,this.userPlanList[index])
     }
   }
 };
