@@ -100,12 +100,11 @@
           },
           arr: [
             {
-              prop: 'Logs_Date',
+              prop: 'name',
               tit: '设备名称',
-              date: true,
             },
             {
-              prop: 'Control_Type',
+              prop: 'company',
               tit: '所属企业'
             }
           ],
@@ -150,7 +149,9 @@
         this.$http.post('/esn/getUserEsnList', {
           where: whereObj,
           curpage: that.tableObjectFirst.pageNo,
-          pagesize: that.tableObjectFirst.pageSize
+          pagesize: that.tableObjectFirst.pageSize,
+          sortField:'ip,cip',
+          orderBy:'desc'
         }, function(res) {
           that.tableLoading = false
           const obj = res.data.rows
