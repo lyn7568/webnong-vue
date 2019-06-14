@@ -9,9 +9,9 @@
         <el-tab-pane label="设备控制日志列表" name="1">
           <complex-table ref="tableChildObj" :tableObject="tableObjectFirst" @pageCurFun="currentPageChangeFirst"></complex-table>
         </el-tab-pane>
-        <el-tab-pane label="预警日志列表" name="2">
-          <complex-table ref="tableChildObj2" :tableObject="tableObjectTwo" @pageCurFun="currentPageChangeTwo"></complex-table>
-        </el-tab-pane>
+        <!--<el-tab-pane label="预警日志列表" name="2">-->
+          <!--<complex-table ref="tableChildObj2" :tableObject="tableObjectTwo" @pageCurFun="currentPageChangeTwo"></complex-table>-->
+        <!--</el-tab-pane>-->
       </el-tabs>
     </div>
   </div>
