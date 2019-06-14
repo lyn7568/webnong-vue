@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <div class="form-filter">
-      <filter-form v-show="activeName==='1'" :formObject="formObjectFirst"></filter-form>
+      <filter-form v-show="activeName==='1'" :formObject="formObjectFirst" @search="search"></filter-form>
       <filter-form v-show="activeName==='2'" :formObject="formObjectTwo"></filter-form>
     </div>
     <div class="list-tabs-show">
@@ -34,24 +34,20 @@
           pageSize: 10,
           arr: [
             {
-              prop: 'LogsID',
-              tit: '设备编码'
+              prop: 'ip',
+              tit: '客户端IP'
             },
             {
-              prop: 'Logs_Date',
+              prop: 'name',
+              tit: '操作名称'
+            },
+            {
+              prop: 'content',
+              tit: '操作内容'
+            },
+            {
+              prop: 'createTime',
               tit: '操作时间'
-            },
-            {
-              prop: 'Control_Type',
-              tit: '操作类型'
-            },
-            {
-              prop: 'Control_Way',
-              tit: '操作方式'
-            },
-            {
-              prop: 'Control_Man',
-              tit: '操作人'
             }
           ]
         },
@@ -83,34 +79,34 @@
         formObjectFirst: {
           ref: 'first',
           model: {
-            Logs_Date: '',
-            Control_Type: '',
-            Control_Way: '',
-            Control_Man: ''
+            // Logs_Date: '',
+            name: ''
+            // Control_Way: '',
+            // Control_Man: ''
           },
           arr: [
+            // {
+            //   prop: 'Logs_Date',
+            //   tit: '操作时间',
+            //   date: true,
+            // },
             {
-              prop: 'Logs_Date',
-              tit: '操作时间',
-              date: true,
-            },
-            {
-              prop: 'Control_Type',
-              tit: '操作类型'
-            },
-            {
-              prop: 'Control_Way',
-              tit: '操作方式'
-            },
-            {
-              prop: 'Control_Man',
-              tit: '操作人'
+              prop: 'name',
+              tit: '操作名称'
             }
+            // {
+            //   prop: 'Control_Way',
+            //   tit: '操作方式'
+            // },
+            // {
+            //   prop: 'Control_Man',
+            //   tit: '操作人'
+            // }
           ],
           oFun: [
             {
               name: '查询',
-              event: 'submitFirstFun'
+              event: 'search'
             }
           ]
         },
@@ -151,6 +147,9 @@
       complexTable
     },
     computed: {
+      UID() {
+        return this.$store.getters.userid
+      }
     },
     created() {
       this.queryInfoList()
@@ -158,17 +157,23 @@
     methods: {
       queryInfoList() {
         var that = this
-        // this.$http.get('/static/json/contol.txt?t='+new Date().getTime(), {
-        // }, function(res) {
-        //   that.$refs.tableChildObj.tableLoading = false
-        //   for(let i = 0; i < res.rows.length; ++i) {
-        //     if (res.rows[i].Logs_Date) {
-        //       res.rows[i].Logs_Date = dateFormat(res.rows[i].Logs_Date)
-        //     }
-        //   }
-        //   that.tableObjectFirst.data = res.rows
-        //   that.tableObjectFirst.total = res.total
-        // })
+        that.tableLoading = true
+        var whereObj={'userId': that.UID}
+        if(this.formObjectFirst.model.name!=''){
+          whereObj.name=this.formObjectFirst.model.name
+        }
+        this.$http.post('/logs/getUserLogList', {
+          where: whereObj,
+          curpage: that.tableObjectFirst.pageNo,
+          pagesize: that.tableObjectFirst.pageSize,
+          sortField:'createTime',
+          orderBy:'desc'
+        }, function(res) {
+          that.tableLoading = false
+          const obj = res.data.rows
+          that.tableObjectFirst.data = obj
+          that.tableObjectFirst.total = res.data.sumcount
+        })
       },
       currentPageChangeFirst(val) {
         this.tableObjectFirst.pageNo = val
@@ -178,8 +183,8 @@
         this.tableObjectTwo.pageNo = val
         this.queryInfoList()
       },
-      submitFirstFun() {
-        console.log(123)
+      search() {
+        this.queryInfoList()
       }
     }
   }
