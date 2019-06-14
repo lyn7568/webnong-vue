@@ -154,7 +154,7 @@
             }else if(obj[i].status=="1"){
               objData[i].status='已锁定';
             }
-            objData[i].roleName=obj[i].roleList[0].name
+            objData[i].roleName=obj[i].role.name
           }
           that.tableObjectFirst.data = objData
           that.tableObjectFirst.total = res.data.sumcount
