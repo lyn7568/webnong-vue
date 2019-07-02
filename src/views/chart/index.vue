@@ -168,7 +168,6 @@
       },
       changeTime(val){
         this.chooseTimeValue=val
-        alert(this.chooseTimeValue)
         this.queryInfoList()
       },
       findActiveInfo() {
