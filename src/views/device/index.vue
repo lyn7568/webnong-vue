@@ -37,7 +37,7 @@
           data: [],
           pageNo: 1,
           total: 0,
-          pageSize: 10,
+          pageSize: 20,
           arr: [
             {
               prop: 'name',
@@ -151,7 +151,7 @@
           curpage: that.tableObjectFirst.pageNo,
           pagesize: that.tableObjectFirst.pageSize,
           sortField:'ip,cip',
-          orderBy:'desc'
+          orderBy:'asc'
         }, function(res) {
           that.tableLoading = false
           const obj = res.data.rows

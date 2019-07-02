@@ -5,6 +5,9 @@
         <drop-down class="float-l" :options="{list: videoList, cur: showAreaName}" @chooseFun="chooseQyCck"></drop-down>
         <el-date-picker class="float-r"
           v-model="dateRangerVal"
+          @change="changeTime"
+          format="yyyy-MM-dd"
+          value-format="yyyy-MM-dd"
           type="daterange"
           align="right"
           unlink-panels
@@ -37,6 +40,7 @@
         showAreaName: '选择',
         currentIp: '',
         currentCIp:'',
+        chooseTimeValue:'',
         pickerOptions: {
           shortcuts: [{
             text: '今天',
@@ -45,6 +49,7 @@
               const start = new Date();
               start.setTime(start.getTime());
               picker.$emit('pick', [start, end]);
+              // alert("start:"+start+";end:"+end+";dateRangerVal:"+this.dateRangerVal)
             }
           }, {
             text: '最近一周',
@@ -101,14 +106,15 @@
         that.chartLoading = true
         that.chartData[that.activeName] = {}
         var whereObj={ip: that.currentIp,cip: that.currentCIp}
+        if(this.chooseTimeValue!=''){
+          whereObj.createTime=this.chooseTimeValue
+        }
         this.$http.post('/chart/getEsnCgqDataList', {
-          where: whereObj,
-          curpage: 1,
-          sortField:'createTime',
-          orderBy:'desc',
-          pagesize: 20
+          ip: that.currentIp,
+          cip: that.currentCIp,
+          time:this.chooseTimeValue
         }, function(res) {
-          var $data = res.data.rows
+          var $data = res.data
           if ($data.length > 0) {
             var allData = {
               xData: [],
@@ -159,6 +165,11 @@
       },
       esnTabClk() {
         this.findActiveInfo()
+      },
+      changeTime(val){
+        this.chooseTimeValue=val
+        alert(this.chooseTimeValue)
+        this.queryInfoList()
       },
       findActiveInfo() {
         var activeIndex = this.tabList.find(item => {

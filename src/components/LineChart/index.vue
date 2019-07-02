@@ -1,5 +1,5 @@
 <template>
-  <div :style="{height:height,width:width}" :class="className" ref="chartContent"></div> 
+  <div :style="{height:height,width:width}" :class="className" ref="chartContent"></div>
 </template>
 <script>
 import echarts from 'echarts'
