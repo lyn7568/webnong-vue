@@ -3,7 +3,6 @@ import Vue from 'vue'
 
 import '../theme/index.css'
 import ElementUI from 'element-ui'
-
 import '@/styles/index.scss'
 
 import App from './App'
@@ -15,6 +14,9 @@ import '@/permission'
 
 import request from './utils/request'
 Vue.prototype.$http = request
+
+// import VueWebsocket from 'vue-websocket'
+// Vue.use(VueWebsocket)
 
 Vue.use(ElementUI)
 

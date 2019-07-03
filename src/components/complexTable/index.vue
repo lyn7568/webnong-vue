@@ -64,11 +64,10 @@ export default {
     };
   },
   mounted() {
-    var that = this;
-    setTimeout(() => {
-      that._reHeight()
-    }, 100);
-    window.addEventListener('resize', that._reHeight)
+    this.$nextTick(() => {
+      this._reHeight()
+    });
+    window.addEventListener('resize', this._reHeight)
   },
   methods: {
     _reHeight() {

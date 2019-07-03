@@ -79,6 +79,7 @@ export default {
           left: 'center'
         },
         xAxis: {
+          show: false,
           boundaryGap: false,
           data: datastr.xData,
           axisLabel: {
@@ -110,11 +111,11 @@ export default {
             type: 'line',
             name: options.tit + '(' + options.unit + ')',
             data: datastr.zData,
-            label: {
-              show: true,
-              fontSize: '100%',
-              formatter: '{c}'+ options.unit
-            }
+            // label: {
+            //   show: true,
+            //   fontSize: '100%',
+            //   formatter: '{c}'+ options.unit
+            // }
           }
         ],
         dataZoom: [
@@ -123,7 +124,9 @@ export default {
               show: true,
               start: 94,
               end: 100,
-              handleSize: 8
+              handleSize: 8,
+              // backgroundColor: 'rgba(255,128,25,.4)',
+              // fillerColor: 'rgba(25,185,87,.4)'
           },
           {
               type: 'inside',
@@ -139,7 +142,9 @@ export default {
               height: '70%',
               handleSize: 8,
               showDataShadow: false,
-              left: '93%'
+              left: '93%',
+              // backgroundColor: 'rgba(255,128,25,.4)',
+              // fillerColor: 'rgba(25,185,87,.4)'
           }
         ],
         toolbox: {
@@ -168,7 +173,7 @@ export default {
         },
         grid: {
           left: '3%',
-          bottom: '18%',
+          bottom: '10%',
           y2: '20%'
         }
       })
