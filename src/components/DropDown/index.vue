@@ -19,8 +19,7 @@ export default {
       type: Object
     },
     width: {
-      type: String,
-      default: '4rem'
+      type: String
     }
   }
 };

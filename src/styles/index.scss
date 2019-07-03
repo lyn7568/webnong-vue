@@ -197,9 +197,13 @@ a:hover {
   line-height: 1rem;
   font-size: .45rem;
   .el-button{
-    width: 3rem;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    // width: 3rem;
     text-align: left;
     padding: 0.05rem 0.5rem;
+    padding-right: 1rem;
     line-height: .8rem;
     font-size: .4rem;
     border-radius: 0.2rem;
@@ -218,11 +222,14 @@ a:hover {
 .el-dropdown-menu{
   background:rgba(0,0,0,.8);
   border: none;
-  width: 120px;
+  width: 160px;
   .el-dropdown-menu__item{
     color: #fff;
     line-height: 1rem;
     font-size: .45rem;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
     &.active{
       color: $--color-primary;
     }

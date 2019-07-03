@@ -125,8 +125,8 @@ export default {
               start: 94,
               end: 100,
               handleSize: 8,
-              // backgroundColor: 'rgba(255,128,25,.4)',
-              // fillerColor: 'rgba(25,185,87,.4)'
+              backgroundColor: 'rgba(255,128,25,.4)',
+              fillerColor: 'rgba(25,185,87,.4)'
           },
           {
               type: 'inside',
@@ -143,8 +143,8 @@ export default {
               handleSize: 8,
               showDataShadow: false,
               left: '93%',
-              // backgroundColor: 'rgba(255,128,25,.4)',
-              // fillerColor: 'rgba(25,185,87,.4)'
+              backgroundColor: 'rgba(255,128,25,.4)',
+              fillerColor: 'rgba(25,185,87,.4)'
           }
         ],
         toolbox: {
