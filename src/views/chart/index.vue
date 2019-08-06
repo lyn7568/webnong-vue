@@ -3,7 +3,7 @@
     <div class="form-filter">
       <div class="chart-filter formClass">
         <drop-down class="float-l" :options="{list: videoList, cur: showAreaName}" @chooseFun="chooseQyCck"></drop-down>
-        <el-button class="exportAll" @click="exportAll">导出</el-button>
+        <el-button type="primary" class="exportAll float-r" @click="exportAll">导出</el-button>
         <el-date-picker class="float-r"
           v-model="dateRangerVal"
           @change="changeTime"
@@ -21,8 +21,8 @@
     </div>
     <div class="list-tabs-show chart-tabs-show">
       <el-tabs v-model="activeName" type="card" @tab-click="esnTabClk">
-        <el-tab-pane :lazy="true" v-for="item in tabList" :label="item.name" :name="item.id" :key="item.index">
-          <line-chart :chartOption="chartOption" :chartData="chartData[item.id]" v-loading="chartLoading"></line-chart>
+        <el-tab-pane :lazy="true" v-for="item in tabList" :label="item.name" :name="item.id" :key="item.index" v-loading="chartLoading">
+          <line-chart :chartOption="chartOption" :chartData="chartData[item.id]"></line-chart>
         </el-tab-pane>
       </el-tabs>
     </div>
@@ -225,10 +225,6 @@
 </script>
 <style>
   .exportAll{
-    background-color: #ff8019;
-    color: white;
-    border-radius: 0.165rem;
-    height: 27px;
     margin-left: 12px;
   }
 </style>

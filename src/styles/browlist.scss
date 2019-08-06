@@ -74,6 +74,12 @@
     font-size: .4rem;
     border-color: $--color-primary;
     border-radius: .125rem;
+    
+  }
+  .el-button.exportAll{
+    padding: 0.05rem 0.5rem;
+    line-height: .8rem;
+    font-size: .4rem;
   }
   &.el-form {
     overflow: hidden;

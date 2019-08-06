@@ -172,7 +172,7 @@ export default {
           }
         },
         grid: {
-          left: '3%',
+          left: '5%',
           bottom: '10%',
           y2: '20%'
         }
@@ -180,7 +180,7 @@ export default {
     },
     initChart() {
       var that = this
-      that.chart = echarts.init(that.$el, 'macarons')
+      that.chart = echarts.init(that.$el) //, 'macarons'
       setTimeout(function() {
         that.setOptions(that.chartData, that.chartOption)
       }, 50)
