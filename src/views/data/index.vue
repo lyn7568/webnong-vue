@@ -23,7 +23,8 @@
               <el-row class="datalist">
                 <el-col :span="12" v-for="esnItem in esnList" :key="esnItem.index" v-show="areaItem.id==esnItem.userArea.id">
                   <span>{{esnItem.name}}</span>
-                  <em><i>{{esnItem.nowData}}</i>{{esnItem.unit}}</em>
+                  <em v-if="esnItem.unit!='0.1KG'"><i>{{esnItem.nowData}}</i>{{esnItem.unit}}</em>
+                  <em v-else><i>{{esnItem.nowData/10}}</i>KG</em>
                 </el-col>
               </el-row>
             </div>
