@@ -128,6 +128,18 @@ export const constantRouterMap = [
         component: resolve => require(['@/views/video/index'], resolve)
       }
     ]
+  },
+  {
+    path: '',
+    component: Layout,
+    children: [
+      {
+        path: '/soil',
+        name: 'soil',
+        meta: { title: '土壤信息', requireAuth: true },
+        component: resolve => require(['@/views/soil/index'], resolve)
+      }
+    ]
   }
 ]
 

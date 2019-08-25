@@ -4,7 +4,7 @@
       ref="tableBody"
       border
       :data="tableObject.data"
-      :height="tableHeight+'rem'"
+      :height="(tableH? tableH: tableHeight)+'rem'"
       :row-class-name="tableRowClassName"
       :header-row-class-name="tableThClassName"
     >
@@ -18,7 +18,7 @@
         :className="item.active"
       >
         <template slot-scope="scope">
-          <div v-if="scope.row[item.prop]">{{scope.row[item.prop]}}</div>
+          <div>{{scope.row[item.prop] || '--'}}</div>
           <div v-if="item.operate && typeof scope.row === 'object'">
             <el-button
               type="text"
@@ -34,7 +34,7 @@
         </template>
       </el-table-column>
     </el-table>
-    <div class="pagination-container">
+    <div class="pagination-container" v-if="tableObject.pageNo">
       <el-pagination
         background
         @size-change="handleSizeChange"
@@ -56,6 +56,9 @@ export default {
   props: {
     tableObject: {
       type: Object
+    },
+    tableH: {
+      type: Number
     }
   },
   data() {

@@ -547,6 +547,7 @@
         width: 20%;
         height: 100%;
         border-right: 1px solid $--color-primary;
+        overflow-y: auto;
         .status-txt p {
           color: #fff;
           white-space: nowrap;

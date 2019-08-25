@@ -1,10 +1,12 @@
 <template>
-  <div class="ntt_logo">
-    <div class="logo" @click="logoClk">
-      <div class="ntt_arrow" :class="{animate:isPopup0}"></div>
-      <img src="/static/img/logo_bg2.png">
+  <div class="header-nav">
+    <div class="ntt_logo">
+      <div class="logo" @click="logoClk">
+        <div class="ntt_arrow" :class="{animate:isPopup0}"></div>
+        <img src="/static/img/logo_bg2.png">
+      </div>
+      <sidebar class="sidebar-container" :class="isPopup0 ? 'animateSlideTo' : 'animateSlide'"></sidebar>
     </div>
-    <sidebar class="sidebar-container" :class="isPopup0 ? 'animateSlideTo' : 'animateSlide'"></sidebar>
   </div>
 </template>
 
@@ -29,6 +31,12 @@ export default {
 </script>
 
 <style lang="scss">
+.header-nav{
+  position:fixed;
+  right: 0;
+  left: 0;
+  z-index: 10002;
+}
   .ntt_logo {
     position: relative;
     overflow: hidden;
