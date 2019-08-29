@@ -24,19 +24,19 @@
         </div>
       </div>
     </div> -->
-    <div class="swiper-carousel">
-      <el-carousel indicator-position="outside">
-        <el-carousel-item>
-          <img src="/static/img/home_bg.jpg" width="100%" alt="">
-        </el-carousel-item>
-        <el-carousel-item>
-          <div class="map-con" ref="mapContainer">{{weatherInfo}}</div>
-        </el-carousel-item>
-        <el-carousel-item>
-          <img src="/static/img/logo_bg.jpg" width="100%" alt="">
-        </el-carousel-item>
-      </el-carousel>
-    </div>
+    <!--<div class="swiper-carousel">-->
+      <!--<el-carousel indicator-position="outside">-->
+        <!--<el-carousel-item>-->
+          <!--<img src="/static/img/home_bg.jpg" width="100%" alt="">-->
+        <!--</el-carousel-item>-->
+        <!--<el-carousel-item>-->
+          <!--<div class="map-con" ref="mapContainer">{{weatherInfo}}</div>-->
+        <!--</el-carousel-item>-->
+        <!--<el-carousel-item>-->
+          <!--<img src="/static/img/logo_bg.jpg" width="100%" alt="">-->
+        <!--</el-carousel-item>-->
+      <!--</el-carousel>-->
+    <!--</div>-->
     <div class="operate-right">
       <div class="n_icon">
         <div class="n-i" @click="showEyes">
@@ -273,7 +273,7 @@ export default {
       }
     }
   }
-  
+
 }
 
 
