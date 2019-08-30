@@ -184,7 +184,7 @@
       }
     },
     created() {
-      this.queryUserAreaList()
+      this.querySoilInfoList()
     },
     methods: {
       queryInfoList() {
@@ -220,10 +220,14 @@
           }, 1000)
         })
       },
-      queryUserAreaList() {
+      querySoilInfoList() {
         var that = this;
-        this.$http.post('/chart/getUserAreaByUserId', {
-          userId: that.UID,
+        this.$http.post('/soil/getTableInfo', {
+          stcd: "864161020819996",
+          stime:"2019-08-30",
+          etime:"2019-08-31",
+          pageNumber:1,
+          pageSize:100
         }, function (res) {
           const obj = res.data
           if (obj.length != 0) {
