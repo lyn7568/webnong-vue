@@ -37,9 +37,9 @@
                          inactive-color="#ff4949" active-text="启用" inactive-text="停用"></el-switch>
             </el-form-item>
             <!--<el-form-item label="运行状态：" prop="state">-->
-              <!--<el-tag type="success">运行中</el-tag>-->
-              <!--<el-tag type="info">未运行</el-tag>-->
-              <!--&lt;!&ndash;<el-tag type="danger">报警</el-tag>&ndash;&gt;-->
+            <!--<el-tag type="success">运行中</el-tag>-->
+            <!--<el-tag type="info">未运行</el-tag>-->
+            <!--&lt;!&ndash;<el-tag type="danger">报警</el-tag>&ndash;&gt;-->
             <!--</el-form-item>-->
             <el-form-item prop="checked">
               <el-checkbox v-model="formObject.model.checked">仅有限期内执行</el-checkbox>
@@ -69,15 +69,31 @@
                       <div class="n_status_icon n_status_normal float-l" @click="batchAddShebei(0)"><i
                         class="icon-shebei"></i>
                         <p>{{showCgqName}}</p></div>
-                      <div class="float-l margin-right-10"><span class="fontSiz">输入框1：</span>
-                        <el-input style="width: 120px" v-model="inputOne"></el-input>
+                      <div class="float-l margin-right-10"><span class="fontSiz">
+                        <!--输入框1：-->
+                        <el-select style="width: 100px" v-model="inputThree">
+                        <el-option
+                          v-for="op in [{value: '>=',label: '>='},{value: '<=',label: '<='}]"
+                          :key="op.value" :label="op.label" :value="op.value">
+                        </el-option>
+                        </el-select>
+                      </span>
+                        <el-input style="width: 120px" v-model="inputOne"></el-input>‰
                       </div>
-                      <div class="n_status_icon n_status_normal float-l" @click="batchAddShebei(2)"><i
-                        class="icon-shebei"></i>
-                        <p>{{showInputTwoName}}</p></div>
-                      <div class="float-l margin-right-10"><span class="fontSiz">输入框3：</span>
-                        <el-input style="width: 120px" v-model="inputThree"></el-input>
-                      </div>
+                      <!--<div style="display: none;" class="n_status_icon n_status_normal float-l" @click="batchAddShebei(2)"><i-->
+                      <!--class="icon-shebei"></i>-->
+                      <!--<p>{{showInputTwoName}}</p></div>-->
+                      <!--<div class="float-l margin-right-10"><span class="fontSiz">-->
+                      <!--&lt;!&ndash;输入框3：&ndash;&gt;-->
+                      <!--<el-select style="width: 100px" v-model="inputThreeSelect">-->
+                      <!--<el-option-->
+                      <!--v-for="op in [{value: '>=',label: '>='},{value: '<=',label: '<='}]"-->
+                      <!--:key="op.value" :label="op.label" :value="op.value" >-->
+                      <!--</el-option>-->
+                      <!--</el-select>-->
+                      <!--</span>-->
+                      <!--<el-input style="width: 120px" v-model="inputThree"></el-input>-->
+                      <!--</div>-->
                     </template>
                   </div>
                 </div>
@@ -143,18 +159,18 @@
                       <div class="n_status_icon n_status_normal float-l" @click="batchAddShebei(1)"><i
                         class="icon-shebei"></i>
                         <p>{{showEsnName}}</p></div>
-                      <el-time-picker class="float-l"
-                                      v-model="executeTime"
-                                      format="HH:mm"
-                                      value-format="HH:mm"
-                                      placeholder="选择时间">
-                      </el-time-picker>
-                      <!--<el-select class="float-l margin-right-10" style="width: 120px" v-model="showType">-->
-                      <!--<el-option-->
-                      <!--v-for="op in [{value: '0',label: '正常开启'},{value: '1',label: '间歇开启'}]"-->
-                      <!--:key="op.value" :label="op.label" :value="op.value" @click.native="chooseTypeClk">-->
-                      <!--</el-option>-->
-                      <!--</el-select>-->
+                      <!--<el-time-picker class="float-l"-->
+                      <!--v-model="executeTime"-->
+                      <!--format="HH:mm"-->
+                      <!--value-format="HH:mm"-->
+                      <!--placeholder="选择时间">-->
+                      <!--</el-time-picker>-->
+                      <el-select class="float-l margin-right-10" style="width: 120px" v-model="executeTime">
+                        <el-option
+                          v-for="op in [{value: '0',label: '正常开启'},{value: '1',label: '正常关闭'}]"
+                          :key="op.value" :label="op.label" :value="op.value">
+                        </el-option>
+                      </el-select>
                       <!--<div class="eq_plan_statusIcon float-l margin-right-10" :class="delayshow?'active':''">-->
                       <!--<i class="i-delay float-l" @click="OperDelay"></i>-->
                       <!--<div v-show="delayshow" class="float-l eq_plan_statusIconTxt">延迟-->
@@ -222,9 +238,11 @@
         checkAll: false,
         userAreaId: '',
         showName: '',
-        executeTime: '',
-        inputOne:'',
-        inputThree:'',
+        executeTime: '0',
+        inputOne: '',
+        inputOneSelect: '>=',
+        inputThree: '>=',
+        inputThreeSelect: '>=',
         showCgqName: '请选择设备',
         checkedCgqList: [],
         showEsnName: '请选择设备',
@@ -301,37 +319,39 @@
       },
       saveSubmitInfo() {
         var that = this
-        let statusValue=1
-        if(that.formObject.model.switch){
-          statusValue=0
+        let statusValue = 1
+        if (that.formObject.model.switch) {
+          statusValue = 0
         }
         // this.$refs[that.formObject.ref].validate(valid => {
         //   if (valid) {
-            const paramsData = {
-              userId: that.UID,
-              name: that.formObject.model.name,
-              cgqIp: that.checkedCgqList[0].ip,
-              cgqCip: that.checkedCgqList[0].cip,
-              inputOne: that.inputOne,
-              inputTwo: that.checkedInputTwoList[0].cip,
-              inputThree: that.inputThree,
-              jdqIp: that.checkedEsnList[0].ip,
-              jdqCip: that.checkedEsnList[0].cip,
-              executeTime: that.executeTime,
-              status:statusValue,
-              validTime:that.formObject.model.validTime,
-              userAreaId:that.userAreaId
-            }
-            that.$http.post('/esnController/add', paramsData, function(res) {
-              if (res.success) {
-                that.$message({
-                  message: '保存成功',
-                  type: 'success'
-                })
-                that.closeDialog()
-                that.$parent.queryUserPlanList()
-              }
+        const paramsData = {
+          userId: that.UID,
+          name: that.formObject.model.name,
+          cgqIp: that.checkedCgqList[0].ip,
+          cgqCip: that.checkedCgqList[0].cip,
+          inputOne: that.inputOne,
+          // inputTwo: that.checkedInputTwoList[0].cip,
+          inputThree: that.inputThree,
+          jdqIp: that.checkedEsnList[0].ip,
+          jdqCip: that.checkedEsnList[0].cip,
+          executeTime: that.executeTime,
+          status: statusValue,
+          validTime: that.formObject.model.validTime,
+          userAreaId: that.userAreaId
+          // inputOneSelect:that.inputOneSelect,
+          // inputThreeSelect:that.inputThreeSelect
+        }
+        that.$http.post('/esnController/add', paramsData, function (res) {
+          if (res.success) {
+            that.$message({
+              message: '保存成功',
+              type: 'success'
             })
+            that.closeDialog()
+            that.$parent.queryUserPlanList()
+          }
+        })
         //   }
         // })
       },
@@ -398,18 +418,32 @@
         let val = this.formObject.model.type[index]
         this.$set(this.formObject.model.tabOneSelect, index, val)
       },
-      checkCgqEvent(checkCgqList, index) {
-        this.$set(this.formObject.model.checkCgqList, index, checkCgqList[0])
-        if (index == 0) {//传感器设备
-          this.showCgqName = this.formObject.model.checkCgqList[0].name
-          this.checkedCgqList = checkCgqList
-        } else if (index == 1) {//电磁阀设备
-          this.showEsnName = this.formObject.model.checkCgqList[1].name
-          this.checkedEsnList = checkCgqList
-        } else if (index == 2) {//第二个输入框值
-          this.showInputTwoName = this.formObject.model.checkCgqList[2].name
-          this.checkedInputTwoList = checkCgqList
+      checkCgqEvent(checkCgqList, index, noIndex) {
+        if (noIndex) {
+          if (index == 0) {//传感器设备
+            this.showCgqName = '请选择设备'
+            this.checkedCgqList = checkCgqList
+          } else if (index == 1) {//电磁阀设备
+            this.showEsnName = '请选择设备'
+            this.checkedEsnList = checkCgqList
+          } else if (index == 2) {//第二个输入框值
+            this.showInputTwoName = '请选择设备'
+            this.checkedInputTwoList = checkCgqList
+          }
+        } else {
+          this.$set(this.formObject.model.checkCgqList, index, checkCgqList[0])
+          if (index == 0) {//传感器设备
+            this.showCgqName = this.formObject.model.checkCgqList[0].name
+            this.checkedCgqList = checkCgqList
+          } else if (index == 1) {//电磁阀设备
+            this.showEsnName = this.formObject.model.checkCgqList[1].name
+            this.checkedEsnList = checkCgqList
+          } else if (index == 2) {//第二个输入框值
+            this.showInputTwoName = this.formObject.model.checkCgqList[2].name
+            this.checkedInputTwoList = checkCgqList
+          }
         }
+
       }
     }
   };

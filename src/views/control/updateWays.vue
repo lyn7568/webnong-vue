@@ -35,15 +35,23 @@
                       <div class="n_status_icon n_status_normal float-l" @click="batchAddShebei(0)"><i
                         class="icon-shebei"></i>
                         <p>{{showCgqName}}</p></div>
-                      <div class="float-l margin-right-10"><span class="fontSiz">输入框1：</span>
-                        <el-input style="width: 120px" v-model="inputOne"></el-input>
+                      <div class="float-l margin-right-10"><span class="fontSiz">
+                        <!--输入框1：-->
+                         <el-select style="width: 100px" v-model="inputThree">
+                        <el-option
+                          v-for="op in [{value: '>=',label: '>='},{value: '<=',label: '<='}]"
+                          :key="op.value" :label="op.label" :value="op.value">
+                        </el-option>
+                        </el-select>
+                      </span>
+                        <el-input style="width: 120px" v-model="inputOne"></el-input>‰
                       </div>
-                      <div class="n_status_icon n_status_normal float-l" @click="batchAddShebei(2)"><i
-                        class="icon-shebei"></i>
-                        <p>{{showInputTwoName}}</p></div>
-                      <div class="float-l margin-right-10"><span class="fontSiz">输入框3：</span>
-                        <el-input style="width: 120px" v-model="inputThree"></el-input>
-                      </div>
+                      <!--<div class="n_status_icon n_status_normal float-l" @click="batchAddShebei(2)"><i-->
+                      <!--class="icon-shebei"></i>-->
+                      <!--<p>{{showInputTwoName}}</p></div>-->
+                      <!--<div class="float-l margin-right-10"><span class="fontSiz">输入框3：</span>-->
+                      <!--<el-input style="width: 120px" v-model="inputThree"></el-input>-->
+                      <!--</div>-->
                     </template>
                   </div>
                 </div>
@@ -74,12 +82,18 @@
                       <div class="n_status_icon n_status_normal float-l" @click="batchAddShebei(1)"><i
                         class="icon-shebei"></i>
                         <p>{{showEsnName}}</p></div>
-                      <el-time-picker class="float-l"
-                                      v-model="executeTime"
-                                      format="HH:mm"
-                                      value-format="HH:mm"
-                                      placeholder="选择时间">
-                      </el-time-picker>
+                      <el-select class="float-l margin-right-10" style="width: 120px" v-model="executeTime">
+                        <el-option
+                          v-for="op in [{value: '0',label: '正常开启'},{value: '1',label: '正常关闭'}]"
+                          :key="op.value" :label="op.label" :value="op.value">
+                        </el-option>
+                      </el-select>
+                      <!--<el-time-picker class="float-l"-->
+                      <!--v-model="executeTime"-->
+                      <!--format="HH:mm"-->
+                      <!--value-format="HH:mm"-->
+                      <!--placeholder="选择时间">-->
+                      <!--</el-time-picker>-->
                     </template>
                   </div>
                 </div>
@@ -108,11 +122,11 @@
         timeRanger: '',
         checkAll: false,
         userAreaId: '',
-        id:'',
+        id: '',
         showName: '',
-        executeTime: '',
-        inputOne:'',
-        inputThree:'',
+        executeTime: '0',
+        inputOne: '',
+        inputThree: '',
         showCgqName: '请选择设备',
         checkedCgqList: [],
         showEsnName: '请选择设备',
@@ -177,45 +191,45 @@
     created() {
     },
     methods: {
-      openDiag(userAreaId, userAreaName, userColEsnList, userCgqEsnList,userPlan) {
+      openDiag(userAreaId, userAreaName, userColEsnList, userCgqEsnList, userPlan) {
         var that = this
-        this.id=userPlan.id
+        this.id = userPlan.id
         this.userAreaId = userAreaId
         this.showName = userAreaName
         this.userColEsnList = userColEsnList
         this.userCgqEsnList = userCgqEsnList
-        this.formObject.model.name=userPlan.name
-        this.inputOne=userPlan.inputOne
-        this.inputThree=userPlan.inputThree
-        this.executeTime=userPlan.executeTime
-        this.formObject.model.validTime=userPlan.validTime
-        for (let i = 0; i <userCgqEsnList.length ; i++) {
-          if(userCgqEsnList[i].cip==userPlan.cgqCip){
-            this.$set(this.checkedCgqList,0,{})
-            this.$set(this.checkedCgqList,0,userCgqEsnList[i])
-            this.showCgqName=userCgqEsnList[i].name;
+        this.formObject.model.name = userPlan.name
+        this.inputOne = userPlan.inputOne
+        this.inputThree = userPlan.inputThree
+        this.executeTime = userPlan.executeTime
+        this.formObject.model.validTime = userPlan.validTime
+        for (let i = 0; i < userCgqEsnList.length; i++) {
+          if (userCgqEsnList[i].cip == userPlan.cgqCip) {
+            this.$set(this.checkedCgqList, 0, {})
+            this.$set(this.checkedCgqList, 0, userCgqEsnList[i])
+            this.showCgqName = userCgqEsnList[i].name;
           }
-          if(userCgqEsnList[i].cip==userPlan.inputTwo){
-            this.$set(this.checkedInputTwoList,0,{})
-            this.$set(this.checkedInputTwoList,0,userCgqEsnList[i])
-            this.showInputTwoName=userCgqEsnList[i].name;
-          }
-        }
-        for (let i = 0; i <userColEsnList.length ; i++) {
-          if(userColEsnList[i].cip==userPlan.jdqCip){
-            this.$set(this.checkedEsnList,0,{})
-            this.$set(this.checkedEsnList,0,userColEsnList[i])
-            this.showEsnName=userColEsnList[i].name;
+          if (userCgqEsnList[i].cip == userPlan.inputTwo) {
+            this.$set(this.checkedInputTwoList, 0, {})
+            this.$set(this.checkedInputTwoList, 0, userCgqEsnList[i])
+            this.showInputTwoName = userCgqEsnList[i].name;
           }
         }
-        if(userPlan.status==0){
-          this.formObject.model.switch=true
-        }else {
-          this.formObject.model.switch=false
+        for (let i = 0; i < userColEsnList.length; i++) {
+          if (userColEsnList[i].cip == userPlan.jdqCip) {
+            this.$set(this.checkedEsnList, 0, {})
+            this.$set(this.checkedEsnList, 0, userColEsnList[i])
+            this.showEsnName = userColEsnList[i].name;
+          }
         }
-        if(userPlan.validTime!='2099-12-31'){
-          this.formObject.model.checked=true
-          this.formObject.model.validTime=userPlan.validTime
+        if (userPlan.status == 0) {
+          this.formObject.model.switch = true
+        } else {
+          this.formObject.model.switch = false
+        }
+        if (userPlan.validTime != '2099-12-31') {
+          this.formObject.model.checked = true
+          this.formObject.model.validTime = userPlan.validTime
         }
         setTimeout(() => {
           that.dialogFormVisible = true
@@ -223,46 +237,46 @@
       },
       saveSubmitInfo() {
         var that = this
-        let statusValue=1
-        if(that.formObject.model.switch){
-          statusValue=0
+        let statusValue = 1
+        if (that.formObject.model.switch) {
+          statusValue = 0
         }
         // this.$refs[that.formObject.ref].validate(valid => {
         //   if (valid) {
-            const paramsData = {
-              userId: that.UID,
-              id:that.id,
-              name: that.formObject.model.name,
-              cgqIp: that.checkedCgqList[0].ip,
-              cgqCip: that.checkedCgqList[0].cip,
-              inputOne: that.inputOne,
-              inputTwo: that.checkedInputTwoList[0].cip,
-              inputThree: that.inputThree,
-              jdqIp: that.checkedEsnList[0].ip,
-              jdqCip: that.checkedEsnList[0].cip,
-              executeTime: that.executeTime,
-              status:statusValue,
-              validTime:that.formObject.model.validTime,
-              userAreaId:that.userAreaId
-            }
-            that.$http.post('/esnController/update', paramsData, function(res) {
-              if (res.success) {
-                that.$message({
-                  message: '修改成功',
-                  type: 'success'
-                })
-                that.closeDialog()
-                that.$parent.queryUserPlanList()
-              }
+        const paramsData = {
+          userId: that.UID,
+          id: that.id,
+          name: that.formObject.model.name,
+          cgqIp: that.checkedCgqList[0].ip,
+          cgqCip: that.checkedCgqList[0].cip,
+          inputOne: that.inputOne,
+          // inputTwo: that.checkedInputTwoList[0].cip,
+          inputThree: that.inputThree,
+          jdqIp: that.checkedEsnList[0].ip,
+          jdqCip: that.checkedEsnList[0].cip,
+          executeTime: that.executeTime,
+          status: statusValue,
+          validTime: that.formObject.model.validTime,
+          userAreaId: that.userAreaId
+        }
+        that.$http.post('/esnController/update', paramsData, function (res) {
+          if (res.success) {
+            that.$message({
+              message: '修改成功',
+              type: 'success'
             })
+            that.closeDialog()
+            that.$parent.queryUserPlanList()
+          }
+        })
         //   }
         // })
       },
-      deleteClk(){
-        var that=this
+      deleteClk() {
+        var that = this
         this.$http.post('/esnController/delete', {
           id: that.id
-        }, function(res) {
+        }, function (res) {
           if (res.success) {
             that.$message({
               message: "删除成功",

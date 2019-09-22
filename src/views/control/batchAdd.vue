@@ -3,7 +3,7 @@
     <div class="list-tabs-show">
       <el-tabs v-model="activeName" type="card" @tab-click="esnTabClk()">
         <el-tab-pane :lazy="true" v-for="item in tabList" :label="item.name" :name="item.ip" :key="item.ip">
-          <div class="n_kuang">
+          <div class="n_kuang" style="overflow-y: scroll;">
             <div class="n_status_icon n_status_normal" v-show="index!=1" v-for="cgqEsnItem in userCgqEsnList" :key="cgqEsnItem.id" @click="chooseCgqClk(cgqEsnItem)">
               <i class="icon-gufengji"></i><p>{{cgqEsnItem.name}}</p>
             </div>
@@ -84,10 +84,11 @@ export default {
     saveShebeiSubmitInfo() {
       var that = this
       if(that.checkCgqList.length!=1){
-        Message.error("请选择设备")
+        that.dialogShebeiVisible = false
+        that.$emit("checkCgqEvent",that.checkCgqList,that.index,true)
       }else{
         that.dialogShebeiVisible = false
-        that.$emit("checkCgqEvent",that.checkCgqList,that.index)
+        that.$emit("checkCgqEvent",that.checkCgqList,that.index,false)
       }
     },
     chooseCgqClk(item){
