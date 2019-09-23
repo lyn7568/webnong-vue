@@ -648,9 +648,18 @@
         position: relative;
         box-sizing: border-box;
         .el-button{
+          width: 96%;
+          padding: 0.05rem 0.25rem;
           background: rgba(0,0,0,.5);
           margin: 0.1rem;
           margin-bottom: 0;
+          span{
+            display: block;
+            width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
         }
       }
       .no-groupright {
@@ -837,10 +846,10 @@
     }
   }
   p {
-    max-width: 2.675rem;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    // max-width: 2.675rem;
+    // overflow: hidden;
+    // text-overflow: ellipsis;
+    // white-space: nowrap;
   }
   &.n_status_normal{
     i {

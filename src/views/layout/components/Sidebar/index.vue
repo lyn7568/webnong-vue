@@ -53,7 +53,7 @@ export default {
 <style lang="scss">
   .ntt_navbox {
     width: 26rem;
-    height: 1.4rem;
+    height: 1.35rem;
     position: absolute;
     left: 3.1rem;
     top: 54%;
@@ -93,7 +93,7 @@ export default {
     }
     .addArrow {
       position: absolute;
-      top: -1px;
+      top: 0;
       right: -.7rem;
       width: .7rem;
       height: 1.35rem;

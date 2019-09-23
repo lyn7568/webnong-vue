@@ -8,7 +8,10 @@
             <h3>编组信息</h3>
             <div v-show="groupList.length==0" class="n_jiaoshui no-groupright"><!--  <div class="n_jiaoshuibox"></div>--></div>
             <div v-show="groupList.length!=0" class="n_jiaoshui">
-              <el-button v-for="(groupItem,index) in groupList" :key="groupItem.id" type="primary" @click="showGroupInfo(index)">{{groupItem.name}}</el-button>
+              <el-tooltip placement="right" v-for="(groupItem,index) in groupList" :key="groupItem.id">
+                <div slot="content">{{groupItem.name}}</div>
+                <el-button type="primary" @click="showGroupInfo(index)">{{groupItem.name}}</el-button>
+              </el-tooltip>
               <!--<el-button type="primary" @click="save">保存</el-button>-->
             </div>
           </div>
@@ -158,9 +161,12 @@
           <h3 class="n_planbox_btn" @click="ExecutionScheme()"></h3>
           <div class="addpan" @click="addPlan()"></div>
           <div class="n_playShow">
-            <div class="planlist">
-              <div class="n_jiaoshui">
-              <el-button v-for="(planItem,index) in userPlanList" :key="planItem.id" type="primary" @click="updatePlan(index)">{{planItem.name}}</el-button>
+            <div class="planlist" style="height: 13.5rem">
+              <div class="n_jiaoshui" style="height: 13.5rem">
+                <el-tooltip placement="left" v-for="(planItem,index) in userPlanList" :key="planItem.id">
+                  <div slot="content">{{planItem.name}}</div>
+                  <el-button type="primary" @click="updatePlan(index)">{{planItem.name}}</el-button>
+                </el-tooltip>
               </div>
                 <!--<el-popover placement="left" width="300" trigger="hover">-->
                 <!--<el-row class="runninglist_li">-->
